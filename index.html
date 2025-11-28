@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gangadhar | Algorithm Architect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <title>DAA City Design Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CORE THEME --- */
+        /* --- BACKGROUND ANIMATION --- */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             color: white;
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364); /* Deep Professional Dark Teal */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -26,356 +27,256 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* --- PROFILE SECTION (New Design) --- */
-        .profile-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* --- SCROLL ANIMATION CLASSES --- */
+        .hidden {
+            opacity: 0;
+            filter: blur(5px);
+            transform: translateY(100px) scale(0.9);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .avatar-frame {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden; /* Crops the image to a circle */
-            border: 3px solid #00d2ff; /* Neon Cyan Border */
-            background: #1a1a1a;
-            flex-shrink: 0;
+        .show {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- GLASS PANEL --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .hero { text-align: center; padding: 60px 0; }
+        .hero h1 {
+            font-size: 4rem; margin: 0; font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2); letter-spacing: -2px;
+        }
+        .hero p { font-size: 1.5rem; font-weight: 300; margin-top: 10px; opacity: 0.9; }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            padding-bottom: 10px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        /* --- INTERACTIVE CARDS --- */
+        .card-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
         
-        .avatar-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-text h1 { margin: 0; font-size: 2.2rem; background: linear-gradient(90deg, #fff, #00d2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
-        .profile-text p { margin: 5px 0 0 0; opacity: 0.8; font-size: 1rem; }
-
-        /* --- EXPANDABLE CARDS (The Main Feature) --- */
-        .idea-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden; /* Hides the details when closed */
-            position: relative;
-        }
-
-        .idea-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: #00d2ff;
-            transform: translateY(-2px);
-        }
-
-        /* The Header Part (Always Visible) */
-        .card-header {
-            padding: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-content h3 { margin: 0; font-size: 1.4rem; color: #fff; }
-        .header-content p { margin: 5px 0 0 0; color: #bbb; font-size: 0.95rem; }
-        
-        .algo-badge {
-            background: linear-gradient(90deg, #e73c7e, #ee7752);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(231, 60, 126, 0.4);
-        }
-
-        .expand-hint {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 0.8rem;
-            color: #00d2ff;
-            opacity: 0.7;
-        }
-
-        /* The Details Part (Hidden by Default) */
-        .card-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out; /* Smooth slide animation */
+        .interactive-card {
+            flex: 1; 
+            min-width: 200px; /* Adjusted slightly to fit 4 better */
             background: rgba(0,0,0,0.2);
-        }
-
-        .details-inner {
             padding: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
 
-        /* Styling the Logic Block */
-        .code-block {
-            background: #111;
-            border-left: 4px solid #00d2ff;
-            padding: 15px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            color: #a5b3ce;
-            border-radius: 5px;
-            margin: 15px 0;
+        .interactive-card:hover {
+            background: #ffffff; 
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 10;
         }
-        .var { color: #ffeb3b; } /* Yellow variables */
-        .cmd { color: #ff79c6; } /* Pink commands */
 
-        .explanation h4 { color: #00d2ff; margin-bottom: 10px; }
+        .interactive-card h3 { 
+            margin: 10px 0 5px 0; 
+            font-size: 1.3rem; 
+            transition: color 0.3s; 
+        }
         
-        /* Image styling inside details */
-        .detail-img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 2px solid rgba(255,255,255,0.2);
-            margin-top: 15px;
+        .interactive-card p { 
+            transition: color 0.3s; 
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
-        .back-btn { text-decoration: none; color: #aaa; font-size: 0.9rem; display: block; margin-bottom: 20px; }
-        .back-btn:hover { color: white; }
+        .interactive-card:hover h3 { color: #e73c7e; }
+        .interactive-card:hover p { color: #333; }
+        
+        .project-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .interactive-card:hover .project-tag { color: #23a6d5; font-weight: bold; }
 
-        /* Rotate arrow animation */
-        .arrow { font-size: 1.2rem; transition: transform 0.3s; margin-left: 15px;}
-        .active .arrow { transform: rotate(180deg); }
+        /* --- CHART & BUTTONS --- */
+        .chart-container {
+            margin-top: 40px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .chart-container img {
+            max-width: 100%; border-radius: 15px;
+            border: 5px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+        .chart-container img:hover { transform: scale(1.02); border-color: #ffffff; }
 
+        .btn {
+            display: inline-block; margin-top: 15px; padding: 10px 25px;
+            background: rgba(255,255,255,0.2); border: 1px solid white;
+            color: white; text-decoration: none; border-radius: 30px;
+            font-weight: bold; font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .interactive-card:hover .btn {
+            background: #23d5ab; border-color: #23d5ab; color: white;
+            box-shadow: 0 5px 15px rgba(35, 213, 171, 0.4);
+        }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
+        .info-item { padding: 15px; border-radius: 15px; transition: all 0.4s ease; }
+        .info-item:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+        .info-item strong { display: block; font-size: 0.9rem; opacity: 0.7; }
+        .info-item span { font-size: 1.2rem; font-weight: 700; }
+
+        footer { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.8rem; margin-top: 50px;}
     </style>
 </head>
 <body>
 
-<div class="container">
-    
-    <a href="index.html" class="back-btn">&larr; Return to Home Page</a>
+    <div class="container">
 
-    <div class="profile-card">
-        <div class="avatar-frame">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile">
+        <header class="hero hidden">
+            <h1>DAA PORTFOLIO</h1>
+            <p>Algorithmic City Design & Analysis</p>
+        </header>
+
+        <div class="glass-panel hidden">
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Course</strong>
+                    <span>Design & Analysis of Algorithms</span>
+                </div>
+                <div class="info-item">
+                    <strong>Code</strong>
+                    <span>24ECS205</span>
+                </div>
+                <div class="info-item">
+                    <strong>University</strong>
+                    <span>KLE Tech </span>
+                </div>
+                <div class="info-item">
+                    <strong>Instructor</strong>
+                    <span>Prof. Prakash Hegade</span>
+                </div>
+            </div>
         </div>
-        <div class="profile-text">
-            <h1>Gangadhar</h1>
-            <p>Algorithm Architect | DAA Project Lead</p>
-            <p style="font-size: 0.9rem; color: #00d2ff; margin-top: 10px;">
-                "I specialize in transforming urban chaos into structured graph problems."
+
+        <div class="glass-panel hidden">
+            <h2>🏙️ Project Overview</h2>
+            <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+                We designed a smart city framework. We broke down the urban infrastructure into nodes and edges 
+                to apply efficient algorithmic solutions. Here are the core modules:
             </p>
-        </div>
-    </div>
 
-    <h3 style="margin-bottom: 20px; opacity: 0.7;">My Modules (Click to Expand)</h3>
+            <div class="card-grid">
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Module 01</span>
+                    <h3>Traffic Optimization</h3>
+                    <p>Using <strong>Dijkstra's Algorithm</strong> to find shortest paths for ambulances and reducing congestion.</p>
+                </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
-        <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">Dijkstra's Algo</span>
-                <h3>GreenCorridor Protocol</h3>
-                <p>Prioritizing emergency vehicles using dynamic path weights.</p>
-            </div>
-            <div class="arrow">▼</div>
-        </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>Ambulances often get stuck at the "KL Rahul Stadium" junction. Normal traffic lights are static. We need a system that detects an ambulance and turns lights Green along the shortest path.</p>
-                    
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> Intersection Graph, Traffic Density<br>
-                        <span class="cmd">WHILE</span> Ambulance is active:<br>
-                        &nbsp;&nbsp;1. Get <span class="var">CurrentLocation</span> & <span class="var">HospitalDest</span><br>
-                        &nbsp;&nbsp;2. Apply <span class="cmd">Dijkstra</span> to find path with min (Density * Distance)<br>
-                        &nbsp;&nbsp;3. Override Signals to GREEN for nodes in <span class="var">Path[]</span><br>
-                        <span class="cmd">RETURN</span> Safe Route
-                    </div>
-                    
-                    <h4>Visual Analysis</h4>
-                    
-                    <img src="algo1.jpg" alt="Traffic Graph" class="detail-img">
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Module 02</span>
+                    <h3>Water Distribution</h3>
+                    <p>Applied <strong>Prim's Algorithm (MST)</strong> to connect all houses with pipes using minimum wire length.</p>
+                </div>
+
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Module 03</span>
+                    <h3>Zoning & Sorting</h3>
+                    <p>Utilized <strong>Merge Sort</strong> to organize commercial vs residential data efficiently for city planning.</p>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
-        <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">Prim's MST</span>
-                <h3>HydroGrid Network</h3>
-                <p>Zero-leakage water distribution for remote zones.</p>
+            <div class="chart-container hidden">
+                <img src="chart.png" alt="City Design Chart">
+                <p style="margin-top: 15px; opacity: 0.7;">Figure : City  Design  Map/Plan</p>
             </div>
-            <div class="arrow">▼</div>
         </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>Connecting the "High Altitude" zone to the "Water Treatment Plant" is costly. We need to connect every residential node using the minimum total length of pipes possible.</p>
-                    
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> Zones (Vertices), PipeCost (Edges)<br>
-                        <span class="cmd">FUNCTION</span> BuildNetwork():<br>
-                        &nbsp;&nbsp;Start at <span class="var">SourceNode</span><br>
-                        &nbsp;&nbsp;<span class="cmd">REPEAT</span> until all zones connected:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;1. Find cheapest pipe connecting ConnectedZone to NewZone<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;2. Add pipe to <span class="var">Network</span><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;3. Ensure <span class="var">NoCycles</span> (Loops)<br>
-                    </div>
-                    
-                    <h4>Visual Analysis</h4>
-                    
 
-[Image of minimum spanning tree]
-
-                    <img src="algo2.jpg" alt="MST Graph" class="detail-img">
+        <div class="glass-panel hidden">
+            <h2>👥 The Team</h2>
+            <div class="card-grid">
+                
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Iranna</h3>
+                    <p>SRN: 01FE24BCS267</p>
+                    <a href="#" class="btn">View Profile</a>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
-        <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">BFS (Breadth First Search)</span>
-                <h3>RapidExit System</h3>
-                <p>Tsunami evacuation routing from Port areas.</p>
-            </div>
-            <div class="arrow">▼</div>
-        </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>When a Tsunami warning hits the Port (Low-lying), we need to guide crowds to the High Altitude farm. BFS helps us create a "Layered" escape plan, moving people 1 street away, then 2 streets away, avoiding jams.</p>
-                    
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> CityMap, DangerSource<br>
-                        <span class="cmd">FUNCTION</span> Evacuate():<br>
-                        &nbsp;&nbsp;Queue <span class="var">Q</span>.add(Port)<br>
-                        &nbsp;&nbsp;<span class="cmd">WHILE</span> Q not empty:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;curr = Q.remove()<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">FOR</span> each neighbor:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculate <span class="var">HopsFromDanger</span><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assign Direction Arrow -> Away<br>
-                    </div>
-                    
-                    <h4>Visual Analysis</h4>
-                    
-                    <img src="algo3.jpg" alt="BFS Layers" class="detail-img">
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Vikas</h3>
+                    <p>SRN: 01FE24BCS299</p>
+                    <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
-        <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">Knapsack DP</span>
-                <h3>CargoMax Optimizer</h3>
-                <p>Maximizing profit with limited port storage.</p>
-            </div>
-            <div class="arrow">▼</div>
-        </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>The Port has limited storage space (Capacity). Hundreds of containers arrive with different Profits and Weights. We must select the best subset to maximize revenue.</p>
-                    
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> Containers[], Capacity W<br>
-                        <span class="cmd">FUNCTION</span> SolveDP(item, remaining_cap):<br>
-                        &nbsp;&nbsp;<span class="cmd">IF</span> weight > remaining_cap: Skip Item<br>
-                        &nbsp;&nbsp;<span class="cmd">ELSE</span>:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Option1 = Profit + SolveDP(next, cap - weight)<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Option2 = SolveDP(next, cap)<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">RETURN</span> MAX(Option1, Option2)<br>
-                    </div>
-                    
-                    <h4>Visual Analysis</h4>
-                     
-
-[Image of knapsack problem illustration]
-
-                    <img src="algo4.jpg" alt="DP Logic" class="detail-img">
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Shashank</h3>
+                    <p>SRN: 01FE24BCS288</p>
+                    <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
-        <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">TSP (Traveling Salesman)</span>
-                <h3>SwiftLink Delivery</h3>
-                <p>Last-mile optimization for multiple stops.</p>
-            </div>
-            <div class="arrow">▼</div>
-        </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>A delivery truck starts at the Industrial Warehouse and must drop parcels at the University, Market, and Residential Zones in one trip, minimizing fuel consumption.</p>
-                    
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> DeliveryLocations[]<br>
-                        <span class="cmd">GOAL:</span> Find Hamiltonian Cycle with Min Cost<br>
-                        <span class="cmd">LOGIC:</span><br>
-                        &nbsp;&nbsp;Check all permutations of stops:<br>
-                        &nbsp;&nbsp;Warehouse -> A -> B -> C -> Warehouse<br>
-                        &nbsp;&nbsp;Warehouse -> B -> A -> C -> Warehouse<br>
-                        &nbsp;&nbsp;Select <span class="var">MinDistance</span> path.<br>
-                    </div>
-                    
-                    <h4>Visual Analysis</h4>
-                    
-                    <img src="algo5.jpg" alt="TSP Route" class="detail-img">
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Gangadhar</h3>
+                    <p> SRN: 01FE24BCS294 </p>
+                    <a href="member4.html" class="btn">View Profile</a>
                 </div>
+
             </div>
         </div>
+
+        <footer>
+            Created for DAA Course 2025 | Hosted on GitHub Pages
+        </footer>
+
     </div>
 
-</div>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                console.log(entry)
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
 
-<script>
-    function toggleDetails(card) {
-        // Toggle the 'active' class for the arrow rotation
-        card.classList.toggle('active');
-
-        // Find the details section inside the clicked card
-        const details = card.querySelector('.card-details');
-
-        // If it's open, close it (set height to 0)
-        if (details.style.maxHeight) {
-            details.style.maxHeight = null;
-        } else {
-            // If it's closed, open it (set height to the content size)
-            details.style.maxHeight = details.scrollHeight + "px";
-        }
-    }
-</script>
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
 
 </body>
 </html>
