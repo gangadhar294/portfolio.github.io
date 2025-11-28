@@ -60,7 +60,7 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. MAIN HEADER (Kept Exactly as requested) --- */
+        /* --- 2. MAIN HEADER (Hover Effect) --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -98,7 +98,6 @@
             transition: color 0.3s;
         }
 
-        /* Header Hover Effect */
         header:hover {
             background: linear-gradient(90deg, #ffffff, #00f7ff);
             border-color: transparent;
@@ -118,7 +117,7 @@
             align-items: start;
         }
 
-        /* --- 4. NAVIGATION TABS (Updated: Softer Light Color) --- */
+        /* --- 4. NAVIGATION TABS --- */
         .nav-panel {
             display: flex;
             flex-direction: column;
@@ -143,9 +142,8 @@
             transform: translateX(5px);
         }
 
-        /* ACTIVE TAB STYLE - CHANGED to Soft Light Cyan */
         .nav-tab.active {
-            background: rgba(0, 247, 255, 0.15); /* Soft transparent cyan */
+            background: rgba(0, 247, 255, 0.15);
             border-color: var(--accent-cyan);
             box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
             transform: scale(1.02);
@@ -154,6 +152,7 @@
         .tab-title { font-weight: 600; font-size: 1.1rem; color: white; }
         .tab-algo { font-size: 0.8rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
         .arrow-icon { color: var(--accent-cyan); }
+
 
         /* --- 5. CONTENT DISPLAY PANEL --- */
         .display-panel {
@@ -178,37 +177,55 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- THE DESCRIPTION TITLE BAR (Updated: Bright Gradient) --- */
+        /* --- 6. THE DESCRIPTION TITLE BAR (HOVER EFFECT ADDED) --- */
         .block-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             
-            /* CHANGE: Bright Gradient Style applied here */
-            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            /* Default: Dark/Transparent to blend in */
+            background: rgba(255, 255, 255, 0.03); 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
+            
+            /* Smooth Transition */
+            transition: all 0.4s ease;
         }
 
-        /* Text inside the header needs to be dark to read */
         .block-title { 
             font-family: 'Orbitron', sans-serif; 
             font-size: 2rem; 
             margin: 0;
-            color: #0a0a12; /* Dark Text */
+            color: #ffffff; /* White by default */
+            transition: color 0.3s;
         }
         
         .block-badge { 
-            background: #0a0a12; /* Dark Background */
-            color: #00f7ff; /* Neon Text */
-            border: 1px solid #00f7ff;
+            background: var(--accent-purple);
+            color: white;
             padding: 5px 15px; 
             border-radius: 20px; 
             font-weight: bold; 
             font-size: 0.9rem; 
+            transition: all 0.3s;
         }
+
+        /* === HOVER STATE FOR DESCRIPTION HEADER === */
+        .block-header:hover {
+            /* Turns Bright Gradient on Hover */
+            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
+            border-color: transparent;
+        }
+
+        /* Change text color to dark so it's readable */
+        .block-header:hover .block-title { color: #0a0a12; }
+        .block-header:hover .block-badge { background: #0a0a12; color: #00f7ff; }
+        /* === END HOVER STATE === */
+
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
