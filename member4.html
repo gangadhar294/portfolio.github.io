@@ -3,355 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gangadhar | Algorithm Architect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <title>Gangadhar | Lead Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CORE THEME --- */
+        /* --- 1. GLOBAL SETTINGS --- */
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #bc13fe;
+            --glass-bg: rgba(22, 27, 34, 0.7);
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Outfit', sans-serif;
-            color: white;
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364); /* Deep Professional Dark Teal */
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #050505;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(188, 19, 254, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.2) 0%, transparent 20%);
+            color: #e6edf3;
             min-height: 100vh;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* --- PROFILE SECTION (New Design) --- */
-        .profile-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .avatar-frame {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden; /* Crops the image to a circle */
-            border: 3px solid #00d2ff; /* Neon Cyan Border */
-            background: #1a1a1a;
-            flex-shrink: 0;
-        }
-        
-        .avatar-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-text h1 { margin: 0; font-size: 2.2rem; background: linear-gradient(90deg, #fff, #00d2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
-        .profile-text p { margin: 5px 0 0 0; opacity: 0.8; font-size: 1rem; }
-
-        /* --- EXPANDABLE CARDS (The Main Feature) --- */
-        .idea-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden; /* Hides the details when closed */
+        /* --- 2. PROFILE SECTION (The "Hero") --- */
+        .profile-hero {
+            text-align: center;
+            padding: 60px 0;
             position: relative;
         }
 
-        .idea-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: #00d2ff;
+        .avatar-glow {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: url('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png') center/cover;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+            border: 3px solid var(--neon-blue);
+        }
+
+        .profile-hero h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .role-badge {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-blue);
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--neon-blue);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* --- 3. THE "EXPANDING" GRID --- */
+        .modules-title {
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            color: #8b949e;
+        }
+
+        /* The Card Design */
+        .tech-card {
+            background: var(--glass-bg);
+            border: var(--border);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            overflow: hidden; /* Important for accordion effect */
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tech-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.15);
             transform: translateY(-2px);
         }
 
-        /* The Header Part (Always Visible) */
+        /* Card Header (Visible Part) */
         .card-header {
             padding: 25px;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
         }
 
-        .header-content h3 { margin: 0; font-size: 1.4rem; color: #fff; }
-        .header-content p { margin: 5px 0 0 0; color: #bbb; font-size: 0.95rem; }
-        
-        .algo-badge {
-            background: linear-gradient(90deg, #e73c7e, #ee7752);
-            padding: 6px 15px;
-            border-radius: 20px;
+        .header-left h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .algo-tag {
             font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(231, 60, 126, 0.4);
+            background: var(--neon-pink);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            vertical-align: middle;
         }
 
-        .expand-hint {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 0.8rem;
-            color: #00d2ff;
-            opacity: 0.7;
+        .header-subtitle {
+            margin: 5px 0 0 0;
+            color: #8b949e;
+            font-size: 1.1rem;
         }
 
-        /* The Details Part (Hidden by Default) */
-        .card-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out; /* Smooth slide animation */
-            background: rgba(0,0,0,0.2);
+        .expand-icon {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            transition: transform 0.4s;
         }
 
-        .details-inner {
-            padding: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        /* Card Body (Hidden Part) */
+        .card-body {
+            max-height: 0; /* Hidden by default */
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0,0,0,0.4);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Styling the Logic Block */
-        .code-block {
-            background: #111;
-            border-left: 4px solid #00d2ff;
-            padding: 15px;
-            font-family: 'Fira Code', monospace;
+        /* When the card is active (Expanded) */
+        .tech-card.active .card-body {
+            max-height: 800px; /* Big enough to fit content */
+            opacity: 1;
+            padding: 30px;
+        }
+
+        .tech-card.active .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .tech-card.active {
+            border-color: var(--neon-blue);
+        }
+
+        /* --- 4. INSIDE THE CARD (The Details) --- */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Text vs Image */
+            gap: 30px;
+        }
+
+        .section-label {
+            color: var(--neon-blue);
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            color: #a5b3ce;
-            border-radius: 5px;
-            margin: 15px 0;
+            margin-bottom: 5px;
+            display: block;
+            text-transform: uppercase;
         }
-        .var { color: #ffeb3b; } /* Yellow variables */
-        .cmd { color: #ff79c6; } /* Pink commands */
 
-        .explanation h4 { color: #00d2ff; margin-bottom: 10px; }
-        
-        /* Image styling inside details */
-        .detail-img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 2px solid rgba(255,255,255,0.2);
+        .logic-console {
+            background: #0d1117;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-pink);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #c9d1d9;
             margin-top: 15px;
         }
 
-        .back-btn { text-decoration: none; color: #aaa; font-size: 0.9rem; display: block; margin-bottom: 20px; }
-        .back-btn:hover { color: white; }
+        .complexity-badge {
+            display: inline-block;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            color: #ffAB00; /* Gold */
+        }
 
-        /* Rotate arrow animation */
-        .arrow { font-size: 1.2rem; transition: transform 0.3s; margin-left: 15px;}
-        .active .arrow { transform: rotate(180deg); }
+        .analysis-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s;
+        }
+        .analysis-img:hover { transform: scale(1.02); border-color: var(--neon-blue); }
 
+        /* Mobile Fix */
+        @media (max-width: 768px) {
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+
+        .back-link {
+            position: absolute; top: 20px; left: 20px;
+            color: #8b949e; text-decoration: none; font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
-    <a href="index.html" class="back-btn">&larr; Return to Home Page</a>
+    <a href="index.html" class="back-link">← BACK TO HOME</a>
 
-    <div class="profile-card">
-        <div class="avatar-frame">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile">
-        </div>
-        <div class="profile-text">
-            <h1>Gangadhar</h1>
-            <p>Algorithm Architect | DAA Project Lead</p>
-            <p style="font-size: 0.9rem; color: #00d2ff; margin-top: 10px;">
-                "I specialize in transforming urban chaos into structured graph problems."
-            </p>
-        </div>
+    <div class="profile-hero">
+        <div class="avatar-glow"></div>
+        <h1>Gangadhar</h1>
+        <div class="role-badge">Lead Algorithm Architect</div>
+        <p style="max-width: 600px; margin: 20px auto; color: #8b949e;">
+            I analyzed the city's 5 critical pain points. Below are the custom algorithmic modules I designed to solve them.
+        </p>
     </div>
 
-    <h3 style="margin-bottom: 20px; opacity: 0.7;">My Modules (Click to Expand)</h3>
+    <div class="modules-title">Project Modules (5)</div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
+    <div class="tech-card" onclick="toggleCard(this)">
         <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">Dijkstra's Algo</span>
-                <h3>GreenCorridor Protocol</h3>
-                <p>Prioritizing emergency vehicles using dynamic path weights.</p>
+            <div class="header-left">
+                <h2>GreenCorridor <span class="algo-tag">Dijkstra</span></h2>
+                <p class="header-subtitle">Traffic pre-emption for emergency services.</p>
             </div>
-            <div class="arrow">▼</div>
+            <div class="expand-icon">▼</div>
         </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>Ambulances often get stuck at the "KL Rahul Stadium" junction. Normal traffic lights are static. We need a system that detects an ambulance and turns lights Green along the shortest path.</p>
+        <div class="card-body">
+            <div class="detail-grid">
+                <div>
+                    <span class="section-label">The Problem</span>
+                    <p>Ambulances lose critical minutes at the "Stadium Junction" during peak hours. Static traffic lights create fatal delays.</p>
                     
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> Intersection Graph, Traffic Density<br>
-                        <span class="cmd">WHILE</span> Ambulance is active:<br>
-                        &nbsp;&nbsp;1. Get <span class="var">CurrentLocation</span> & <span class="var">HospitalDest</span><br>
-                        &nbsp;&nbsp;2. Apply <span class="cmd">Dijkstra</span> to find path with min (Density * Distance)<br>
-                        &nbsp;&nbsp;3. Override Signals to GREEN for nodes in <span class="var">Path[]</span><br>
-                        <span class="cmd">RETURN</span> Safe Route
+                    <span class="section-label">The Algorithmic Solution</span>
+                    <p>We treat the road network as a weighted graph where Weight = Congestion. Dijkstra's Algorithm finds the path of "least resistance" in real-time.</p>
+                    
+                    <div class="logic-console">
+                        > DETECT Ambulance_GPS<br>
+                        > CALCULATE Shortest_Path(Source, Hospital)<br>
+                        > FOR EACH Node IN Path:<br>
+                        &nbsp;&nbsp; Set Signal_State = GREEN<br>
+                        &nbsp;&nbsp; Hold Cross_Traffic = RED<br>
+                        > EXECUTE Wave_Pattern()
                     </div>
                     
-                    <h4>Visual Analysis</h4>
+                    <div class="complexity-badge">⏱ Time Complexity: O(E log V)</div>
+                </div>
+                <div>
+                    <span class="section-label">Visual Analysis</span>
                     
-                    <img src="algo1.jpg" alt="Traffic Graph" class="detail-img">
+                    <img src="algo1.jpg" alt="Dijkstra Map" class="analysis-img">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
+    <div class="tech-card" onclick="toggleCard(this)">
         <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">Prim's MST</span>
-                <h3>HydroGrid Network</h3>
-                <p>Zero-leakage water distribution for remote zones.</p>
+            <div class="header-left">
+                <h2>HydroGrid <span class="algo-tag">Prim's MST</span></h2>
+                <p class="header-subtitle">Cost-efficient water pipeline distribution.</p>
             </div>
-            <div class="arrow">▼</div>
+            <div class="expand-icon">▼</div>
         </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>Connecting the "High Altitude" zone to the "Water Treatment Plant" is costly. We need to connect every residential node using the minimum total length of pipes possible.</p>
+        <div class="card-body">
+            <div class="detail-grid">
+                <div>
+                    <span class="section-label">The Problem</span>
+                    <p>Laying pipes to the "High Altitude" zone is expensive. We need to connect every home without wasting a single meter of pipe.</p>
                     
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> Zones (Vertices), PipeCost (Edges)<br>
-                        <span class="cmd">FUNCTION</span> BuildNetwork():<br>
-                        &nbsp;&nbsp;Start at <span class="var">SourceNode</span><br>
-                        &nbsp;&nbsp;<span class="cmd">REPEAT</span> until all zones connected:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;1. Find cheapest pipe connecting ConnectedZone to NewZone<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;2. Add pipe to <span class="var">Network</span><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;3. Ensure <span class="var">NoCycles</span> (Loops)<br>
+                    <span class="section-label">The Algorithmic Solution</span>
+                    <p>Using Prim's Minimum Spanning Tree (MST), we connect all city nodes using the minimum possible total edge weight, ensuring no redundant loops.</p>
+                    
+                    <div class="logic-console">
+                        > INIT Visited_Set = {Treatment_Plant}<br>
+                        > WHILE Visited_Set != All_Nodes:<br>
+                        &nbsp;&nbsp; Find Edge(u, v) with MIN cost<br>
+                        &nbsp;&nbsp; WHERE u is Visited, v is New<br>
+                        &nbsp;&nbsp; ADD Edge to Pipeline_Network<br>
+                        > RETURN Total_Pipe_Length
                     </div>
                     
-                    <h4>Visual Analysis</h4>
+                    <div class="complexity-badge">⏱ Time Complexity: O(E log V)</div>
+                </div>
+                <div>
+                    <span class="section-label">Visual Analysis</span>
                     
 
 [Image of minimum spanning tree]
 
-                    <img src="algo2.jpg" alt="MST Graph" class="detail-img">
+                    <img src="algo2.jpg" alt="MST Diagram" class="analysis-img">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
+    <div class="tech-card" onclick="toggleCard(this)">
         <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">BFS (Breadth First Search)</span>
-                <h3>RapidExit System</h3>
-                <p>Tsunami evacuation routing from Port areas.</p>
+            <div class="header-left">
+                <h2>RapidExit <span class="algo-tag">BFS</span></h2>
+                <p class="header-subtitle">Tsunami evacuation layering system.</p>
             </div>
-            <div class="arrow">▼</div>
+            <div class="expand-icon">▼</div>
         </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>When a Tsunami warning hits the Port (Low-lying), we need to guide crowds to the High Altitude farm. BFS helps us create a "Layered" escape plan, moving people 1 street away, then 2 streets away, avoiding jams.</p>
+        <div class="card-body">
+            <div class="detail-grid">
+                <div>
+                    <span class="section-label">The Problem</span>
+                    <p>The Port area is a flood risk. In an emergency, thousands must flee to the safe zone (Farms). Unorganized movement causes stampedes.</p>
                     
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> CityMap, DangerSource<br>
-                        <span class="cmd">FUNCTION</span> Evacuate():<br>
-                        &nbsp;&nbsp;Queue <span class="var">Q</span>.add(Port)<br>
-                        &nbsp;&nbsp;<span class="cmd">WHILE</span> Q not empty:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;curr = Q.remove()<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">FOR</span> each neighbor:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculate <span class="var">HopsFromDanger</span><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assign Direction Arrow -> Away<br>
+                    <span class="section-label">The Algorithmic Solution</span>
+                    <p>BFS (Breadth-First Search) creates a "Ripple Effect" map. It tells each neighborhood exactly which direction to move to reach safety in the fewest "hops."</p>
+                    
+                    <div class="logic-console">
+                        > ENQUEUE Danger_Zone (Port)<br>
+                        > MARK Distance[Port] = 0<br>
+                        > WHILE Queue NOT Empty:<br>
+                        &nbsp;&nbsp; Curr = Dequeue()<br>
+                        &nbsp;&nbsp; FOR Neighbor in Roads:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp; IF Unvisited: Set Direction -> Away<br>
                     </div>
                     
-                    <h4>Visual Analysis</h4>
+                    <div class="complexity-badge">⏱ Time Complexity: O(V + E)</div>
+                </div>
+                <div>
+                    <span class="section-label">Visual Analysis</span>
                     
-                    <img src="algo3.jpg" alt="BFS Layers" class="detail-img">
+                    <img src="algo3.jpg" alt="BFS Layers" class="analysis-img">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
+    <div class="tech-card" onclick="toggleCard(this)">
         <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">Knapsack DP</span>
-                <h3>CargoMax Optimizer</h3>
-                <p>Maximizing profit with limited port storage.</p>
+            <div class="header-left">
+                <h2>CargoMax <span class="algo-tag">Knapsack DP</span></h2>
+                <p class="header-subtitle">Maximizing revenue per square meter.</p>
             </div>
-            <div class="arrow">▼</div>
+            <div class="expand-icon">▼</div>
         </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>The Port has limited storage space (Capacity). Hundreds of containers arrive with different Profits and Weights. We must select the best subset to maximize revenue.</p>
+        <div class="card-body">
+            <div class="detail-grid">
+                <div>
+                    <span class="section-label">The Problem</span>
+                    <p>The Port storage is limited. Incoming ships bring containers of varying Profit and Size. We cannot store them all.</p>
                     
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> Containers[], Capacity W<br>
-                        <span class="cmd">FUNCTION</span> SolveDP(item, remaining_cap):<br>
-                        &nbsp;&nbsp;<span class="cmd">IF</span> weight > remaining_cap: Skip Item<br>
-                        &nbsp;&nbsp;<span class="cmd">ELSE</span>:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Option1 = Profit + SolveDP(next, cap - weight)<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Option2 = SolveDP(next, cap)<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">RETURN</span> MAX(Option1, Option2)<br>
+                    <span class="section-label">The Algorithmic Solution</span>
+                    <p>We use the 0/1 Knapsack Algorithm (Dynamic Programming) to mathematically select the perfect combination of containers that yields maximum profit.</p>
+                    
+                    <div class="logic-console">
+                        > CREATE Table DP[Items][Capacity]<br>
+                        > FOR Each Container i:<br>
+                        &nbsp;&nbsp; IF Size[i] > Remaining_Space: Skip<br>
+                        &nbsp;&nbsp; ELSE: Max(Profit[i] + Include, Exclude)<br>
+                        > BACKTRACK to find Selected Items
                     </div>
                     
-                    <h4>Visual Analysis</h4>
-                     
+                    <div class="complexity-badge">⏱ Time Complexity: O(N * W)</div>
+                </div>
+                <div>
+                    <span class="section-label">Visual Analysis</span>
+                    
 
 [Image of knapsack problem illustration]
 
-                    <img src="algo4.jpg" alt="DP Logic" class="detail-img">
+                    <img src="algo4.jpg" alt="DP Logic" class="analysis-img">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="idea-card" onclick="toggleDetails(this)">
+    <div class="tech-card" onclick="toggleCard(this)">
         <div class="card-header">
-            <div class="header-content">
-                <span class="algo-badge">TSP (Traveling Salesman)</span>
-                <h3>SwiftLink Delivery</h3>
-                <p>Last-mile optimization for multiple stops.</p>
+            <div class="header-left">
+                <h2>SwiftLink <span class="algo-tag">TSP Graph</span></h2>
+                <p class="header-subtitle">Last-mile delivery route optimization.</p>
             </div>
-            <div class="arrow">▼</div>
+            <div class="expand-icon">▼</div>
         </div>
-        <div class="card-details">
-            <div class="details-inner">
-                <div class="explanation">
-                    <h4>The Concept</h4>
-                    <p>A delivery truck starts at the Industrial Warehouse and must drop parcels at the University, Market, and Residential Zones in one trip, minimizing fuel consumption.</p>
+        <div class="card-body">
+            <div class="detail-grid">
+                <div>
+                    <span class="section-label">The Problem</span>
+                    <p>Delivery trucks waste fuel driving back and forth between the Market, University, and Homes.</p>
                     
-                    <h4>The Logic</h4>
-                    <div class="code-block">
-                        <span class="cmd">INPUT:</span> DeliveryLocations[]<br>
-                        <span class="cmd">GOAL:</span> Find Hamiltonian Cycle with Min Cost<br>
-                        <span class="cmd">LOGIC:</span><br>
-                        &nbsp;&nbsp;Check all permutations of stops:<br>
-                        &nbsp;&nbsp;Warehouse -> A -> B -> C -> Warehouse<br>
-                        &nbsp;&nbsp;Warehouse -> B -> A -> C -> Warehouse<br>
-                        &nbsp;&nbsp;Select <span class="var">MinDistance</span> path.<br>
+                    <span class="section-label">The Algorithmic Solution</span>
+                    <p>Modeled as the Traveling Salesman Problem (TSP). We calculate the Hamiltonian Cycle that visits every stop exactly once and returns to the warehouse with minimum distance.</p>
+                    
+                    <div class="logic-console">
+                        > DEFINE Graph of Delivery_Points<br>
+                        > COMPUTE All Permutations of Routes<br>
+                        > CALCULATE Total_Distance for each<br>
+                        > SELECT Route with MIN(Total_Distance)<br>
+                        > DISPATCH Driver
                     </div>
                     
-                    <h4>Visual Analysis</h4>
+                    <div class="complexity-badge">⏱ Time Complexity: O(N!) or O(N^2 * 2^N)</div>
+                </div>
+                <div>
+                    <span class="section-label">Visual Analysis</span>
                     
-                    <img src="algo5.jpg" alt="TSP Route" class="detail-img">
+                    <img src="algo5.jpg" alt="TSP Route" class="analysis-img">
                 </div>
             </div>
         </div>
@@ -360,20 +426,17 @@
 </div>
 
 <script>
-    function toggleDetails(card) {
-        // Toggle the 'active' class for the arrow rotation
+    function toggleCard(card) {
+        // Close all other cards first (optional, keeps it clean)
+        const allCards = document.querySelectorAll('.tech-card');
+        allCards.forEach(c => {
+            if (c !== card) {
+                c.classList.remove('active');
+            }
+        });
+
+        // Toggle the clicked card
         card.classList.toggle('active');
-
-        // Find the details section inside the clicked card
-        const details = card.querySelector('.card-details');
-
-        // If it's open, close it (set height to 0)
-        if (details.style.maxHeight) {
-            details.style.maxHeight = null;
-        } else {
-            // If it's closed, open it (set height to the content size)
-            details.style.maxHeight = details.scrollHeight + "px";
-        }
     }
 </script>
 
