@@ -17,7 +17,7 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             min-height: 100vh;
-            overflow-x: hidden; /* Prevents horizontal scrollbar during animations */
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -32,18 +32,18 @@
             padding: 40px 20px;
         }
 
-        /* --- SCROLL ANIMATION CLASSES (The "Stretching" Effect) --- */
+        /* --- SCROLL ANIMATION CLASSES --- */
         .hidden {
             opacity: 0;
             filter: blur(5px);
-            transform: translateY(100px) scale(0.9); /* Starts lower and smaller */
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy smooth effect */
+            transform: translateY(100px) scale(0.9);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .show {
             opacity: 1;
             filter: blur(0);
-            transform: translateY(0) scale(1); /* Moves to normal place */
+            transform: translateY(0) scale(1);
         }
 
         /* --- GLASS PANEL --- */
@@ -73,7 +73,7 @@
             margin-bottom: 30px;
         }
 
-        /* --- THE INTERACTIVE CARDS (Used for Team AND Project now) --- */
+        /* --- INTERACTIVE CARDS --- */
         .card-grid {
             display: flex;
             gap: 20px;
@@ -83,8 +83,8 @@
         
         .interactive-card {
             flex: 1; 
-            min-width: 250px;
-            background: rgba(0,0,0,0.2); /* Original Dark Transparent */
+            min-width: 200px; /* Adjusted slightly to fit 4 better */
+            background: rgba(0,0,0,0.2);
             padding: 25px;
             border-radius: 15px;
             text-align: center;
@@ -92,7 +92,6 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
 
-        /* THE HOVER EFFECT: Turns White, Pops Up */
         .interactive-card:hover {
             background: #ffffff; 
             transform: translateY(-10px) scale(1.02);
@@ -112,11 +111,9 @@
             line-height: 1.5;
         }
 
-        /* Text Color Changes on Hover */
-        .interactive-card:hover h3 { color: #e73c7e; /* Pink Title */ }
-        .interactive-card:hover p { color: #333; /* Dark Grey Text */ }
+        .interactive-card:hover h3 { color: #e73c7e; }
+        .interactive-card:hover p { color: #333; }
         
-        /* Special styles for Project Cards vs Team Cards */
         .project-tag {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -127,7 +124,7 @@
         }
         .interactive-card:hover .project-tag { color: #23a6d5; font-weight: bold; }
 
-        /* --- CHART SECTION --- */
+        /* --- CHART & BUTTONS --- */
         .chart-container {
             margin-top: 40px;
             text-align: center;
@@ -142,7 +139,6 @@
         }
         .chart-container img:hover { transform: scale(1.02); border-color: #ffffff; }
 
-        /* --- BUTTONS --- */
         .btn {
             display: inline-block; margin-top: 15px; padding: 10px 25px;
             background: rgba(255,255,255,0.2); border: 1px solid white;
@@ -155,7 +151,6 @@
             box-shadow: 0 5px 15px rgba(35, 213, 171, 0.4);
         }
 
-        /* Info Grid (Top) */
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
         .info-item { padding: 15px; border-radius: 15px; transition: all 0.4s ease; }
         .info-item:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
@@ -182,13 +177,16 @@
                 </div>
                 <div class="info-item">
                     <strong>Code</strong>
-                    <span>24ECXXX</span> </div>
+                    <span>24ECXXX</span>
+                </div>
                 <div class="info-item">
                     <strong>University</strong>
-                    <span>KLE Tech</span> </div>
+                    <span>KLE Tech</span>
+                </div>
                 <div class="info-item">
                     <strong>Instructor</strong>
-                    <span>Prof. Name</span> </div>
+                    <span>Prof. Name</span>
+                </div>
             </div>
         </div>
 
@@ -200,17 +198,16 @@
             </p>
 
             <div class="card-grid">
-                
                 <div class="interactive-card hidden">
                     <span class="project-tag">Module 01</span>
                     <h3>Traffic Optimization</h3>
-                    <p>Using <strong>Dijkstra's Algorithm</strong> to find shortest paths for ambulances and reducing congestion by 30%.</p>
+                    <p>Using <strong>Dijkstra's Algorithm</strong> to find shortest paths for ambulances and reducing congestion.</p>
                 </div>
 
                 <div class="interactive-card hidden">
                     <span class="project-tag">Module 02</span>
                     <h3>Water Distribution</h3>
-                    <p>Applied <strong>Prim's Algorithm (MST)</strong> to connect all houses with pipes using minimum wire length and cost.</p>
+                    <p>Applied <strong>Prim's Algorithm (MST)</strong> to connect all houses with pipes using minimum wire length.</p>
                 </div>
 
                 <div class="interactive-card hidden">
@@ -218,7 +215,6 @@
                     <h3>Zoning & Sorting</h3>
                     <p>Utilized <strong>Merge Sort</strong> to organize commercial vs residential data efficiently for city planning.</p>
                 </div>
-
             </div>
 
             <div class="chart-container hidden">
@@ -234,21 +230,28 @@
                 <div class="interactive-card hidden">
                     <span class="project-tag">Lead</span>
                     <h3>Gangadhar</h3>
-                    <p>Frontend & Logic</p>
+                    <p>Role / SRN</p>
                     <a href="#" class="btn">View Profile</a>
                 </div>
 
                 <div class="interactive-card hidden">
                     <span class="project-tag">Member</span>
-                    <h3>Name Here</h3>
-                    <p>SRN: 002</p>
+                    <h3>Member 2 Name</h3>
+                    <p>Role / SRN</p>
                     <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
 
                 <div class="interactive-card hidden">
                     <span class="project-tag">Member</span>
-                    <h3>Name Here</h3>
-                    <p>SRN: 003</p>
+                    <h3>Member 3 Name</h3>
+                    <p>Role / SRN</p>
+                    <a href="https://friend.github.io" class="btn">View Profile</a>
+                </div>
+
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Member 4 Name</h3>
+                    <p>Role / SRN</p>
                     <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
 
@@ -262,17 +265,15 @@
     </div>
 
     <script>
-        // This simple script checks when elements come into view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 console.log(entry)
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show'); // Add 'show' class to animate
+                    entry.target.classList.add('show');
                 }
             });
         });
 
-        // We tell the observer to watch all elements with the class 'hidden'
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
     </script>
