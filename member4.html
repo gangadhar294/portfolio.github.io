@@ -60,7 +60,7 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. MAIN HEADER (Hover Effect) --- */
+        /* --- 2. HEADER (Bright on Hover) --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -83,20 +83,8 @@
             transition: all 0.3s;
         }
 
-        .header-right h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-cyan);
-            margin: 0 0 15px 0;
-            font-size: 1.5rem;
-            transition: color 0.3s;
-        }
-
-        .header-right p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin: 0;
-            transition: color 0.3s;
-        }
+        .header-right h2 { font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); margin: 0 0 15px 0; font-size: 1.5rem; transition: color 0.3s; }
+        .header-right p { color: var(--text-secondary); line-height: 1.6; margin: 0; transition: color 0.3s; }
 
         header:hover {
             background: linear-gradient(90deg, #ffffff, #00f7ff);
@@ -117,7 +105,7 @@
             align-items: start;
         }
 
-        /* --- 4. NAVIGATION TABS --- */
+        /* --- 4. NAVIGATION TABS (The "Idea Label" Section) --- */
         .nav-panel {
             display: flex;
             flex-direction: column;
@@ -136,22 +124,32 @@
             justify-content: space-between;
         }
 
-        .nav-tab:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 247, 255, 0.05);
-            transform: translateX(5px);
-        }
+        .tab-title { font-weight: 600; font-size: 1.1rem; color: white; transition: color 0.3s;}
+        .tab-algo { font-size: 0.8rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; transition: color 0.3s;}
+        .arrow-icon { color: var(--accent-cyan); transition: color 0.3s;}
 
+        /* STATE 1: HOVER (Becomes Bright like Header) */
+        /* Only applies if NOT active */
+        .nav-tab:not(.active):hover {
+            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
+            transform: scale(1.03) translateX(10px);
+        }
+        /* Change text color to Dark on Hover */
+        .nav-tab:not(.active):hover .tab-title { color: #0a0a12; }
+        .nav-tab:not(.active):hover .tab-algo { color: #004e52; font-weight: bold; }
+        .nav-tab:not(.active):hover .arrow-icon { color: #333; }
+
+        /* STATE 2: ACTIVE / CLICKED (Back to "Original" Soft Cyan) */
         .nav-tab.active {
-            background: rgba(0, 247, 255, 0.15);
+            background: rgba(0, 247, 255, 0.15); /* Soft transparent */
             border-color: var(--accent-cyan);
             box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
-            transform: scale(1.02);
+            transform: scale(1.0); /* Reset scale */
         }
-
-        .tab-title { font-weight: 600; font-size: 1.1rem; color: white; }
-        .tab-algo { font-size: 0.8rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
-        .arrow-icon { color: var(--accent-cyan); }
+        .nav-tab.active .tab-title { color: white; }
+        .nav-tab.active .tab-algo { color: var(--accent-cyan); }
 
 
         /* --- 5. CONTENT DISPLAY PANEL --- */
@@ -177,55 +175,36 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 6. THE DESCRIPTION TITLE BAR (HOVER EFFECT ADDED) --- */
+        /* --- THE DESCRIPTION TITLE (Dark & Cool Again) --- */
         .block-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             
-            /* Default: Dark/Transparent to blend in */
-            background: rgba(255, 255, 255, 0.03); 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            /* Reverted to Dark Cool Style */
+            background: rgba(0, 0, 0, 0.3);
             padding: 20px;
             border-radius: 15px;
-            
-            /* Smooth Transition */
-            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 247, 255, 0.3); /* Cyan Border */
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.05);
         }
 
         .block-title { 
             font-family: 'Orbitron', sans-serif; 
             font-size: 2rem; 
             margin: 0;
-            color: #ffffff; /* White by default */
-            transition: color 0.3s;
+            color: white; /* Text back to White */
         }
         
         .block-badge { 
-            background: var(--accent-purple);
-            color: white;
+            background: var(--accent-purple); 
+            color: white; 
             padding: 5px 15px; 
             border-radius: 20px; 
             font-weight: bold; 
             font-size: 0.9rem; 
-            transition: all 0.3s;
         }
-
-        /* === HOVER STATE FOR DESCRIPTION HEADER === */
-        .block-header:hover {
-            /* Turns Bright Gradient on Hover */
-            background: linear-gradient(90deg, #ffffff, #00f7ff);
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
-            border-color: transparent;
-        }
-
-        /* Change text color to dark so it's readable */
-        .block-header:hover .block-title { color: #0a0a12; }
-        .block-header:hover .block-badge { background: #0a0a12; color: #00f7ff; }
-        /* === END HOVER STATE === */
-
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
