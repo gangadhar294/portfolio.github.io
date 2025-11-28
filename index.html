@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- BACKGROUND ANIMATION (Kept Same) --- */
+        /* --- BACKGROUND ANIMATION --- */
         body {
             margin: 0;
             padding: 0;
@@ -17,6 +17,7 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             min-height: 100vh;
+            overflow-x: hidden; /* Prevents horizontal scrollbar during animations */
         }
 
         @keyframes gradientBG {
@@ -31,7 +32,21 @@
             padding: 40px 20px;
         }
 
-        /* --- GLASS PANEL STYLE --- */
+        /* --- SCROLL ANIMATION CLASSES (The "Stretching" Effect) --- */
+        .hidden {
+            opacity: 0;
+            filter: blur(5px);
+            transform: translateY(100px) scale(0.9); /* Starts lower and smaller */
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy smooth effect */
+        }
+
+        .show {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0) scale(1); /* Moves to normal place */
+        }
+
+        /* --- GLASS PANEL --- */
         .glass-panel {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(16px);
@@ -41,15 +56,8 @@
             padding: 40px;
             margin-bottom: 40px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            transition: border-color 0.3s ease;
         }
 
-        /* Hover effect for the big panels */
-        .glass-panel:hover {
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Hero Section */
         .hero { text-align: center; padding: 60px 0; }
         .hero h1 {
             font-size: 4rem; margin: 0; font-weight: 700;
@@ -62,87 +70,79 @@
             border-bottom: 2px solid rgba(255,255,255,0.5);
             padding-bottom: 10px;
             display: inline-block;
+            margin-bottom: 30px;
         }
 
-        /* --- INTERACTIVE INFO GRID --- */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* --- THE INTERACTIVE CARDS (Used for Team AND Project now) --- */
+        .card-grid {
+            display: flex;
             gap: 20px;
-            text-align: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
         
-        .info-item {
-            padding: 15px;
-            border-radius: 15px;
-            transition: all 0.4s ease; /* Smooth transition */
-        }
-
-        /* HOVER EFFECT 1: Course Details glow white */
-        .info-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-        }
-        
-        .info-item strong { display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
-        .info-item span { font-size: 1.2rem; font-weight: 700; }
-
-        /* --- PROJECT SECTION --- */
-        .project-content { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
-        .project-text { flex: 1; min-width: 300px; }
-        
-        .project-text li {
-            margin-bottom: 15px; font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        /* HOVER EFFECT 2: List items turn Yellow when hovered */
-        .project-text li:hover {
-            color: #ffff00; /* Neon Yellow highlight */
-            cursor: default;
-        }
-
-        .chart-container { flex: 1; min-width: 300px; text-align: center; }
-        .chart-container img {
-            max-width: 100%; border-radius: 15px;
-            border: 5px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .chart-container img:hover {
-            transform: scale(1.03);
-            border-color: #ffffff;
-        }
-
-        /* --- INTERACTIVE TEAM CARDS (The Main Request) --- */
-        .team-grid { display: flex; gap: 20px; flex-wrap: wrap; }
-        
-        .team-card {
-            flex: 1; min-width: 220px;
+        .interactive-card {
+            flex: 1; 
+            min-width: 250px;
             background: rgba(0,0,0,0.2); /* Original Dark Transparent */
             padding: 25px;
             border-radius: 15px;
             text-align: center;
             border: 1px solid transparent;
-            
-            /* The Animation Speed */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
 
-        /* HOVER EFFECT 3: Team Cards turn WHITE with COLORED Text */
-        .team-card:hover {
-            background: #ffffff; /* Turns Solid White */
-            transform: translateY(-10px) scale(1.02); /* Pops up */
+        /* THE HOVER EFFECT: Turns White, Pops Up */
+        .interactive-card:hover {
+            background: #ffffff; 
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 10;
         }
 
-        .team-card h3 { margin: 10px 0 5px 0; transition: color 0.3s; }
-        .team-card p { transition: color 0.3s; }
+        .interactive-card h3 { 
+            margin: 10px 0 5px 0; 
+            font-size: 1.3rem; 
+            transition: color 0.3s; 
+        }
+        
+        .interactive-card p { 
+            transition: color 0.3s; 
+            font-size: 1rem;
+            line-height: 1.5;
+        }
 
-        /* Change text color on hover */
-        .team-card:hover h3 { color: #e73c7e; /* Pink Title */ }
-        .team-card:hover p { color: #23a6d5; /* Blue Subtitle */ }
+        /* Text Color Changes on Hover */
+        .interactive-card:hover h3 { color: #e73c7e; /* Pink Title */ }
+        .interactive-card:hover p { color: #333; /* Dark Grey Text */ }
+        
+        /* Special styles for Project Cards vs Team Cards */
+        .project-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .interactive-card:hover .project-tag { color: #23a6d5; font-weight: bold; }
 
-        /* Button Style */
+        /* --- CHART SECTION --- */
+        .chart-container {
+            margin-top: 40px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .chart-container img {
+            max-width: 100%; border-radius: 15px;
+            border: 5px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+        .chart-container img:hover { transform: scale(1.02); border-color: #ffffff; }
+
+        /* --- BUTTONS --- */
         .btn {
             display: inline-block; margin-top: 15px; padding: 10px 25px;
             background: rgba(255,255,255,0.2); border: 1px solid white;
@@ -150,27 +150,31 @@
             font-weight: bold; font-size: 0.9rem;
             transition: all 0.3s ease;
         }
-        
-        .team-card:hover .btn {
-            background: #23d5ab; /* Green button on hover */
-            border-color: #23d5ab;
-            color: white;
+        .interactive-card:hover .btn {
+            background: #23d5ab; border-color: #23d5ab; color: white;
             box-shadow: 0 5px 15px rgba(35, 213, 171, 0.4);
         }
 
-        footer { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.8rem; }
+        /* Info Grid (Top) */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
+        .info-item { padding: 15px; border-radius: 15px; transition: all 0.4s ease; }
+        .info-item:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+        .info-item strong { display: block; font-size: 0.9rem; opacity: 0.7; }
+        .info-item span { font-size: 1.2rem; font-weight: 700; }
+
+        footer { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.8rem; margin-top: 50px;}
     </style>
 </head>
 <body>
 
     <div class="container">
 
-        <header class="hero">
+        <header class="hero hidden">
             <h1>DAA PORTFOLIO</h1>
             <p>Algorithmic City Design & Analysis</p>
         </header>
 
-        <div class="glass-panel">
+        <div class="glass-panel hidden">
             <div class="info-grid">
                 <div class="info-item">
                     <strong>Course</strong>
@@ -178,66 +182,73 @@
                 </div>
                 <div class="info-item">
                     <strong>Code</strong>
-                    <span>24ECXXX</span>
-                </div>
+                    <span>24ECXXX</span> </div>
                 <div class="info-item">
                     <strong>University</strong>
-                    <span>KLE Tech</span>
-                </div>
+                    <span>KLE Tech</span> </div>
                 <div class="info-item">
                     <strong>Instructor</strong>
-                    <span>Prof. Name</span>
-                </div>
+                    <span>Prof. Name</span> </div>
             </div>
         </div>
 
-        <div class="glass-panel">
+        <div class="glass-panel hidden">
             <h2>🏙️ Project Overview</h2>
-            <div class="project-content">
-                <div class="project-text">
-                    <p>
-                        We have designed a city layout that prioritizes efficiency and sustainability. 
-                        By applying core Data Structures and Algorithms, we solved key urban challenges:
-                    </p>
-                    <ul>
-                        <li><strong>Shortest Path (Dijkstra):</strong> Optimizing emergency routes.</li>
-                        <li><strong>Minimum Spanning Tree (Prim's):</strong> Cost-effective pipeline layout.</li>
-                        <li><strong>Sorting (Merge Sort):</strong> Categorizing commercial zones efficiently.</li>
-                    </ul>
-                </div>
+            <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+                We designed a smart city framework. We broke down the urban infrastructure into nodes and edges 
+                to apply efficient algorithmic solutions. Here are the core modules:
+            </p>
+
+            <div class="card-grid">
                 
-                <div class="chart-container">
-                    <img src="chart.jpg" alt="City Design Flowchart">
-                    <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">Figure 1: System Architecture</p>
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Module 01</span>
+                    <h3>Traffic Optimization</h3>
+                    <p>Using <strong>Dijkstra's Algorithm</strong> to find shortest paths for ambulances and reducing congestion by 30%.</p>
                 </div>
+
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Module 02</span>
+                    <h3>Water Distribution</h3>
+                    <p>Applied <strong>Prim's Algorithm (MST)</strong> to connect all houses with pipes using minimum wire length and cost.</p>
+                </div>
+
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Module 03</span>
+                    <h3>Zoning & Sorting</h3>
+                    <p>Utilized <strong>Merge Sort</strong> to organize commercial vs residential data efficiently for city planning.</p>
+                </div>
+
+            </div>
+
+            <div class="chart-container hidden">
+                <img src="chart.jpg" alt="City Design Flowchart">
+                <p style="margin-top: 15px; opacity: 0.7;">Figure 1: Complete Project Architecture</p>
             </div>
         </div>
 
-        <div class="glass-panel">
+        <div class="glass-panel hidden">
             <h2>👥 The Team</h2>
-            <div class="team-grid">
+            <div class="card-grid">
                 
-                <div class="team-card">
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Lead</span>
                     <h3>Gangadhar</h3>
-                    <p>Team Lead</p>
+                    <p>Frontend & Logic</p>
                     <a href="#" class="btn">View Profile</a>
                 </div>
 
-                <div class="team-card">
-                    <h3>Member Name</h3>
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Name Here</h3>
                     <p>SRN: 002</p>
                     <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
 
-                <div class="team-card">
-                    <h3>Member Name</h3>
+                <div class="interactive-card hidden">
+                    <span class="project-tag">Member</span>
+                    <h3>Name Here</h3>
                     <p>SRN: 003</p>
-                    <a href="https://friend.github.io" class="btn">View Profile</a>
-                </div>
-
-                <div class="team-card">
-                    <h3>Member Name</h3>
-                    <p>SRN: 004</p>
                     <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
 
@@ -249,6 +260,22 @@
         </footer>
 
     </div>
+
+    <script>
+        // This simple script checks when elements come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                console.log(entry)
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show'); // Add 'show' class to animate
+                }
+            });
+        });
+
+        // We tell the observer to watch all elements with the class 'hidden'
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
 
 </body>
 </html>
