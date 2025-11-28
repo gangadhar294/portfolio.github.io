@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gangadhar | Algorithm Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CORE THEME (Same as Home) --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            color: white;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            scroll-behavior: smooth; /* Enables smooth scrolling when clicking links */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* --- GLASS PANELS --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* --- PROFILE SECTION --- */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #333;
+            font-weight: bold;
+            border: 4px solid #23a6d5;
+        }
+        .profile-info h1 { margin: 0; font-size: 2.5rem; }
+        .profile-info p { margin: 10px 0 0 0; opacity: 0.8; font-size: 1.1rem; }
+
+        /* --- THE NAVIGATION GRID (The 5 Links) --- */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-card {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .nav-card:hover {
+            background: white;
+            color: #e73c7e;
+            transform: translateY(-5px);
+            border-color: #e73c7e;
+        }
+        
+        .nav-card strong { display: block; font-size: 1.1rem; }
+        .nav-card span { font-size: 0.8rem; opacity: 0.7; }
+
+        /* --- DETAILED SECTIONS --- */
+        .detail-section {
+            padding-top: 20px; /* Spacing for scroll */
+            margin-bottom: 60px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .detail-title { color: #23a6d5; font-size: 1.8rem; margin: 0; }
+        .detail-tag { background: #e73c7e; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; }
+
+        .content-split {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .text-side { flex: 1; min-width: 300px; }
+        .visual-side { flex: 1; min-width: 300px; }
+
+        /* Logic Box (The "Code" Look) */
+        .logic-box {
+            background: #1e1e1e;
+            color: #a9b7c6;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 4px solid #23a6d5;
+            margin-top: 15px;
+        }
+        .keyword { color: #cc7832; font-weight: bold; } /* Orange for keywords */
+        .highlight { color: #ffc66d; } /* Yellow for variables */
+
+        /* Image Placeholder */
+        .algo-img {
+            width: 100%;
+            border-radius: 10px;
+            border: 4px solid rgba(255,255,255,0.2);
+        }
+
+        .back-btn {
+            display: inline-block; margin-bottom: 20px; text-decoration: none; color: white; opacity: 0.7;
+        }
+        .back-btn:hover { opacity: 1; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <a href="index.html" class="back-btn">&larr; Back to Team Home</a>
+
+    <div class="glass-panel">
+        <div class="profile-header">
+            <div class="profile-pic">G</div> 
+            <div class="profile-info">
+                <h1>Gangadhar</h1>
+                <p><strong>Role:</strong> Algorithm Architect & Logic Designer</p>
+                <p style="margin-top: 15px; font-size: 1rem; line-height: 1.5;">
+                    My focus was optimizing the city's critical infrastructure. I identified 5 key bottlenecks—from traffic to disaster management—and applied graph theory and dynamic programming to solve them efficiently.
+                </p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px;">Select a Module to View Analysis:</h3>
+        <div class="nav-grid">
+            <a href="#idea1" class="nav-card">
+                <strong>GreenCorridor</strong>
+                <span>Traffic & Ambulance</span>
+            </a>
+            <a href="#idea2" class="nav-card">
+                <strong>HydroGrid</strong>
+                <span>Water Distribution</span>
+            </a>
+            <a href="#idea3" class="nav-card">
+                <strong>RapidExit</strong>
+                <span>Disaster Safety</span>
+            </a>
+            <a href="#idea4" class="nav-card">
+                <strong>CargoMax</strong>
+                <span>Port Profit</span>
+            </a>
+            <a href="#idea5" class="nav-card">
+                <strong>SwiftLink</strong>
+                <span>E-Commerce</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="glass-panel">
+
+        <div id="idea1" class="detail-section">
+            <div class="detail-header">
+                <h2 class="detail-title">1. GreenCorridor Protocol</h2>
+                <span class="detail-tag">Dijkstra's Algorithm</span>
+            </div>
+            <div class="content-split">
+                <div class="text-side">
+                    <p><strong>Problem:</strong> Emergency vehicles face unpredictable delays near the stadium during events.</p>
+                    <p><strong>Strategy:</strong> We model intersections as nodes and congestion as edge weights. The system calculates the path with minimum weight (time) and overrides traffic signals.</p>
+                    <div class="logic-box">
+                        <span class="keyword">Input:</span> Graph G(V, E), Source S<br>
+                        <span class="keyword">function</span> FindPath(S, Target):<br>
+                        &nbsp;&nbsp;PQ = PriorityQueue()<br>
+                        &nbsp;&nbsp;PQ.push(S, 0)<br>
+                        &nbsp;&nbsp;<span class="keyword">while</span> PQ not empty:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;u = PQ.extractMin()<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span> neighbor v of u:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> dist[u] + weight < dist[v]:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist[v] = dist[u] + weight<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path[v] = u<br>
+                        <span class="keyword">return</span> path
+                    </div>
+                </div>
+                <div class="visual-side">
+                    
+
+[Image of Dijkstra algorithm graph]
+
+                    <img src="algo1.jpg" alt="Dijkstra Graph" class="algo-img">
+                </div>
+            </div>
+        </div>
+
+        <div id="idea2" class="detail-section">
+            <div class="detail-header">
+                <h2 class="detail-title">2. HydroGrid Network</h2>
+                <span class="detail-tag">Prim's MST</span>
+            </div>
+            <div class="content-split">
+                <div class="text-side">
+                    <p><strong>Problem:</strong> High infrastructure cost to connect remote zones (Farming/High Altitude) to water sources.</p>
+                    <p><strong>Strategy:</strong> We treat zones as vertices. We must connect all vertices using edges (pipes) such that the total cost is minimized and no cycles are formed.</p>
+                    <div class="logic-box">
+                        <span class="keyword">Input:</span> Zones [], Cost Matrix[][]<br>
+                        <span class="keyword">function</span> ConnectWater():<br>
+                        &nbsp;&nbsp;MST_Set = {StartNode}<br>
+                        &nbsp;&nbsp;<span class="keyword">while</span> MST_Set != AllNodes:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Select edge (u, v) with <span class="highlight">min weight</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;where u in MST_Set and v not in MST_Set<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Add v to MST_Set<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;TotalCost += weight(u, v)<br>
+                    </div>
+                </div>
+                <div class="visual-side">
+                    
+
+[Image of minimum spanning tree]
+
+                    <img src="algo2.jpg" alt="MST Diagram" class="algo-img">
+                </div>
+            </div>
+        </div>
+
+        <div id="idea3" class="detail-section">
+            <div class="detail-header">
+                <h2 class="detail-title">3. RapidExit Evacuation</h2>
+                <span class="detail-tag">BFS (Breadth-First Search)</span>
+            </div>
+            <div class="content-split">
+                <div class="text-side">
+                    <p><strong>Problem:</strong> Safe and orderly evacuation from the Port (Low-lying) to High Ground during Tsunami warnings.</p>
+                    <p><strong>Strategy:</strong> BFS explores the map layer-by-layer. It guarantees finding the route with the fewest "hops" (turns/streets) to safety.</p>
+                    <div class="logic-box">
+                        <span class="keyword">Input:</span> CityGrid, DangerSource (Port)<br>
+                        <span class="keyword">function</span> PlanRoute():<br>
+                        &nbsp;&nbsp;Queue Q.push(Port)<br>
+                        &nbsp;&nbsp;Mark Port as Visited<br>
+                        &nbsp;&nbsp;<span class="keyword">while</span> Q not empty:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;current = Q.pop()<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span> neighbor n in AdjacencyList:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> n is SafeZone: <span class="highlight">Found Exit</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q.push(n)<br>
+                    </div>
+                </div>
+                <div class="visual-side">
+                    
+                    <img src="algo3.jpg" alt="BFS Layers" class="algo-img">
+                </div>
+            </div>
+        </div>
+
+        <div id="idea4" class="detail-section">
+            <div class="detail-header">
+                <h2 class="detail-title">4. CargoMax Optimizer</h2>
+                <span class="detail-tag">0/1 Knapsack (DP)</span>
+            </div>
+            <div class="content-split">
+                <div class="text-side">
+                    <p><strong>Problem:</strong> Limited storage capacity at the Port. We must choose which containers to store to maximize profit.</p>
+                    <p><strong>Strategy:</strong> Used Dynamic Programming to test every combination of containers efficiently without recalculating overlapping sub-problems.</p>
+                    <div class="logic-box">
+                        <span class="keyword">Input:</span> Weights[], Profits[], Capacity W<br>
+                        <span class="keyword">function</span> MaxProfit(n, W):<br>
+                        &nbsp;&nbsp;<span class="keyword">if</span> w[n] > W:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> MaxProfit(n-1, W)<br>
+                        &nbsp;&nbsp;<span class="keyword">else</span>:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> max(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profit[n] + MaxProfit(n-1, W-w[n]),<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxProfit(n-1, W)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;)<br>
+                    </div>
+                </div>
+                <div class="visual-side">
+                    
+                    <img src="algo4.jpg" alt="Knapsack Logic" class="algo-img">
+                </div>
+            </div>
+        </div>
+
+        <div id="idea5" class="detail-section">
+            <div class="detail-header">
+                <h2 class="detail-title">5. SwiftLink Delivery</h2>
+                <span class="detail-tag">TSP (Backtracking)</span>
+            </div>
+            <div class="content-split">
+                <div class="text-side">
+                    <p><strong>Problem:</strong> E-commerce vans need to visit Market, University, and Homes in one trip with minimum fuel.</p>
+                    <p><strong>Strategy:</strong> Modeled as the Traveling Salesman Problem. We find a Hamiltonian cycle with minimum edge weight sum.</p>
+                    <div class="logic-box">
+                        <span class="keyword">Input:</span> Graph of Delivery Points<br>
+                        <span class="keyword">function</span> MinRoute(curr, visited):<br>
+                        &nbsp;&nbsp;<span class="keyword">if</span> all visited:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> cost(curr -> start)<br>
+                        &nbsp;&nbsp;min_cost = Infinity<br>
+                        &nbsp;&nbsp;<span class="keyword">for</span> city in neighbors:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> not visited:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost = dist + MinRoute(city)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min_cost = min(min_cost, cost)<br>
+                        <span class="keyword">return</span> min_cost
+                    </div>
+                </div>
+                <div class="visual-side">
+                    
+
+[Image of Traveling Salesman Problem graph]
+
+                    <img src="algo5.jpg" alt="TSP Route" class="algo-img">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
