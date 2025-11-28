@@ -3,292 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project AURA | DAA Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>DAA City Design Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- UNIQUENESS: Modern "Clean Tech" Aesthetic --- */
+        /* --- STYLE: Dark Mode "Architectural" --- */
         :root {
-            --bg-color: #f8f9fc;
-            --card-bg: #ffffff;
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --text-dark: #2d3748;
-            --text-light: #718096;
-            --highlight: #667eea;
+            --bg-dark: #0f172a;
+            --text-light: #f8fafc;
+            --accent: #38bdf8; /* Cyan Blue */
+            --glass: rgba(30, 41, 59, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), 
+                              url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2613&auto=format&fit=crop'); /* High quality city background */
+            background-attachment: fixed;
+            background-size: cover;
         }
 
-        /* Unique Header: Asymmetrical & Bold */
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header / Hero */
         header {
-            background: var(--card-bg);
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
-            padding: 80px 20px;
-            background: white;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-        }
-
-        .hero-section h1 {
-            font-size: 4rem;
-            margin: 0;
-            line-height: 1.1;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
         }
         
-        .hero-section p {
-            font-size: 1.5rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin-top: 20px;
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* The Grid Layout */
-        .content-wrapper {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
+        header p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            font-weight: 300;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        /* Glass Cards for Info */
+        .grid-box {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 Columns */
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        /* Glassy Cards */
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.08);
-            transition: transform 0.3s ease;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.2s;
         }
 
         .card:hover {
             transform: translateY(-5px);
+            border-color: var(--accent);
         }
 
-        .card h2 {
-            font-size: 1.5rem;
+        .card h3 {
             margin-top: 0;
-            color: var(--text-dark);
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 15px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .full-width {
-            grid-column: span 2; /* Spans across the page */
+        .card p {
+            margin: 5px 0 0 0;
+            font-size: 1.1rem;
         }
 
-        /* Algorithm List Styling */
-        .algo-list {
-            list-style: none;
-            padding: 0;
+        /* The Chart Image */
+        .project-showcase {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
         }
-        .algo-list li {
-            background: #f1f5f9;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 5px solid var(--highlight);
+
+        .project-showcase img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .caption {
+            margin-top: 15px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Team Section - Clean List */
+        .team-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .team-member {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid transparent;
         }
-        .algo-tag {
-            background: var(--highlight);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+
+        .team-member:hover {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .team-member a {
+            color: var(--accent);
+            text-decoration: none;
             font-weight: bold;
         }
-
-        /* Image Styling */
-        .chart-display {
-            width: 100%;
-            border-radius: 15px;
-            border: 1px solid #e2e8f0;
-            padding: 10px;
-            background: white;
-        }
-
-        /* Team Section */
-        .team-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .team-member {
-            flex: 1;
-            text-align: center;
-            background: linear-gradient(180deg, #fff 0%, #f8f9fc 100%);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid #eee;
-        }
-        .team-member h3 { margin: 10px 0 5px 0; }
-        .team-member span { color: var(--highlight); font-size: 0.9rem; }
-        .team-member a {
-            display: block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-        .team-member a:hover { color: var(--highlight); }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 40px;
-            color: var(--text-light);
+            color: #64748b;
             font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .content-wrapper { grid-template-columns: 1fr; }
-            .hero-section h1 { font-size: 2.5rem; }
+            border-top: 1px solid var(--border);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">PROJECT AURA</div>
-        <div style="font-size: 0.9rem; font-weight: 600; color: #764ba2;">DAA 2025</div>
-    </header>
+    <div class="container">
+        
+        <header>
+            <h1>CITY DESIGN PORTFOLIO</h1>
+            <p>Design & Analysis of Algorithms | 2025</p>
+        </header>
 
-    <section class="hero-section">
-        <h1>Algorithmic Urban<br>Regeneration Area</h1>
-        <p>A computational approach to sustainable city planning. Designed using Graph Theory, Greedy Algorithms, and Dynamic Programming.</p>
-    </section>
+        <section>
+            <h2>Academic Context</h2>
+            <div class="grid-box">
+                <div class="card">
+                    <h3>Course</h3>
+                    <p>DAA</p>
+                </div>
+                <div class="card">
+                    <h3>Course Code</h3>
+                    <p>24ECXXX</p>
+                </div>
+                <div class="card">
+                    <h3>University</h3>
+                    <p>KLE Technological University</p>
+                </div>
+                <div class="card">
+                    <h3>Instructor</h3>
+                    <p>Prof. Name</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="content-wrapper">
+        <section>
+            <h2>Project Overview</h2>
+            <div class="project-showcase">
+                <p style="text-align: left; margin-bottom: 20px; line-height: 1.8;">
+                    This portfolio presents the algorithmic design for a sustainable smart city. 
+                    We focused on optimizing urban infrastructure using graph algorithms, sorting techniques, 
+                    and efficient data structures.
+                </p>
 
-        <div class="card">
-            <h2>🎓 Academic Context</h2>
-            <p><strong>Course:</strong> Design & Analysis of Algorithms</p>
-            <p><strong>Code:</strong> 24ECXXX</p>
-            <p><strong>Semester:</strong> 3rd Sem, B.Tech</p>
-            <p><strong>Instructor:</strong> Prof. Name Here</p>
-            <p><strong>University:</strong> KLE Technological University</p>
-        </div>
-
-        <div class="card">
-            <h2>💡 The Vision</h2>
-            <p>
-                Urban chaos is a data problem. <strong>Project AURA</strong> re-imagines city infrastructure as a series of connected nodes. 
-                Our goal is to minimize energy loss and maximize connectivity efficiency.
-            </p>
-        </div>
-
-        <div class="card full-width">
-            <h2>⚡ Algorithmic Business Cases</h2>
-            <ul class="algo-list">
-                <li>
-                    <div>
-                        <strong>Eco-Transit Routing</strong><br>
-                        <small>Optimizing electric bus paths to reduce battery consumption.</small>
+                <div class="grid-box" style="text-align: left; margin-bottom: 30px;">
+                    <div class="card">
+                        <h3>Problem 1</h3>
+                        <p>Traffic Congestion Control (Dijkstra's)</p>
                     </div>
-                    <span class="algo-tag">Dijkstra's Algo</span>
-                </li>
-                <li>
-                    <div>
-                        <strong>Green Energy Grid</strong><br>
-                        <small>Connecting all sectors with minimum wiring cost.</small>
+                    <div class="card">
+                        <h3>Problem 2</h3>
+                        <p>Water Pipe Distribution (Kruskal's)</p>
                     </div>
-                    <span class="algo-tag">Kruskal's MST</span>
-                </li>
-                <li>
-                    <div>
-                        <strong>Emergency Drone Response</strong><br>
-                        <small>Covering all city zones in shortest time for medical drops.</small>
+                    <div class="card">
+                        <h3>Problem 3</h3>
+                        <p>Emergency Services (BFS/DFS)</p>
                     </div>
-                    <span class="algo-tag">DFS / BFS</span>
-                </li>
-                <li>
-                    <div>
-                        <strong>Waste Management Sorting</strong><br>
-                        <small>Categorizing waste based on priority levels.</small>
-                    </div>
-                    <span class="algo-tag">Merge Sort</span>
-                </li>
-            </ul>
-        </div>
+                </div>
 
-        <div class="card full-width" style="text-align: center;">
-            <h2>🗺️ Architecture Blueprint</h2>
-            <p style="margin-bottom: 20px;">The visual flow of our city's logic:</p>
-            
-            <img src="chart.jpg" alt="City Design Chart" class="chart-display">
-            
-        </div>
+                <img src="chart.jpg" alt="Project Design Chart">
+                <div class="caption">Figure 1: Architectural Flowchart of the City Design</div>
+            </div>
+        </section>
 
-        <div class="card full-width">
-            <h2>🚀 The Architects (Team)</h2>
-            <div class="team-container">
+        <section>
+            <h2>Team Members</h2>
+            <div class="team-list">
                 
                 <div class="team-member">
-                    <h3>Gangadhar</h3>
-                    <span>Team Lead</span><br>
-                    <a href="#">View Profile →</a>
+                    <div>
+                        <strong style="font-size: 1.1rem;">Gangadhar</strong>
+                        <span style="color: #64748b; margin-left: 10px;">(Team Lead)</span>
+                    </div>
+                    <a href="#">View Portfolio &rarr;</a>
                 </div>
 
                 <div class="team-member">
-                    <h3>Member Name</h3>
-                    <span>Data Analyst</span><br>
-                    <a href="https://their-link.github.io">View Profile →</a>
+                    <div>
+                        <strong style="font-size: 1.1rem;">Member Name</strong>
+                        <span style="color: #64748b; margin-left: 10px;">(SRN: 002)</span>
+                    </div>
+                    <a href="https://friend.github.io">View Portfolio &rarr;</a>
                 </div>
 
                 <div class="team-member">
-                    <h3>Member Name</h3>
-                    <span>Algorithmist</span><br>
-                    <a href="https://their-link.github.io">View Profile →</a>
-                </div>
-
-                <div class="team-member">
-                    <h3>Member Name</h3>
-                    <span>Developer</span><br>
-                    <a href="https://their-link.github.io">View Profile →</a>
+                    <div>
+                        <strong style="font-size: 1.1rem;">Member Name</strong>
+                        <span style="color: #64748b; margin-left: 10px;">(SRN: 003)</span>
+                    </div>
+                    <a href="https://friend.github.io">View Portfolio &rarr;</a>
                 </div>
 
             </div>
-        </div>
+        </section>
+
+        <footer>
+            &copy; 2025 City Design Project.
+        </footer>
 
     </div>
-
-    <footer>
-        <p>&copy; 2025 Project AURA. Built for the Future.</p>
-    </footer>
 
 </body>
 </html>
