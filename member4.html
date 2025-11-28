@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. DYNAMIC BACKGROUND & THEME --- */
+        /* --- 1. GLOBAL SETTINGS --- */
         :root {
             --accent-cyan: #00f7ff;
             --accent-purple: #bd00ff;
@@ -27,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* The moving aurora gradient background */
         .animated-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -61,7 +60,7 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. HEADER INTERACTION (KEPT BRIGHT AS REQUESTED) --- */
+        /* --- 2. MAIN HEADER (Kept Exactly as requested) --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -99,7 +98,7 @@
             transition: color 0.3s;
         }
 
-        /* HEADER HOVER EFFECT - BRIGHT & BOLD */
+        /* Header Hover Effect */
         header:hover {
             background: linear-gradient(90deg, #ffffff, #00f7ff);
             border-color: transparent;
@@ -109,14 +108,9 @@
         header:hover .header-left h1 { -webkit-text-fill-color: #0a0a12; }
         header:hover .header-right h2 { color: #004e52; }
         header:hover .header-right p { color: #333333; }
+        .header-right { max-width: 500px; text-align: right; }
 
-
-        .header-right {
-            max-width: 500px;
-            text-align: right;
-        }
-
-        /* --- 3. MAIN SPLIT-PANEL LAYOUT --- */
+        /* --- 3. SPLIT LAYOUT --- */
         .main-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -124,7 +118,7 @@
             align-items: start;
         }
 
-        /* LEFT: Navigation Tabs */
+        /* --- 4. NAVIGATION TABS (Updated: Softer Light Color) --- */
         .nav-panel {
             display: flex;
             flex-direction: column;
@@ -149,33 +143,19 @@
             transform: translateX(5px);
         }
 
-        /* --- UPDATED ACTIVE TAB STYLE (SOFTER LIGHT) --- */
+        /* ACTIVE TAB STYLE - CHANGED to Soft Light Cyan */
         .nav-tab.active {
-            /* Changed from Solid White to Soft Transparent Cyan */
-            background: rgba(0, 247, 255, 0.15); 
-            border: 1px solid #00f7ff;
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2); /* Soft Glow */
+            background: rgba(0, 247, 255, 0.15); /* Soft transparent cyan */
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
             transform: scale(1.02);
         }
 
-        .tab-title { font-weight: 600; font-size: 1.1rem; transition: color 0.3s; }
-        .tab-algo { 
-            font-size: 0.8rem; color: var(--accent-cyan); 
-            font-family: 'JetBrains Mono', monospace;
-            transition: color 0.3s;
-        }
-        .arrow-icon { color: var(--accent-cyan); transition: color 0.3s; }
+        .tab-title { font-weight: 600; font-size: 1.1rem; color: white; }
+        .tab-algo { font-size: 0.8rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+        .arrow-icon { color: var(--accent-cyan); }
 
-        /* Text stays Light (White/Blue) instead of turning Dark */
-        .nav-tab.active .tab-title { 
-            color: #ffffff; 
-            text-shadow: 0 0 10px rgba(0, 247, 255, 0.5); /* Glowing Text */
-        }
-        .nav-tab.active .tab-algo { color: #00f7ff; }
-        .nav-tab.active .arrow-icon { color: #ffffff; }
-
-
-        /* RIGHT: Content Display Panel */
+        /* --- 5. CONTENT DISPLAY PANEL --- */
         .display-panel {
             background: var(--panel-bg);
             border-radius: 20px;
@@ -198,17 +178,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- THE DESCRIPTION TITLE BAR (Updated: Bright Gradient) --- */
         .block-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 20px;
+            
+            /* CHANGE: Bright Gradient Style applied here */
+            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
         }
 
-        .block-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin: 0; }
-        .block-badge { background: var(--accent-purple); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+        /* Text inside the header needs to be dark to read */
+        .block-title { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 2rem; 
+            margin: 0;
+            color: #0a0a12; /* Dark Text */
+        }
+        
+        .block-badge { 
+            background: #0a0a12; /* Dark Background */
+            color: #00f7ff; /* Neon Text */
+            border: 1px solid #00f7ff;
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            font-size: 0.9rem; 
+        }
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
