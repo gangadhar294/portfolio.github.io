@@ -3,61 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>DAA City Design Portfolio</title>
+    <style>
+        /* General Styles - Makes it look clean and professional */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #bdc3c7;
+        }
+
+        /* Container for the main content */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        /* Section Headings */
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        /* Table Styling for Course Details */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Project & Chart Section */
+        .project-details, .chart-section {
+            margin-bottom: 20px;
+        }
+        
+        /* Image Styling */
+        .chart-img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #eee;
+            border-radius: 5px;
+            display: block;
+            margin: 20px auto; /* Centers the image */
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .team-member {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .team-member a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .team-member a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>Hello, I'm [Your Name] 👋</h1>
-        <p>I am passionate about technology and problem-solving. Here's a glimpse of my work:</p>
+        <h1>DAA Project: Smart City Design</h1>
+        <p>Portfolio of [Your Name]</p>
     </header>
 
-    <section>
-        <h2>🛠️ Projects</h2>
-        <ul>
-            <li><strong>Project 1</strong>: A short description of your project1.</li>
-            <li><strong>Project 2</strong>: A short description of another project2.</li>
-        </ul>
+    <div class="container">
+        
+        <section>
+            <h2>👋 Introduction</h2>
+            <p>
+                Welcome to my portfolio for the Design and Analysis of Algorithms (DAA) course. 
+                This project focuses on applying algorithmic strategies to solve real-world problems 
+                in city planning and urban design.
+            </p>
+        </section>
 
-        <h2>🚀 Skills</h2>
-        <ul>
-            <li>C++, Python, JavaScript</li>
-            <li>Data Structures and Algorithms</li>
-            <li>Web Development (React.js, Node.js)</li>
-        </ul>
+        <section>
+            <h2>📚 Course Details</h2>
+            <table>
+                <tr>
+                    <th>Course Name</th>
+                    <td>Algorithmic Problem Solving</td>
+                </tr>
+                <tr>
+                    <th>Course Code</th>
+                    <td>24ECXXX</td> 
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>Gangadhar</td>
+                </tr>
+                <tr>
+                    <th>SRN</th>
+                    <td>R24...</td>
+                </tr>
+                <tr>
+                    <th>Instructor</th>
+                    <td>Prof. Name</td>
+                </tr>
+                <tr>
+                    <th>University</th>
+                    <td>KLE Technological University</td>
+                </tr>
+                <tr>
+                    <th>Portfolio Topic</th>
+                    <td>City Design & Planning</td>
+                </tr>
+            </table>
+        </section>
 
-        <h2>🌐 Find Me Online</h2>
-        <ul>
-            <li><a href="https://github.com/your-github-username" target="_blank">GitHub</a></li>
-            <li><a href="https://linkedin.com/in/your-linkedin-profile" target="_blank">LinkedIn</a></li>
-        </ul>
+        <section class="chart-section">
+            <h2>🏙️ Project Design Chart</h2>
+            <p>Below is the architectural chart/flowchart representing our city design logic:</p>
+            
+            <img src="chart.jpg" alt="City Design Flowchart" class="chart-img">
+            
+            <p><strong>Description:</strong> This chart illustrates how we used algorithms (like BFS/DFS or Shortest Path) to optimize traffic flow and resource distribution in the city.</p>
+        </section>
 
-        <h2>Portfolio Topic</h2>
-        <dl>
-            <dt>Course Name</dt>
-            <dd>Algorithmic Problem Solving</dd>
+        <section>
+            <h2>👥 Team Members</h2>
+            <p>Click on the names to view individual portfolios:</p>
+            <div class="team-grid">
+                
+                <div class="team-member">
+                    <h3>Gangadhar</h3>
+                    <p>Role: Team Lead</p>
+                    <a href="#">View Profile</a>
+                </div>
 
-            <dt>Course Code</dt>
-            <dd>Course Code Placeholder</dd>
+                <div class="team-member">
+                    <h3>Member 2 Name</h3>
+                    <p>Role: Collaborator</p>
+                    <a href="https://friend-link.github.io">View Profile</a>
+                </div>
 
-            <dt>Name</dt>
-            <dd>Your Name</dd>
+                <div class="team-member">
+                    <h3>Member 3 Name</h3>
+                    <p>Role: Collaborator</p>
+                    <a href="https://friend-link.github.io">View Profile</a>
+                </div>
 
-            <dt>SRN</dt>
-            <dd>Your SRN</dd>
+            </div>
+        </section>
 
-            <dt>Course Instructor</dt>
-            <dd>Instructor Name Placeholder</dd>
+    </div>
 
-            <dt>University</dt>
-            <dd>Your University Name</dd>
+    <footer>
+        <p>&copy; 2025 City Design Project | Hosted on GitHub Pages</p>
+    </footer>
 
-            <dt>Portfolio Topic/Domain</dt>
-            <dd>Google</dd>
-        </dl>
-
-        <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
-    </section>
 </body>
 </html>
