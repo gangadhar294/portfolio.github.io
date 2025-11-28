@@ -61,18 +61,15 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. HEADER INTERACTION (The Specific Request) --- */
+        /* --- 2. HEADER INTERACTION --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 60px;
-            /* Added padding/radius to make the hover effect look like a card */
             padding: 30px; 
             border-radius: 20px;
             border-bottom: 1px solid rgba(0, 247, 255, 0.2);
-            
-            /* Smooth Transition */
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -81,7 +78,6 @@
             font-size: 3.5rem;
             margin: 0;
             letter-spacing: 2px;
-            /* Default: Gradient Text */
             background: linear-gradient(90deg, #fff, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -103,28 +99,16 @@
             transition: color 0.3s;
         }
 
-        /* === HOVER EFFECT START === */
+        /* HEADER HOVER EFFECT */
         header:hover {
-            /* The "Gangadhar Color" becomes the Background */
             background: linear-gradient(90deg, #ffffff, #00f7ff);
             border-color: transparent;
             box-shadow: 0 10px 50px rgba(0, 247, 255, 0.4);
-            transform: scale(1.02); /* Slight pop up */
+            transform: scale(1.02);
         }
-
-        /* Make text DARK on hover so it is readable against the bright background */
-        header:hover .header-left h1 {
-            -webkit-text-fill-color: #0a0a12; /* Dark Navy */
-        }
-
-        header:hover .header-right h2 {
-            color: #004e52; /* Dark Teal */
-        }
-
-        header:hover .header-right p {
-            color: #333333; /* Dark Grey */
-        }
-        /* === HOVER EFFECT END === */
+        header:hover .header-left h1 { -webkit-text-fill-color: #0a0a12; }
+        header:hover .header-right h2 { color: #004e52; }
+        header:hover .header-right p { color: #333333; }
 
 
         .header-right {
@@ -165,17 +149,28 @@
             transform: translateX(5px);
         }
 
+        /* --- THE ACTIVE TAB STYLE (MATCHING THE HEADER) --- */
         .nav-tab.active {
-            background: linear-gradient(90deg, rgba(0, 247, 255, 0.15), transparent);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
+            /* The same gradient as the Header Hover */
+            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            border-color: transparent;
+            box-shadow: 0 5px 25px rgba(0, 247, 255, 0.4);
+            transform: scale(1.02);
         }
 
-        .tab-title { font-weight: 600; font-size: 1.1rem; }
+        .tab-title { font-weight: 600; font-size: 1.1rem; transition: color 0.3s; }
         .tab-algo { 
             font-size: 0.8rem; color: var(--accent-cyan); 
             font-family: 'JetBrains Mono', monospace;
+            transition: color 0.3s;
         }
+        .arrow-icon { color: var(--accent-cyan); transition: color 0.3s; }
+
+        /* Change text color inside Active Tab to Dark */
+        .nav-tab.active .tab-title { color: #0a0a12; }
+        .nav-tab.active .tab-algo { color: #004e52; font-weight: bold; }
+        .nav-tab.active .arrow-icon { color: #333; }
+
 
         /* RIGHT: Content Display Panel */
         .display-panel {
@@ -271,23 +266,23 @@
             <div class="nav-panel">
                 <div class="nav-tab active" onclick="selectModule(1)">
                     <div><div class="tab-title">GreenCorridor</div><div class="tab-algo">Dijkstra's Algo</div></div>
-                    <div style="color: var(--accent-cyan)">→</div>
+                    <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(2)">
                     <div><div class="tab-title">HydroGrid</div><div class="tab-algo">Prim's MST</div></div>
-                    <div>→</div>
+                    <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(3)">
                     <div><div class="tab-title">RapidExit</div><div class="tab-algo">BFS Search</div></div>
-                    <div>→</div>
+                    <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(4)">
                     <div><div class="tab-title">CargoMax</div><div class="tab-algo">Knapsack DP</div></div>
-                    <div>→</div>
+                    <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(5)">
                     <div><div class="tab-title">SwiftLink</div><div class="tab-algo">TSP Graph</div></div>
-                    <div>→</div>
+                    <div class="arrow-icon">→</div>
                 </div>
             </div>
 
@@ -433,8 +428,11 @@
 
     <script>
         function selectModule(id) {
+            // Remove active class from all tabs and content blocks
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.content-block').forEach(block => block.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
             document.querySelectorAll('.nav-tab')[id-1].classList.add('active');
             document.getElementById(`module-${id}`).classList.add('active');
         }
