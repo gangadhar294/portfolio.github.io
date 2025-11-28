@@ -61,7 +61,7 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. HEADER INTERACTION --- */
+        /* --- 2. HEADER INTERACTION (KEPT BRIGHT AS REQUESTED) --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -99,7 +99,7 @@
             transition: color 0.3s;
         }
 
-        /* HEADER HOVER EFFECT */
+        /* HEADER HOVER EFFECT - BRIGHT & BOLD */
         header:hover {
             background: linear-gradient(90deg, #ffffff, #00f7ff);
             border-color: transparent;
@@ -149,12 +149,12 @@
             transform: translateX(5px);
         }
 
-        /* --- THE ACTIVE TAB STYLE (MATCHING THE HEADER) --- */
+        /* --- UPDATED ACTIVE TAB STYLE (SOFTER LIGHT) --- */
         .nav-tab.active {
-            /* The same gradient as the Header Hover */
-            background: linear-gradient(90deg, #ffffff, #00f7ff);
-            border-color: transparent;
-            box-shadow: 0 5px 25px rgba(0, 247, 255, 0.4);
+            /* Changed from Solid White to Soft Transparent Cyan */
+            background: rgba(0, 247, 255, 0.15); 
+            border: 1px solid #00f7ff;
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2); /* Soft Glow */
             transform: scale(1.02);
         }
 
@@ -166,10 +166,13 @@
         }
         .arrow-icon { color: var(--accent-cyan); transition: color 0.3s; }
 
-        /* Change text color inside Active Tab to Dark */
-        .nav-tab.active .tab-title { color: #0a0a12; }
-        .nav-tab.active .tab-algo { color: #004e52; font-weight: bold; }
-        .nav-tab.active .arrow-icon { color: #333; }
+        /* Text stays Light (White/Blue) instead of turning Dark */
+        .nav-tab.active .tab-title { 
+            color: #ffffff; 
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.5); /* Glowing Text */
+        }
+        .nav-tab.active .tab-algo { color: #00f7ff; }
+        .nav-tab.active .arrow-icon { color: #ffffff; }
 
 
         /* RIGHT: Content Display Panel */
@@ -428,11 +431,8 @@
 
     <script>
         function selectModule(id) {
-            // Remove active class from all tabs and content blocks
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.content-block').forEach(block => block.classList.remove('active'));
-            
-            // Add active class to clicked tab and corresponding content
             document.querySelectorAll('.nav-tab')[id-1].classList.add('active');
             document.getElementById(`module-${id}`).classList.add('active');
         }
