@@ -38,7 +38,7 @@
             filter: blur(80px);
             animation: moveColors 20s ease-in-out infinite alternate;
         }
-        /* Subtle blueprint grid overlay */
+        
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -61,14 +61,19 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. NEW HEADER LAYOUT (Left Name, Right Info) --- */
+        /* --- 2. HEADER INTERACTION (The Specific Request) --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 60px;
-            padding-bottom: 30px;
+            /* Added padding/radius to make the hover effect look like a card */
+            padding: 30px; 
+            border-radius: 20px;
             border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            
+            /* Smooth Transition */
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .header-left h1 {
@@ -76,14 +81,11 @@
             font-size: 3.5rem;
             margin: 0;
             letter-spacing: 2px;
+            /* Default: Gradient Text */
             background: linear-gradient(90deg, #fff, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .header-right {
-            max-width: 500px;
-            text-align: right;
+            transition: all 0.3s;
         }
 
         .header-right h2 {
@@ -91,18 +93,49 @@
             color: var(--accent-cyan);
             margin: 0 0 15px 0;
             font-size: 1.5rem;
+            transition: color 0.3s;
         }
 
         .header-right p {
             color: var(--text-secondary);
             line-height: 1.6;
             margin: 0;
+            transition: color 0.3s;
+        }
+
+        /* === HOVER EFFECT START === */
+        header:hover {
+            /* The "Gangadhar Color" becomes the Background */
+            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            border-color: transparent;
+            box-shadow: 0 10px 50px rgba(0, 247, 255, 0.4);
+            transform: scale(1.02); /* Slight pop up */
+        }
+
+        /* Make text DARK on hover so it is readable against the bright background */
+        header:hover .header-left h1 {
+            -webkit-text-fill-color: #0a0a12; /* Dark Navy */
+        }
+
+        header:hover .header-right h2 {
+            color: #004e52; /* Dark Teal */
+        }
+
+        header:hover .header-right p {
+            color: #333333; /* Dark Grey */
+        }
+        /* === HOVER EFFECT END === */
+
+
+        .header-right {
+            max-width: 500px;
+            text-align: right;
         }
 
         /* --- 3. MAIN SPLIT-PANEL LAYOUT --- */
         .main-layout {
             display: grid;
-            grid-template-columns: 300px 1fr; /* Left Nav, Right Content */
+            grid-template-columns: 300px 1fr;
             gap: 40px;
             align-items: start;
         }
@@ -156,9 +189,8 @@
             backdrop-filter: blur(10px);
         }
 
-        /* The Content Blocks (Initially Hidden) */
         .content-block {
-            display: none; /* Hidden by default */
+            display: none;
             animation: fadeIn 0.5s ease-out;
         }
         .content-block.active { display: block; }
@@ -177,52 +209,26 @@
             padding-bottom: 20px;
         }
 
-        .block-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            margin: 0;
-        }
+        .block-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin: 0; }
+        .block-badge { background: var(--accent-purple); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
 
-        .block-badge {
-            background: var(--accent-purple);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
         .label {
-            color: var(--accent-cyan);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 10px;
+            color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem; text-transform: uppercase; display: block; margin-bottom: 10px;
         }
 
         .text-content p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 30px; }
 
         .logic-terminal {
-            background: #0d0d14;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-cyan);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #a0a0b0;
-            white-space: pre-wrap; /* Preserves spacing */
+            background: #0d0d14; padding: 20px; border-radius: 8px;
+            border-left: 3px solid var(--accent-cyan); font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem; color: #a0a0b0; white-space: pre-wrap;
         }
 
         .analysis-img {
-            width: 100%;
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.1);
+            width: 100%; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
@@ -232,7 +238,6 @@
         }
         .back-link:hover { color: var(--accent-cyan); }
 
-        /* Responsive Design */
         @media (max-width: 900px) {
             header { flex-direction: column; gap: 20px; }
             .header-right { text-align: left; }
@@ -265,38 +270,23 @@
             
             <div class="nav-panel">
                 <div class="nav-tab active" onclick="selectModule(1)">
-                    <div>
-                        <div class="tab-title">GreenCorridor</div>
-                        <div class="tab-algo">Dijkstra's Algo</div>
-                    </div>
+                    <div><div class="tab-title">GreenCorridor</div><div class="tab-algo">Dijkstra's Algo</div></div>
                     <div style="color: var(--accent-cyan)">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(2)">
-                    <div>
-                        <div class="tab-title">HydroGrid</div>
-                        <div class="tab-algo">Prim's MST</div>
-                    </div>
+                    <div><div class="tab-title">HydroGrid</div><div class="tab-algo">Prim's MST</div></div>
                     <div>→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(3)">
-                    <div>
-                        <div class="tab-title">RapidExit</div>
-                        <div class="tab-algo">BFS Search</div>
-                    </div>
+                    <div><div class="tab-title">RapidExit</div><div class="tab-algo">BFS Search</div></div>
                     <div>→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(4)">
-                    <div>
-                        <div class="tab-title">CargoMax</div>
-                        <div class="tab-algo">Knapsack DP</div>
-                    </div>
+                    <div><div class="tab-title">CargoMax</div><div class="tab-algo">Knapsack DP</div></div>
                     <div>→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(5)">
-                    <div>
-                        <div class="tab-title">SwiftLink</div>
-                        <div class="tab-algo">TSP Graph</div>
-                    </div>
+                    <div><div class="tab-title">SwiftLink</div><div class="tab-algo">TSP Graph</div></div>
                     <div>→</div>
                 </div>
             </div>
@@ -325,7 +315,6 @@
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                             
                             <img src="algo1.jpg" alt="Dijkstra Map" class="analysis-img">
                         </div>
                     </div>
@@ -352,10 +341,6 @@
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            
-
-[Image of minimum spanning tree]
-
                             <img src="algo2.jpg" alt="MST Diagram" class="analysis-img">
                         </div>
                     </div>
@@ -384,7 +369,6 @@
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            
                             <img src="algo3.jpg" alt="BFS Layers" class="analysis-img">
                         </div>
                     </div>
@@ -412,10 +396,6 @@
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                             
-
-[Image of knapsack problem illustration]
-
                             <img src="algo4.jpg" alt="DP Logic" class="analysis-img">
                         </div>
                     </div>
@@ -441,25 +421,21 @@
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            
                             <img src="algo5.jpg" alt="TSP Route" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
-            </div> </div> </div>
+            </div>
+
+        </div>
+    </div>
 
     <script>
         function selectModule(id) {
-            // 1. Remove 'active' from all tabs and content blocks
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.content-block').forEach(block => block.classList.remove('active'));
-
-            // 2. Add 'active' to the clicked tab
-            // Note: This assumes tabs are in order 1-5.
             document.querySelectorAll('.nav-tab')[id-1].classList.add('active');
-
-            // 3. Show the corresponding content block
             document.getElementById(`module-${id}`).classList.add('active');
         }
     </script>
