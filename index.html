@@ -4,260 +4,274 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAA City Design Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- STYLE: Dark Mode "Architectural" --- */
-        :root {
-            --bg-dark: #0f172a;
-            --text-light: #f8fafc;
-            --accent: #38bdf8; /* Cyan Blue */
-            --glass: rgba(30, 41, 59, 0.7);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
+        /* --- THE MAGIC: ANIMATED MIXED COLORS --- */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), 
-                              url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2613&auto=format&fit=crop'); /* High quality city background */
-            background-attachment: fixed;
-            background-size: cover;
+            font-family: 'Space Grotesk', sans-serif;
+            color: white;
+            /* This creates the moving color background */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Container */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* Header / Hero */
-        header {
+        /* Glassmorphism Card Style */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* Hero Section */
+        .hero {
             text-align: center;
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 60px;
+            padding: 60px 0;
         }
         
-        header h1 {
-            font-size: 3.5rem;
+        .hero h1 {
+            font-size: 4rem;
             margin: 0;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
             letter-spacing: -2px;
-            background: linear-gradient(90deg, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        header p {
-            color: #94a3b8;
-            font-size: 1.2rem;
-            margin-top: 15px;
+        .hero p {
+            font-size: 1.5rem;
             font-weight: 300;
+            margin-top: 10px;
+            opacity: 0.9;
         }
 
-        /* Sections */
-        section {
-            margin-bottom: 80px;
-        }
-
+        /* Section Titles */
         h2 {
-            font-size: 1.8rem;
-            border-left: 4px solid var(--accent);
-            padding-left: 20px;
-            margin-bottom: 30px;
-            color: white;
-        }
-
-        /* Glass Cards for Info */
-        .grid-box {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            padding: 25px;
-            border-radius: 12px;
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .card h3 {
+            font-size: 2rem;
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            padding-bottom: 10px;
             margin-top: 0;
-            color: var(--accent);
+            display: inline-block;
+        }
+
+        /* Course Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .info-item strong {
+            display: block;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+        
+        .info-item span {
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
-        .card p {
-            margin: 5px 0 0 0;
+        /* Project & Chart */
+        .project-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .project-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .project-text ul {
+            padding-left: 20px;
+        }
+        
+        .project-text li {
+            margin-bottom: 15px;
             font-size: 1.1rem;
         }
 
-        /* The Chart Image */
-        .project-showcase {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 16px;
+        .chart-container {
+            flex: 1;
+            min-width: 300px;
             text-align: center;
         }
 
-        .project-showcase img {
+        .chart-container img {
             max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 15px;
+            border: 5px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .chart-container img:hover {
+            transform: scale(1.02);
+            border-color: rgba(255,255,255,0.8);
         }
 
-        .caption {
-            margin-top: 15px;
-            color: #94a3b8;
-            font-style: italic;
-        }
-
-        /* Team Section - Clean List */
-        .team-list {
+        /* Team Cards */
+        .team-grid {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-
-        .team-member {
-            background: rgba(255,255,255,0.05);
+        
+        .team-card {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(0,0,0,0.2);
             padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid transparent;
+            border-radius: 15px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        
+        .team-card:hover {
+            background: rgba(255,255,255,0.2);
         }
 
-        .team-member:hover {
-            border-color: var(--accent);
-            background: rgba(255,255,255,0.08);
-        }
-
-        .team-member a {
-            color: var(--accent);
+        .team-card h3 { margin: 10px 0 5px 0; }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: white;
+            color: #333;
             text-decoration: none;
+            border-radius: 30px;
             font-weight: bold;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.1);
+            background: #fff;
+            color: #e73c7e;
         }
 
-        /* Footer */
         footer {
             text-align: center;
-            padding: 40px;
-            color: #64748b;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
+            padding: 20px;
+            opacity: 0.6;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
-        <header>
-            <h1>CITY DESIGN PORTFOLIO</h1>
-            <p>Design & Analysis of Algorithms | 2025</p>
+
+        <header class="hero">
+            <h1>DAA PORTFOLIO</h1>
+            <p>Algorithmic City Design & Analysis</p>
         </header>
 
-        <section>
-            <h2>Academic Context</h2>
-            <div class="grid-box">
-                <div class="card">
-                    <h3>Course</h3>
-                    <p>DAA</p>
+        <div class="glass-panel">
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Course</strong>
+                    <span>Algorithms</span>
                 </div>
-                <div class="card">
-                    <h3>Course Code</h3>
-                    <p>24ECXXX</p>
+                <div class="info-item">
+                    <strong>Code</strong>
+                    <span>24ECXXX</span>
                 </div>
-                <div class="card">
-                    <h3>University</h3>
-                    <p>KLE Technological University</p>
+                <div class="info-item">
+                    <strong>University</strong>
+                    <span>KLE Tech</span>
                 </div>
-                <div class="card">
-                    <h3>Instructor</h3>
-                    <p>Prof. Name</p>
+                <div class="info-item">
+                    <strong>Instructor</strong>
+                    <span>Prof. Name</span>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section>
-            <h2>Project Overview</h2>
-            <div class="project-showcase">
-                <p style="text-align: left; margin-bottom: 20px; line-height: 1.8;">
-                    This portfolio presents the algorithmic design for a sustainable smart city. 
-                    We focused on optimizing urban infrastructure using graph algorithms, sorting techniques, 
-                    and efficient data structures.
-                </p>
-
-                <div class="grid-box" style="text-align: left; margin-bottom: 30px;">
-                    <div class="card">
-                        <h3>Problem 1</h3>
-                        <p>Traffic Congestion Control (Dijkstra's)</p>
-                    </div>
-                    <div class="card">
-                        <h3>Problem 2</h3>
-                        <p>Water Pipe Distribution (Kruskal's)</p>
-                    </div>
-                    <div class="card">
-                        <h3>Problem 3</h3>
-                        <p>Emergency Services (BFS/DFS)</p>
-                    </div>
+        <div class="glass-panel">
+            <h2>🏙️ Project Overview</h2>
+            <div class="project-content">
+                <div class="project-text">
+                    <p>
+                        We have designed a city layout that prioritizes efficiency and sustainability. 
+                        By applying core Data Structures and Algorithms, we solved key urban challenges:
+                    </p>
+                    <ul>
+                        <li><strong>Shortest Path (Dijkstra):</strong> Used for optimizing ambulance and fire brigade routes.</li>
+                        <li><strong>Minimum Spanning Tree (Prim's):</strong> Used for laying out cost-effective water pipelines.</li>
+                        <li><strong>Sorting (Merge Sort):</strong> Used for categorizing residential vs commercial zones efficiently.</li>
+                    </ul>
                 </div>
-
-                <img src="chart.jpg" alt="Project Design Chart">
-                <div class="caption">Figure 1: Architectural Flowchart of the City Design</div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Team Members</h2>
-            <div class="team-list">
                 
-                <div class="team-member">
-                    <div>
-                        <strong style="font-size: 1.1rem;">Gangadhar</strong>
-                        <span style="color: #64748b; margin-left: 10px;">(Team Lead)</span>
-                    </div>
-                    <a href="#">View Portfolio &rarr;</a>
+                <div class="chart-container">
+                    <img src="chart.jpg" alt="City Design Flowchart">
+                    <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">Figure 1: System Architecture</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel">
+            <h2>👥 The Team</h2>
+            <div class="team-grid">
+                
+                <div class="team-card">
+                    <h3>Gangadhar</h3>
+                    <p>Team Lead</p>
+                    <a href="#" class="btn">View Profile</a>
                 </div>
 
-                <div class="team-member">
-                    <div>
-                        <strong style="font-size: 1.1rem;">Member Name</strong>
-                        <span style="color: #64748b; margin-left: 10px;">(SRN: 002)</span>
-                    </div>
-                    <a href="https://friend.github.io">View Portfolio &rarr;</a>
+                <div class="team-card">
+                    <h3>Member Name</h3>
+                    <p>SRN: 002</p>
+                    <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
 
-                <div class="team-member">
-                    <div>
-                        <strong style="font-size: 1.1rem;">Member Name</strong>
-                        <span style="color: #64748b; margin-left: 10px;">(SRN: 003)</span>
-                    </div>
-                    <a href="https://friend.github.io">View Portfolio &rarr;</a>
+                <div class="team-card">
+                    <h3>Member Name</h3>
+                    <p>SRN: 003</p>
+                    <a href="https://friend.github.io" class="btn">View Profile</a>
+                </div>
+
+                <div class="team-card">
+                    <h3>Member Name</h3>
+                    <p>SRN: 004</p>
+                    <a href="https://friend.github.io" class="btn">View Profile</a>
                 </div>
 
             </div>
-        </section>
+        </div>
 
         <footer>
-            &copy; 2025 City Design Project.
+            Created for DAA Course 2025 | Hosted on GitHub Pages
         </footer>
 
     </div>
