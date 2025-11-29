@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vikas | City Architect Portfolio</title>
+    <title>Team Member | City Architect Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. GLOBAL SETTINGS --- */
+        /* --- 1. GLOBAL SETTINGS (COLOR CHANGED: CRIMSON & ORANGE) --- */
         :root {
-            --accent-cyan: #00f7ff;
-            --accent-blue: #bd00ff;
+            --accent-main: #ff2a6d;  /* Neon Crimson/Pink */
+            --accent-sec: #ffae00;   /* Bright Orange */
             --bg-dark: #0a0a12;
-            --panel-bg: rgba(20, 20, 35, 0.8);
+            --panel-bg: rgba(35, 20, 25, 0.8); /* Slight reddish tint */
             --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
+            --text-secondary: #b0a0a0;
         }
 
         body {
@@ -31,9 +31,10 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
+            /* Update gradients to Red/Orange */
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.15), transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(189, 0, 255, 0.15), transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(255, 42, 109, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 174, 0, 0.15), transparent 50%);
             filter: blur(80px);
             animation: moveColors 20s ease-in-out infinite alternate;
         }
@@ -43,8 +44,8 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background-image: 
-                linear-gradient(rgba(0, 247, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 247, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(255, 42, 109, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 42, 109, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
             opacity: 0.5;
         }
@@ -68,7 +69,7 @@
             margin-bottom: 60px;
             padding: 30px; 
             border-radius: 20px;
-            border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 42, 109, 0.2);
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -77,27 +78,27 @@
             font-size: 3.5rem;
             margin: 0;
             letter-spacing: 2px;
-            background: linear-gradient(90deg, #fff, var(--accent-cyan));
+            background: linear-gradient(90deg, #fff, var(--accent-main));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             transition: all 0.3s;
         }
 
-        .header-right h2 { font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); margin: 0 0 15px 0; font-size: 1.5rem; transition: color 0.3s; }
+        .header-right h2 { font-family: 'Orbitron', sans-serif; color: var(--accent-main); margin: 0 0 15px 0; font-size: 1.5rem; transition: color 0.3s; }
         .header-right p { color: var(--text-secondary); line-height: 1.6; margin: 0; transition: color 0.3s; }
 
         header:hover {
-            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            background: linear-gradient(90deg, #ffffff, #ff2a6d);
             border-color: transparent;
-            box-shadow: 0 10px 50px rgba(0, 247, 255, 0.4);
+            box-shadow: 0 10px 50px rgba(255, 42, 109, 0.4);
             transform: scale(1.02);
         }
         header:hover .header-left h1 { -webkit-text-fill-color: #0a0a12; }
-        header:hover .header-right h2 { color: #004e52; }
+        header:hover .header-right h2 { color: #520015; }
         header:hover .header-right p { color: #333333; }
         .header-right { max-width: 500px; text-align: right; }
 
-        /* --- 3. LAYOUT --- */
+        /* --- 3. SPLIT LAYOUT --- */
         .main-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -125,27 +126,27 @@
         }
 
         .tab-title { font-weight: 600; font-size: 1.1rem; color: white; transition: color 0.3s;}
-        .tab-algo { font-size: 0.8rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; transition: color 0.3s;}
-        .arrow-icon { color: var(--accent-cyan); transition: color 0.3s;}
+        .tab-algo { font-size: 0.8rem; color: var(--accent-main); font-family: 'JetBrains Mono', monospace; transition: color 0.3s;}
+        .arrow-icon { color: var(--accent-main); transition: color 0.3s;}
 
         .nav-tab:not(.active):hover {
-            background: linear-gradient(90deg, #ffffff, #00f7ff);
+            background: linear-gradient(90deg, #ffffff, #ff2a6d);
             border-color: transparent;
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 42, 109, 0.3);
             transform: scale(1.03) translateX(10px);
         }
         .nav-tab:not(.active):hover .tab-title { color: #0a0a12; }
-        .nav-tab:not(.active):hover .tab-algo { color: #004e52; font-weight: bold; }
+        .nav-tab:not(.active):hover .tab-algo { color: #520015; font-weight: bold; }
         .nav-tab:not(.active):hover .arrow-icon { color: #333; }
 
         .nav-tab.active {
-            background: rgba(0, 247, 255, 0.15); 
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
+            background: rgba(255, 42, 109, 0.15); 
+            border-color: var(--accent-main);
+            box-shadow: 0 0 15px rgba(255, 42, 109, 0.2);
             transform: scale(1.0);
         }
         .nav-tab.active .tab-title { color: white; }
-        .nav-tab.active .tab-algo { color: var(--accent-cyan); }
+        .nav-tab.active .tab-algo { color: var(--accent-main); }
 
         /* --- 5. CONTENT DISPLAY --- */
         .display-panel {
@@ -171,17 +172,17 @@
             background: rgba(0, 0, 0, 0.3);
             padding: 20px;
             border-radius: 15px;
-            border: 1px solid rgba(0, 247, 255, 0.3);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.05);
+            border: 1px solid rgba(255, 42, 109, 0.3);
+            box-shadow: 0 0 15px rgba(255, 42, 109, 0.05);
         }
 
         .block-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin: 0; color: white; }
-        .block-badge { background: var(--accent-purple); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+        .block-badge { background: var(--accent-sec); color: #0a0a12; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
         .label {
-            color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-main); font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem; text-transform: uppercase; display: block; margin-bottom: 10px; margin-top: 20px;
         }
 
@@ -189,8 +190,8 @@
 
         .logic-terminal {
             background: #0d0d14; padding: 20px; border-radius: 8px;
-            border-left: 3px solid var(--accent-cyan); font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem; color: #a0a0b0; white-space: pre-wrap; margin-top: 20px;
+            border-left: 3px solid var(--accent-main); font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem; color: #b0a0a0; white-space: pre-wrap; margin-top: 20px;
         }
 
         .analysis-img {
@@ -202,7 +203,7 @@
             display: inline-block; margin-bottom: 20px;
             color: var(--text-secondary); text-decoration: none;
         }
-        .back-link:hover { color: var(--accent-cyan); }
+        .back-link:hover { color: var(--accent-main); }
 
         @media (max-width: 900px) {
             header { flex-direction: column; gap: 20px; }
@@ -224,11 +225,11 @@
 
         <header>
             <div class="header-left">
-                <h1>Gangadhar</h1>
+                <h1>Member Name</h1>
             </div>
             <div class="header-right">
-                <h2>DAA Portfolio</h2>
-                <p>As per our City Design i have provided the solution for major and core problems of our City . Below is my technical analysis , logic and algorithms.</p>
+                <h2>Infrastructure Engineer</h2>
+                <p>Specializing in disaster recovery algorithms and high-availability urban network design.</p>
             </div>
         </header>
 
@@ -236,23 +237,23 @@
             
             <div class="nav-panel">
                 <div class="nav-tab active" onclick="selectModule(1)">
-                    <div><div class="tab-title">Green Wave</div><div class="tab-algo">Dijkstra's Algo</div></div>
+                    <div><div class="tab-title">Module 1 Name</div><div class="tab-algo">Algorithm Used</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(2)">
-                    <div><div class="tab-title">Water Grid</div><div class="tab-algo">Prim's MST</div></div>
+                    <div><div class="tab-title">Module 2 Name</div><div class="tab-algo">Algorithm Used</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(3)">
-                    <div><div class="tab-title">Disaster Safety</div><div class="tab-algo">BFS Search</div></div>
+                    <div><div class="tab-title">Module 3 Name</div><div class="tab-algo">Algorithm Used</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(4)">
-                    <div><div class="tab-title">Port Profit</div><div class="tab-algo">Knapsack DP</div></div>
+                    <div><div class="tab-title">Module 4 Name</div><div class="tab-algo">Algorithm Used</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(5)">
-                    <div><div class="tab-title">E-commerce Delivery</div><div class="tab-algo">TSP Graph</div></div>
+                    <div><div class="tab-title">Module 5 Name</div><div class="tab-algo">Algorithm Used</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
             </div>
@@ -261,167 +262,120 @@
                 
                 <div class="content-block active" id="module-1">
                     <div class="block-header">
-                        <h3 class="block-title">GreenCorridor Protocol</h3>
-                        <span class="block-badge">Dijkstra</span>
+                        <h3 class="block-title">Module 1 Title</h3>
+                        <span class="block-badge">Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Traffic congestion is a critical failure point. In our layout, the route between the <strong>Industrial Area</strong> and <strong>Hospital</strong> passes through the high-density Stadium junction. During match days, delays increase by 400%. We needed a system that mathematically guarantees the fastest route based on real-time sensors.</p>
+                            <p>Describe the city problem here...</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Nodes:</strong> Intersections. <strong>Edges:</strong> Roads. <strong>Weights:</strong> Traversal Cost (Distance + Congestion Factor).</p>
+                            <p>Nodes: X, Edges: Y, Weights: Z...</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>We selected <strong>Dijkstra’s Algorithm</strong> because time weights are non-negative. Unlike BFS, it handles weighted edges. Time Complexity is <strong>O(E log V)</strong> using a Priority Queue.</p>
+                            <p>Why this algorithm was chosen and its complexity...</p>
 
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> INIT all distances = Infinity, Source = 0
-> PUSH Source to Min-Priority Queue
-> WHILE Queue not empty:
-    u = Extract Min
-    FOR v in neighbors(u):
-      IF Time[u] + RoadWeight < Time[v]:
-        Time[v] = New_Time
-        Parent[v] = u
-> BACKTRACK from Hospital to Source to trigger GREEN lights.</div>
+                            <div class="logic-terminal">> PSEUDOCODE STEP 1
+> PSEUDOCODE STEP 2
+> PSEUDOCODE STEP 3</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo1.jpg" alt="Dijkstra Map" class="analysis-img">
+                            <img src="algo1.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-2">
                     <div class="block-header">
-                        <h3 class="block-title">HydroGrid Network</h3>
-                        <span class="block-badge">Prim's MST</span>
+                        <h3 class="block-title">Module 2 Title</h3>
+                        <span class="block-badge">Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Providing water to the remote <strong>High Altitude Zone</strong> is expensive. Laying pipelines costs ₹10k/meter. The goal was to design a network connecting every zone to the Water Treatment Plant using the <strong>minimum total length</strong> of pipes, ensuring no zone is left dry.</p>
-
+                            <p>Describe the city problem here...</p>
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Nodes:</strong> Zones (Residential, Zoo, etc). <strong>Edges:</strong> Pipeline routes. <strong>Weights:</strong> Construction cost based on distance/terrain.</p>
-
+                            <p>Nodes: X, Edges: Y...</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>We utilized <strong>Prim’s Algorithm</strong> to build a Minimum Spanning Tree (MST). This guarantees all nodes are connected with V-1 edges and zero loops (preserving pressure).</p>
-
+                            <p>Details...</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> START at Water Treatment Plant
-> MAINTAIN Min-Heap of pipe connections
-> WHILE Visited_Count < Total_Zones:
-    Pick pipe with MIN cost connecting Visited -> Unvisited
-    Add pipe to Network
-    Mark new zone as Visited
-> RESULT: Lowest Cost Infrastructure.</div>
+                            <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo2.jpg" alt="MST Diagram" class="analysis-img">
+                            <img src="algo2.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-3">
                     <div class="block-header">
-                        <h3 class="block-title">RapidExit System</h3>
-                        <span class="block-badge">BFS</span>
+                        <h3 class="block-title">Module 3 Title</h3>
+                        <span class="block-badge">Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>The <strong>Port</strong> and <strong>Beach</strong> are vulnerable to Tsunamis. In a disaster, thousands need to flee to the High Altitude safe zone. Standard GPS routes everyone to the main highway, causing gridlock. We needed a multi-path evacuation model.</p>
-
+                            <p>Problem description...</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Modeled as an <strong>Unweighted Grid Graph</strong>. <strong>Goal:</strong> Find path with fewest "hops" (street crossings) to safety.</p>
-
+                            <p>Details...</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Breadth-First Search (BFS)</strong> explores layer-by-layer. It mimics flood spread and guarantees the shortest path in unweighted graphs. Time Complexity: <strong>O(V + E)</strong>.</p>
-
+                            <p>Details...</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> ENQUEUE Danger Zone (Port)
-> MARK as Visited
-> WHILE Queue not empty:
-    Current = Dequeue
-    CHECK neighbors (N, S, E, W)
-    IF Unvisited:
-      Record Distance from Danger
-      Set Flow Direction -> Away
-      Enqueue Neighbor
-> GENERATE Heat Map of escape routes.</div>
+                            <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo3.jpg" alt="BFS Layers" class="analysis-img">
+                            <img src="algo3.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-4">
                     <div class="block-header">
-                        <h3 class="block-title">CargoMax Optimizer</h3>
-                        <span class="block-badge">Knapsack DP</span>
+                        <h3 class="block-title">Module 4 Title</h3>
+                        <span class="block-badge">Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>The <strong>Port</strong> storage yard has fixed capacity. Ships arrive with varied containers: Electronics (Low weight, High profit) vs Raw Materials (High weight, Low profit). We must select the subset that fits the limit while generating <strong>maximum profit</strong>.</p>
-
+                            <p>Problem description...</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Combinatorial Optimization. <strong>Items:</strong> Containers. <strong>Constraint:</strong> Max Capacity W. <strong>Objective:</strong> Maximize Value.</p>
-
+                            <p>Details...</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Used <strong>0/1 Knapsack (Dynamic Programming)</strong>. Greedy fails here. DP explores all "Take or Leave" combinations. Complexity: <strong>O(N * W)</strong>.</p>
-
+                            <p>Details...</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> CREATE Table DP[Item][Capacity]
-> FOR each Container:
-    IF Weight > Current_Capacity:
-      Value = Previous_State
-    ELSE:
-      Value = MAX(
-        Profit + DP[Prev_Item][Rem_Cap],
-        DP[Prev_Item][Current_Cap]
-      )
-> CELL[N][W] contains Max Profit.</div>
+                            <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo4.jpg" alt="DP Logic" class="analysis-img">
+                            <img src="algo4.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-5">
                     <div class="block-header">
-                        <h3 class="block-title">SwiftLink Delivery</h3>
-                        <span class="block-badge">TSP Graph</span>
+                        <h3 class="block-title">Module 5 Title</h3>
+                        <span class="block-badge">Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Logistics trucks start at the <strong>Warehouse</strong> and must visit the <strong>University</strong>, <strong>Market</strong>, and <strong>Residential</strong> zones to drop parcels before returning. Driving randomly wastes fuel. We needed the single most efficient loop.</p>
-
+                            <p>Problem description...</p>
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Complete Weighted Graph</strong>. Nodes are delivery drops. Weights are distances. Goal: Hamiltonian Cycle with min weight.</p>
-
+                            <p>Details...</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Traveling Salesman Problem (TSP)</strong>. For small N, we use Held-Karp (DP + Bitmasking). Complexity: <strong>O(N^2 * 2^N)</strong>.</p>
-
+                            <p>Details...</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> REPRESENT Visited Set as Bitmask
-> DP(mask, pos) = Min cost to visit set 'mask' ending at 'pos'
-> TRANSITION:
-    Try moving to every unvisited city 'next'
-    Recursive Call: DP(mask | next, next)
-> ADD return distance to Warehouse.</div>
+                            <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo5.jpg" alt="TSP Route" class="analysis-img">
+                            <img src="algo5.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
                 </div>
@@ -436,7 +390,7 @@
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.content-block').forEach(block => block.classList.remove('active'));
             document.querySelectorAll('.nav-tab')[id-1].classList.add('active');
-            document.getElementById(module-${id}).classList.add('active');
+            document.getElementById(`module-${id}`).classList.add('active');
         }
     </script>
 
