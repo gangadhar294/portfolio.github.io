@@ -83,7 +83,7 @@
         
         .interactive-card {
             flex: 1; 
-            min-width: 200px; /* Adjusted slightly to fit 4 better */
+            min-width: 200px;
             background: rgba(0,0,0,0.2);
             padding: 25px;
             border-radius: 15px;
@@ -181,7 +181,7 @@
                 </div>
                 <div class="info-item">
                     <strong>University</strong>
-                    <span>KLE Tech </span>
+                    <span>KLE Tech</span>
                 </div>
                 <div class="info-item">
                     <strong>Instructor</strong>
@@ -191,35 +191,41 @@
         </div>
 
         <div class="glass-panel hidden">
-            <h2>🏙️ Project Overview</h2>
+            <h2>🎓 Course Learning Outcomes</h2>
             <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
-                We designed a smart city framework. We broke down the urban infrastructure into nodes and edges 
-                to apply efficient algorithmic solutions. Here are the core modules:
+                This project implements the core concepts learned in the <strong>Design and Analysis of Algorithms (DAA)</strong> course. 
+                We explored how to solve complex real-world problems using mathematical modeling and efficiency analysis.
             </p>
 
             <div class="card-grid">
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Module 01</span>
-                    <h3>Traffic Optimization</h3>
-                    <p>Using <strong>Dijkstra's Algorithm</strong> to find shortest paths for ambulances and reducing congestion.</p>
+                    <span class="project-tag">Concept 01</span>
+                    <h3>Graph Theory</h3>
+                    <p>Understanding <strong>DFS, BFS, and Shortest Paths</strong> to model network connectivity and city routing.</p>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Module 02</span>
-                    <h3>Water Distribution</h3>
-                    <p>Applied <strong>Prim's Algorithm (MST)</strong> to connect all houses with pipes using minimum wire length.</p>
+                    <span class="project-tag">Concept 02</span>
+                    <h3>Optimization</h3>
+                    <p>Using <strong>Greedy and Dynamic Programming</strong> techniques to maximize resources (Space/Cost) efficiently.</p>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Module 03</span>
-                    <h3>Zoning & Sorting</h3>
-                    <p>Utilized <strong>Merge Sort</strong> to organize commercial vs residential data efficiently for city planning.</p>
+                    <span class="project-tag">Concept 03</span>
+                    <h3>Time Complexity</h3>
+                    <p>Applying <strong>Asymptotic Analysis (Big-O)</strong> to ensure our algorithms scale well for large city datasets.</p>
                 </div>
             </div>
+        </div>
 
+        <div class="glass-panel hidden">
+            <h2>🏙️ Project Architecture</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                Applying the course concepts above, we designed a smart city framework. Below is the architectural flowchart:
+            </p>
             <div class="chart-container hidden">
-                <img src="chart.png" alt="City Design Chart">
-                <p style="margin-top: 15px; opacity: 0.7;">Figure : City  Design  Map/Plan</p>
+                <img src="chart.png" alt="City Design Flowchart">
+                <p style="margin-top: 15px; opacity: 0.7;">Figure 1: Algorithmic City Design</p>
             </div>
         </div>
 
@@ -249,10 +255,10 @@
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Member</span>
+                    <span class="project-tag">Lead</span>
                     <h3>Gangadhar</h3>
-                    <p> SRN: 01FE24BCS294 </p>
-                    <a href="member4.html" class="btn">View Profile</a>
+                    <p>SRN: 01FE24BCS294</p>
+                    <a href="member.html" class="btn">View Profile</a>
                 </div>
 
             </div>
@@ -267,7 +273,6 @@
     <script>
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
-                console.log(entry)
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
                 }
