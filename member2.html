@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. GLOBAL SETTINGS (COLOR CHANGED: CRIMSON & ORANGE) --- */
+        /* --- 1. GLOBAL SETTINGS (THEME: CRIMSON & ORANGE) --- */
         :root {
             --accent-main: #ff2a6d;  /* Neon Crimson/Pink */
             --accent-sec: #ffae00;   /* Bright Orange */
@@ -31,7 +31,6 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            /* Update gradients to Red/Orange */
             background: 
                 radial-gradient(circle at 20% 30%, rgba(255, 42, 109, 0.15), transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(255, 174, 0, 0.15), transparent 50%);
@@ -237,23 +236,27 @@
             
             <div class="nav-panel">
                 <div class="nav-tab active" onclick="selectModule(1)">
-                    <div><div class="tab-title">Logistic Transportation</div><div class="tab-algo">Algorithm Used</div></div>
+                    <div><div class="tab-title">Logistic Transport</div><div class="tab-algo">Dijkstra / TSP</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
-                <div class="nav-tab active" onclick="selectModule(2)">
-                    <div><div class="tab-title">Bank Management</div><div class="tab-algo">Algorithm Used</div></div>
+
+                <div class="nav-tab" onclick="selectModule(2)">
+                    <div><div class="tab-title">Bank Management</div><div class="tab-algo">Hashing / Security</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
-                <div class="nav-tab active" onclick="selectModule(3)">
-                    <div><div class="tab-title">Data Management Of Companies</div><div class="tab-algo">Algorithm Used</div></div>
+
+                <div class="nav-tab" onclick="selectModule(3)">
+                    <div><div class="tab-title">Data Management</div><div class="tab-algo">B-Trees / SQL</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
-                <div class="nav-tab active" onclick="selectModule(4)">
-                    <div><div class="tab-title">Entertainment-cinemas,games etc</div><div class="tab-algo">Algorithm Used</div></div>
+
+                <div class="nav-tab" onclick="selectModule(4)">
+                    <div><div class="tab-title">Entertainment</div><div class="tab-algo">Sorting / Recommender</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
-                <div class="nav-tab active" onclick="selectModule(5)">
-                    <div><div class="tab-title">Vehicle Garages</div><div class="tab-algo">Algorithm Used</div></div>
+
+                <div class="nav-tab" onclick="selectModule(5)">
+                    <div><div class="tab-title">Vehicle Garages</div><div class="tab-algo">Stack / Queue</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
             </div>
@@ -262,120 +265,122 @@
                 
                 <div class="content-block active" id="module-1">
                     <div class="block-header">
-                        <h3 class="block-title">Module 1 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Logistic Transportation</h3>
+                        <span class="block-badge">Dijkstra / TSP</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Describe the city problem here...</p>
+                            <p>Optimizing the flow of goods from the Industrial Zone to the Market and Port is essential. Delays cause economic loss. We need to find the most efficient routes for heavy transport vehicles.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: X, Edges: Y, Weights: Z...</p>
+                            <p><strong>Nodes:</strong> Warehouses, Markets, Ports. <strong>Edges:</strong> Roads. <strong>Weights:</strong> Distance/Cost.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>Why this algorithm was chosen and its complexity...</p>
+                            <p><strong>Dijkstra's Algorithm</strong> determines the shortest path for single deliveries, while the <strong>Traveling Salesman Problem (TSP)</strong> optimizes multi-stop delivery routes.</p>
 
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> PSEUDOCODE STEP 1
-> PSEUDOCODE STEP 2
-> PSEUDOCODE STEP 3</div>
+                            <div class="logic-terminal">> INPUT: Delivery Points Graph
+> IF Single Drop: Apply Dijkstra(Source, Dest)
+> IF Multi Drop: Apply TSP(Points)
+> OUTPUT: Optimized Route Sequence</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo1.jpg" alt="Analysis Map" class="analysis-img">
+                            <img src="algo1.jpg" alt="Transport Map" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-2">
                     <div class="block-header">
-                        <h3 class="block-title">Module 2 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Bank Management</h3>
+                        <span class="block-badge">Hashing / Security</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Describe the city problem here...</p>
-                            <span class="label">Graph Modeling</span>
-                            <p>Nodes: X, Edges: Y...</p>
+                            <p>Managing thousands of customer accounts and transactions securely requires instant access and verification to prevent fraud and delays in the financial district.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p><strong>Hashing</strong> allows O(1) access to account details. <strong>RSA Encryption</strong> ensures secure transactions between the bank and vendors.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> HASH(AccountID) -> Memory Address
+> Encrypt(Transaction) -> Secure Block
+> Verify Signature -> Approve</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo2.jpg" alt="Analysis Map" class="analysis-img">
+                            <img src="algo2.jpg" alt="Bank Logic" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-3">
                     <div class="block-header">
-                        <h3 class="block-title">Module 3 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Data Management</h3>
+                        <span class="block-badge">B-Trees / Indexing</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
-                            <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Corporate zones generate massive datasets. Companies need to store, retrieve, and query employee and product data efficiently without system lag.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p><strong>B-Trees</strong> or <strong>B+ Trees</strong> are used for database indexing, ensuring log(n) search, insertion, and deletion times even for massive datasets.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> INPUT: Employee Record
+> INSERT into B-Tree Structure
+> BALANCE Tree properties
+> SEARCH: Traverse Nodes < log(n)</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo3.jpg" alt="Analysis Map" class="analysis-img">
+                            <img src="algo3.jpg" alt="Data Structure" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-4">
                     <div class="block-header">
-                        <h3 class="block-title">Module 4 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Entertainment (Cinemas/Games)</h3>
+                        <span class="block-badge">Sorting / Recommender</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
-                            <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>The Entertainment District needs to manage ticket bookings, sort movie listings by popularity, and recommend games/movies to users based on preferences.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p><strong>Merge Sort</strong> organizes listings efficiently. <strong>Collaborative Filtering</strong> (Matrix Factorization) suggests content to users.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> SORT Movies BY Rating (Merge Sort)
+> MATCH User_Profile WITH Content_Vector
+> RECOMMEND Top 5 Items</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo4.jpg" alt="Analysis Map" class="analysis-img">
+                            <img src="algo4.jpg" alt="Entertainment Logic" class="analysis-img">
                         </div>
                     </div>
                 </div>
 
                 <div class="content-block" id="module-5">
                     <div class="block-header">
-                        <h3 class="block-title">Module 5 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Vehicle Garages</h3>
+                        <span class="block-badge">Stack / Queue</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
-                            <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Parking garages in the city center are limited. We need an automated system to manage car entry/exit (LIFO for stacked parking, FIFO for service lanes).</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p><strong>Stack</strong> is used for narrow parking slots (Last-In-First-Out). <strong>Queue</strong> is used for the car wash/service line (First-In-First-Out).</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> IF Parking: PUSH to Stack
+> IF Retrieving: POP from Stack
+> IF Service: ENQUEUE to Line</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo5.jpg" alt="Analysis Map" class="analysis-img">
+                            <img src="algo5.jpg" alt="Garage Logic" class="analysis-img">
                         </div>
                     </div>
                 </div>
