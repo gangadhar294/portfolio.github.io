@@ -194,7 +194,7 @@
             transform: translateX(-50%);
         }
 
-        /* The Walker Character */
+        /* The Walker Container (Holds SVG + Text) */
         .wall-walker {
             position: absolute;
             top: 0; 
@@ -202,15 +202,25 @@
             width: 44px; 
             height: 44px;
             margin-left: -22px; 
-            transition: top 0.1s linear, transform 0.3s ease;
+            transition: top 0.1s linear; /* Only animate position here */
             filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
         }
 
-        /* The Text Bubble - Hidden by Default */
+        /* We rotate the SVG independently, NOT the container.
+           This keeps the tooltip stable on the left side.
+        */
+        .wall-walker svg {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        /* The Text Bubble */
         .walker-tooltip {
             position: absolute;
-            right: 50px;
-            top: 10px;
+            /* Anchored firmly to the left of the character */
+            right: 55px; 
+            top: 8px;
             background: #ffffff;
             color: #000;
             padding: 8px 12px;
@@ -218,10 +228,11 @@
             font-size: 0.8rem;
             font-weight: bold;
             white-space: nowrap;
-            opacity: 0; /* HIDDEN INITIALLY */
+            opacity: 0; /* Hidden by default */
             transform: translateX(10px);
             transition: all 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            pointer-events: none; /* Let clicks pass through */
         }
 
         .walker-tooltip::after {
@@ -235,27 +246,33 @@
             border-color: transparent transparent transparent #ffffff;
         }
 
-        /* Class to show tooltip */
-        .show-tooltip .walker-tooltip {
+        /* --- VISIBILITY STATES --- */
+
+        /* Show Tooltip Class */
+        .wall-walker.show-tooltip .walker-tooltip {
             opacity: 1;
             transform: translateX(0);
         }
 
-        /* Special Bottom Message Style */
-        .show-tooltip.bottom-msg .walker-tooltip {
+        /* Bottom State (Gold Color) */
+        .wall-walker.near-bottom .walker-tooltip {
             background: #FFD700; 
         }
-        .show-tooltip.bottom-msg .walker-tooltip::after {
+        .wall-walker.near-bottom .walker-tooltip::after {
             border-color: transparent transparent transparent #FFD700;
         }
 
+        /* --- SVG ROTATION CLASSES --- */
+        .wall-walker.face-down svg {
+            transform: rotate(180deg);
+        }
+        .wall-walker.face-up svg {
+            transform: rotate(0deg);
+        }
+
         /* Leg Animation - FIXED PIVOT POINTS */
-        .leg-left {
-            transform-origin: 22px 35px; /* Pivot exactly at the hip */
-        }
-        .leg-right {
-            transform-origin: 28px 35px; /* Pivot exactly at the hip */
-        }
+        .leg-left { transform-origin: 22px 35px; }
+        .leg-right { transform-origin: 28px 35px; }
         
         .wall-walker.walking .leg-left {
             animation: walkLeg 0.2s infinite alternate;
@@ -282,15 +299,11 @@
                 <rect x="18" y="20" width="14" height="15" fill="#0056b3" rx="3" />
                 <rect x="23" y="15" width="4" height="6" fill="#f0d5b1" />
                 <circle cx="25" cy="14" r="7" fill="#f0d5b1" />
-                
                 <path d="M 16 12 Q 25 2 34 12 L 36 12 L 36 14 L 14 14 L 14 12 Z" fill="#FFD700" stroke="#b8860b" stroke-width="1"/>
-                
                 <path d="M 18 22 Q 10 20 12 15" stroke="#0056b3" stroke-width="3" fill="none" stroke-linecap="round"/>
                 <path d="M 32 22 Q 40 20 38 15" stroke="#0056b3" stroke-width="3" fill="none" stroke-linecap="round"/>
-                
                 <circle cx="12" cy="15" r="2.5" fill="#333" />
                 <circle cx="38" cy="15" r="2.5" fill="#333" />
-
                 <line class="leg-left" x1="22" y1="35" x2="22" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
                 <line class="leg-right" x1="28" y1="35" x2="28" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
             </svg>
@@ -441,46 +454,47 @@
             
             walker.style.top = newTop + 'vh';
             
+            // Only animate walking if we are actually scrolling
             if(isScrolling) {
                 walker.classList.add('walking');
             }
 
-            // === MESSAGE & ORIENTATION LOGIC ===
+            // --- TEXT VISIBILITY LOGIC ---
 
-            // Reset classes
-            walker.classList.remove('show-tooltip', 'bottom-msg');
+            walker.classList.remove('show-tooltip'); // Default hidden
+            walker.classList.remove('near-bottom');
 
-            // 1. START: 0% - No Message
-            if (scrollPercent <= 1) {
-                // Ensure hidden
-            }
-            
-            // 2. SCROLLING (1% to 40%): Show "Scroll Down"
-            else if (scrollPercent > 1 && scrollPercent < 40) {
+            // 1. Start Zone: > 0.5% and < 40% (Until Level 2)
+            if (scrollPercent > 0.5 && scrollPercent < 40) {
                 walkerText.innerText = "Scroll Down 👇";
                 walker.classList.add('show-tooltip');
             }
-
-            // 3. BOTTOM (92%+): Show "Click Case Studies" & Force Upright
-            else if (scrollPercent > 92) {
+            // 2. Middle Zone: 40% - 90% (Hidden - clean climbing)
+            
+            // 3. End Zone: > 92% (Bottom)
+            if (scrollPercent > 92) {
                 walkerText.innerText = "Click Case Studies! 👈";
-                walker.classList.add('show-tooltip', 'bottom-msg');
-                walker.style.transform = 'rotate(0deg)'; // Force upright
-                walkerText.style.transform = 'translateX(0px)';
-                return; // Stop here so rotation logic doesn't override
+                walker.classList.add('show-tooltip');
+                walker.classList.add('near-bottom');
             }
 
-            // === ROTATION LOGIC (For Middle Section) ===
-            // Only apply rotation if we are NOT at the bottom
-            if (scrollPercent <= 92) {
+            // --- ORIENTATION LOGIC (SVG Rotation Only) ---
+            
+            // Force face UP if at very bottom
+            if (scrollPercent > 92) {
+                walker.classList.remove('face-down');
+                walker.classList.add('face-up');
+            } 
+            else {
+                // Normal directional logic
                 if (scrollTop > lastScrollTop) {
                     // Moving Down
-                    walker.style.transform = 'rotate(180deg)'; 
-                    walkerText.style.transform = 'rotate(-180deg) translateX(10px)'; 
+                    walker.classList.add('face-down');
+                    walker.classList.remove('face-up');
                 } else {
                     // Moving Up
-                    walker.style.transform = 'rotate(0deg)';
-                    walkerText.style.transform = 'translateX(0px)';
+                    walker.classList.add('face-up');
+                    walker.classList.remove('face-down');
                 }
             }
 
@@ -496,6 +510,7 @@
             
             updateWalker();
 
+            // Stop leg animation when scrolling stops
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(() => {
                 walker.classList.remove('walking');
@@ -503,7 +518,7 @@
             }, 66);
         }, false);
 
-        // Initial check
+        // Run once on load to ensure correct state
         window.addEventListener('DOMContentLoaded', updateWalker);
 
     </script>
