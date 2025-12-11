@@ -218,7 +218,7 @@
             font-size: 0.8rem;
             font-weight: bold;
             white-space: nowrap;
-            opacity: 0; 
+            opacity: 0; /* Hidden by default */
             transform: translateX(10px);
             transition: all 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -235,13 +235,7 @@
             border-color: transparent transparent transparent #ffffff;
         }
 
-        /* State: At the very top */
-        .wall-walker.at-top .walker-tooltip {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* State: At the bottom */
+        /* State: At the bottom ONLY */
         .wall-walker.near-bottom .walker-tooltip {
             opacity: 1;
             transform: translateX(0);
@@ -251,7 +245,7 @@
             border-color: transparent transparent transparent #FFD700;
         }
 
-        /* Leg Animation - FIXED PIVOT POINTS */
+        /* Leg Animation - PIVOT FIXED */
         .leg-left {
             transform-origin: 22px 35px; /* Pivot exactly at the hip */
         }
@@ -266,7 +260,6 @@
             animation: walkLeg 0.2s infinite alternate-reverse;
         }
 
-        /* Reduced angle to prevent leg splitting */
         @keyframes walkLeg {
             from { transform: rotate(-25deg); }
             to { transform: rotate(25deg); }
@@ -283,8 +276,8 @@
         <div class="scroll-tick" style="top: 60%"></div>
         <div class="scroll-tick" style="top: 80%"></div>
 
-        <div class="wall-walker at-top" id="architectWalker">
-            <div class="walker-tooltip" id="walkerText">Scroll Down for Portfolio 👇</div>
+        <div class="wall-walker" id="architectWalker">
+            <div class="walker-tooltip" id="walkerText">Click Case Studies! 👈</div>
             
             <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                 <rect x="18" y="20" width="14" height="15" fill="#0056b3" rx="3" />
@@ -438,7 +431,6 @@
         let lastScrollTop = 0;
         let isScrolling;
 
-        // Force initial state update on load
         function updateWalker() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -450,31 +442,21 @@
             
             walker.style.top = newTop + 'vh';
             
-            // Only animate walking if we are actually scrolling
             if(isScrolling) {
                 walker.classList.add('walking');
             }
 
             // --- TEXT & ORIENTATION LOGIC ---
 
-            // 1. If at TOP (Start)
-            if (scrollPercent < 2) {
-                walker.classList.add('at-top');
-                walkerText.innerText = "Scroll Down for Portfolio 👇";
-                walker.style.transform = 'rotate(0deg)'; // Ensure upright
-            } else {
-                walker.classList.remove('at-top');
-            }
-
-            // 2. If at BOTTOM (End) - FORCE UPRIGHT
+            // Check if at Bottom (Last Level)
             if (scrollPercent > 92) {
                 walker.classList.add('near-bottom');
                 walkerText.innerText = "Click Case Studies! 👈";
                 walker.style.transform = 'rotate(0deg)'; // Force upright at bottom
                 walkerText.style.transform = 'translateX(0px)';
             } 
-            else if (scrollPercent >= 2 && scrollPercent <= 92) {
-                // 3. Middle Zone (Follow Direction)
+            else {
+                // Not at bottom yet -> Hide Text, Handle Rotation
                 walker.classList.remove('near-bottom');
                 
                 if (scrollTop > lastScrollTop) {
@@ -500,15 +482,14 @@
             
             updateWalker();
 
-            // Stop leg animation when scrolling stops
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(() => {
                 walker.classList.remove('walking');
-                isScrolling = false; // Reset scrolling flag
+                isScrolling = false; 
             }, 66);
         }, false);
 
-        // Run once on load to set initial position/text
+        // Run once on load
         window.addEventListener('DOMContentLoaded', updateWalker);
 
     </script>
