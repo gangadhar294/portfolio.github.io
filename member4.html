@@ -1,4 +1,692 @@
 <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gangadhar | Systems Architect</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    
+
+    <style>
+
+        /* --- RESTORING YOUR ORIGINAL GRADIENT THEME --- */
+
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family: 'Space Grotesk', sans-serif;
+
+            color: white;
+
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+
+            background-size: 400% 400%;
+
+            animation: gradientBG 15s ease infinite;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+        }
+
+
+
+        @keyframes gradientBG {
+
+            0% { background-position: 0% 50%; }
+
+            50% { background-position: 100% 50%; }
+
+            100% { background-position: 0% 50%; }
+
+        }
+
+
+
+        .container {
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            padding: 40px 20px;
+
+        }
+
+
+
+        /* --- SCROLL ANIMATIONS --- */
+
+        .hidden {
+
+            opacity: 0;
+
+            filter: blur(5px);
+
+            transform: translateY(50px);
+
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        }
+
+
+
+        .show {
+
+            opacity: 1;
+
+            filter: blur(0);
+
+            transform: translateY(0);
+
+        }
+
+
+
+        /* --- GLASS PANEL DESIGN --- */
+
+        .glass-panel {
+
+            background: rgba(255, 255, 255, 0.1);
+
+            backdrop-filter: blur(16px);
+
+            -webkit-backdrop-filter: blur(16px);
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            margin-bottom: 40px;
+
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        /* --- TYPOGRAPHY --- */
+
+        .hero { text-align: center; padding: 60px 0; }
+
+        .hero h1 { font-size: 3.5rem; margin: 0; font-weight: 700; text-shadow: 2px 2px 10px rgba(0,0,0,0.2); }
+
+        .hero p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; letter-spacing: 1px; }
+
+
+
+        h2 { border-bottom: 2px solid rgba(255,255,255,0.5); padding-bottom: 10px; margin-bottom: 20px; display: inline-block;}
+
+        h3 { margin-top: 0; color: #23d5ab; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+
+        
+
+        /* --- GRID FOR CONTENT --- */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 40px;
+
+            align-items: center;
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            .content-grid { grid-template-columns: 1fr; }
+
+        }
+
+
+
+        .text-side p { line-height: 1.6; font-size: 1.05rem; margin-bottom: 20px; }
+
+        
+
+        .highlight {
+
+            background: rgba(255,255,255,0.1);
+
+            border-left: 4px solid #fff;
+
+            padding: 15px;
+
+            margin: 20px 0;
+
+            border-radius: 0 10px 10px 0;
+
+        }
+
+
+
+        /* --- METRIC CARDS --- */
+
+        .metrics-row {
+
+            display: flex;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+        .metric {
+
+            background: rgba(0,0,0,0.3);
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            flex: 1;
+
+            text-align: center;
+
+        }
+
+        .metric small { display: block; opacity: 0.7; font-size: 0.8rem; text-transform: uppercase; }
+
+        .metric strong { display: block; font-size: 1.2rem; margin-top: 5px; color: #23d5ab; }
+
+
+
+        /* --- NAVIGATION --- */
+
+        .back-btn {
+
+            position: fixed;
+
+            top: 20px; left: 20px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background: rgba(0,0,0,0.2);
+
+            padding: 10px 20px;
+
+            border-radius: 30px;
+
+            backdrop-filter: blur(5px);
+
+            border: 1px solid rgba(255,255,255,0.3);
+
+            font-weight: bold;
+
+            transition: all 0.3s;
+
+            z-index: 100;
+
+        }
+
+        .back-btn:hover { background: white; color: #e73c7e; transform: translateX(5px); }
+
+
+
+        .blueprint-placeholder {
+
+            width: 100%; height: 250px;
+
+            background: rgba(0,0,0,0.2);
+
+            border-radius: 15px;
+
+            display: flex;
+
+            align-items: center; justify-content: center;
+
+            border: 2px dashed rgba(255,255,255,0.3);
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            transition: transform 0.3s;
+
+        }
+
+        .blueprint-placeholder:hover { transform: scale(1.02); background: rgba(0,0,0,0.4); }
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Team</a>
+
+
+
+    <div class="container">
+
+
+
+        <header class="hero hidden">
+
+            <h1 style="font-size: 5rem;">Gangadhar</h1>
+
+            <p>SYSTEMS ARCHITECT | SRN: 01FE24BCS294</p>
+
+            <div style="margin-top: 20px; font-size: 3rem;">
+
+                <i class="fas fa-network-wired"></i>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="glass-panel hidden">
+
+            <div class="content-grid">
+
+                <div class="text-side">
+
+                    <h3>Emergency Routing</h3>
+
+                    <h2>GreenWave Protocol</h2>
+
+                    <p>
+
+                        <strong>The Problem:</strong> Ambulances from the Industrial Zone were facing 400% delays at the "Stadium Junction" during match days.
+
+                    </p>
+
+                    <div class="highlight">
+
+                        <strong>Solution:</strong> We implemented <em>Dijkstra’s Algorithm</em> to calculate routes based on dynamic weights (Time + Congestion) rather than just distance.
+
+                    </div>
+
+                    <p>This guarantees the mathematically shortest path to the Hospital, reducing response time by <strong>60%</strong>.</p>
+
+                </div>
+
+                <div class="visual-side">
+
+                     <div class="blueprint-placeholder">
+
+                        <i class="fas fa-route fa-3x"></i>
+
+                        <span></span>
+
+                        <small>Algo1.jpg</small>
+
+                    </div>
+
+                    <div class="metrics-row">
+
+                        <div class="metric">
+
+                            <small>Time Complexity</small>
+
+                            <strong>O(E log V)</strong>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <small>Efficiency</small>
+
+                            <strong>High</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="glass-panel hidden">
+
+            <div class="content-grid">
+
+                <div class="visual-side">
+
+                    <div class="blueprint-placeholder">
+
+                        <i class="fas fa-tint fa-3x"></i>
+
+                        <span></span>
+
+                        <small>Algo2.jpg</small>
+
+                    </div>
+
+                    <div class="metrics-row">
+
+                        <div class="metric">
+
+                            <small>Algorithm</small>
+
+                            <strong>Prim's MST</strong>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <small>Savings</small>
+
+                            <strong>₹2.4 Cr</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="text-side">
+
+                    <h3>Infrastructure Optimization</h3>
+
+                    <h2>HydroGrid Network</h2>
+
+                    <p>
+
+                        <strong>The Problem:</strong> Connecting the remote "High Altitude Zone" to the water supply is expensive. Piping costs ₹10k/meter.
+
+                    </p>
+
+                    <div class="highlight">
+
+                        <strong>Solution:</strong> Using <em>Prim’s Algorithm</em>, we designed a Minimum Spanning Tree (MST). This connects all residential zones using the absolute minimum total pipe length.
+
+                    </div>
+
+                    <p>This ensures 100% coverage with zero redundant cycles, maintaining optimal water pressure.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="glass-panel hidden">
+
+            <div class="content-grid">
+
+                <div class="text-side">
+
+                    <h3>Disaster Management</h3>
+
+                    <h2>RapidExit System</h2>
+
+                    <p>
+
+                        <strong>The Problem:</strong> The Port and Beach zones are Tsunami-prone. Standard GPS routes everyone to the main highway, causing fatal gridlock.
+
+                    </p>
+
+                    <div class="highlight">
+
+                        <strong>Solution:</strong> We modeled the city as an unweighted grid and applied <em>Breadth-First Search (BFS)</em>.
+
+                    </div>
+
+                    <p>BFS explores "layer-by-layer", finding the nearest safe zone for thousands of people simultaneously based on the fewest street crossings.</p>
+
+                </div>
+
+                <div class="visual-side">
+
+                    <div class="blueprint-placeholder">
+
+                        <i class="fas fa-running fa-3x"></i>
+
+                        <span></span>
+
+                        <small>Algo3.jpg</small>
+
+                    </div>
+
+                    <div class="metrics-row">
+
+                        <div class="metric">
+
+                            <small>Time Complexity</small>
+
+                            <strong>O(V + E)</strong>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <small>Result</small>
+
+                            <strong>Shortest Path</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="glass-panel hidden">
+
+            <div class="content-grid">
+
+                <div class="visual-side">
+
+                    <div class="blueprint-placeholder">
+
+                        <i class="fas fa-box-open fa-3x"></i>
+
+                        <span></span>
+
+                        <small>Algo4.jpg</small>
+
+                    </div>
+
+                    <div class="metrics-row">
+
+                        <div class="metric">
+
+                            <small>Approach</small>
+
+                            <strong>Dynamic Prog.</strong>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <small>Revenue</small>
+
+                            <strong>+18%</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="text-side">
+
+                    <h3>Port Logistics</h3>
+
+                    <h2>CargoMax Optimizer</h2>
+
+                    <p>
+
+                        <strong>The Problem:</strong> Ships arrive with mixed cargo: Light/Expensive (Electronics) vs Heavy/Cheap (Raw Material). The port has a fixed weight limit.
+
+                    </p>
+
+                    <div class="highlight">
+
+                        <strong>Solution:</strong> We used <em>0/1 Knapsack (DP)</em> to mathematically select the perfect subset of containers.
+
+                    </div>
+
+                    <p>Unlike a Greedy approach, DP evaluates every possible combination to maximize profit without breaking the weight limit.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="glass-panel hidden">
+
+            <div class="content-grid">
+
+                <div class="text-side">
+
+                    <h3>Last Mile Delivery</h3>
+
+                    <h2>SwiftLink Delivery</h2>
+
+                    <p>
+
+                        <strong>The Problem:</strong> Delivery trucks were wasting fuel by driving random routes between the University, Market, and Residential zones.
+
+                    </p>
+
+                    <div class="highlight">
+
+                        <strong>Solution:</strong> Modeled as the <em>Traveling Salesman Problem (TSP)</em>. We calculate the Hamiltonian Cycle with minimum weight.
+
+                    </div>
+
+                    <p>For our city clusters, we use the Held-Karp algorithm (DP + Bitmasking) to find the exact optimal route.</p>
+
+                </div>
+
+                <div class="visual-side">
+
+                    <div class="blueprint-placeholder">
+
+                        <i class="fas fa-truck-fast fa-3x"></i>
+
+                        <span></span>
+
+                        <small>Algo5.jpg</small>
+
+                    </div>
+
+                    <div class="metrics-row">
+
+                        <div class="metric">
+
+                            <small>Complexity</small>
+
+                            <strong>O(N² 2ⁿ)</strong>
+
+                        </div>
+
+                        <div class="metric">
+
+                            <small>Fuel Use</small>
+
+                            <strong>Minimal</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <footer style="text-align: center; opacity: 0.6; padding-bottom: 20px;">
+
+            Designed by Gangadhar | DAA Portfolio 2025
+
+        </footer>
+
+
+
+    </div>
+
+
+
+    <script>
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach((entry) => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('show');
+
+                }
+
+            });
+
+        });
+
+
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+
+        hiddenElements.forEach((el) => observer.observe(el));
+
+    </script>
+
+
+
+</body>
+
+</html>
+
+This is the perfect choice. You have kept the vibrant, animated, glass-morphic design that makes your portfolio stand out, but we are upgrading the text content to be technically rigorous for your "Systems Architect" role.
+
+Here is the complete code. I have filled in all the "Business Problem", "Solution", and "Metrics" sections with the high-level engineering details we discussed.
+
+Copy and Save this as member4.html
+HTML
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
