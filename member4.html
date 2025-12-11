@@ -3,433 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gangadhar | Algorithmic Architect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Space+Grotesk:wght@300;500&display=swap" rel="stylesheet">
+    <title>Gangadhar | Systems Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+    
     <style>
-        /* --- RESET & BASICS --- */
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        /* --- RESTORING YOUR ORIGINAL GRADIENT THEME --- */
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Space Grotesk', sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
-            overflow: hidden; /* Hide main body scroll */
-            height: 100vh;
-            display: flex;
-        }
-
-        /* --- BACKGROUND MESH --- */
-        .bg-mesh {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(35, 213, 171, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(231, 60, 126, 0.15) 0%, transparent 40%);
-            z-index: -1;
-        }
-
-        /* --- LEFT SIDEBAR (Navigation) --- */
-        .sidebar {
-            width: 320px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-            z-index: 10;
-        }
-
-        .profile-header { margin-bottom: 40px; }
-        .profile-header h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.5rem; margin: 0;
-            background: linear-gradient(90deg, #23a6d5, #23d5ab);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-        .profile-header p { font-size: 0.9rem; color: #94a3b8; margin-top: 5px; }
-
-        .nav-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px; }
-        
-        .nav-item {
-            padding: 15px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #cbd5e1;
-        }
-
-        .nav-item i { width: 20px; text-align: center; }
-
-        .nav-item:hover, .nav-item.active {
-            background: rgba(35, 213, 171, 0.1);
-            border-color: #23d5ab;
-            color: #fff;
-            transform: translateX(10px);
-            box-shadow: 0 0 15px rgba(35, 213, 171, 0.2);
-        }
-
-        .back-btn {
-            margin-top: auto;
-            color: #64748b;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex; align-items: center; gap: 10px;
-            transition: color 0.3s;
-        }
-        .back-btn:hover { color: #fff; }
-
-        /* --- RIGHT CONTENT AREA --- */
-        .main-content {
-            flex: 1;
-            overflow-y: auto; /* Scroll only this area */
-            padding: 40px 60px;
-            position: relative;
-        }
-
-        /* --- SECTIONS --- */
-        .section {
+            color: white;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0.3;
-            transform: scale(0.95);
-            transition: all 0.6s ease;
-            pointer-events: none; /* Prevent clicks when not active */
-            display: none; /* Completely hide non-active to fix scrolling */
+            overflow-x: hidden;
         }
-        
-        .section.active-section {
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* --- SCROLL ANIMATIONS --- */
+        .hidden {
+            opacity: 0;
+            filter: blur(5px);
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .show {
             opacity: 1;
-            transform: scale(1);
-            pointer-events: all;
-            display: flex;
+            filter: blur(0);
+            transform: translateY(0);
         }
 
-        .section-header { margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-        .section-tag { 
-            color: #23d5ab; font-family: 'Rajdhani', sans-serif; 
-            text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
-        }
-        .section-title { font-size: 3rem; margin: 10px 0; font-weight: 700; }
-        
-        /* --- GRID LAYOUT FOR CONTENT --- */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        .text-panel p { line-height: 1.7; color: #cbd5e1; margin-bottom: 20px; font-size: 1.05rem; }
-        
-        .highlight-box {
-            background: rgba(255,255,255,0.03);
-            border-left: 4px solid #e73c7e;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-        }
-
-        /* --- STATS CARDS (Right Col) --- */
-        .stats-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
+        /* --- GLASS PANEL DESIGN --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             position: relative;
             overflow: hidden;
         }
 
-        .stat-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: #23a6d5;
+        /* --- TYPOGRAPHY --- */
+        .hero { text-align: center; padding: 60px 0; }
+        .hero h1 { font-size: 3.5rem; margin: 0; font-weight: 700; text-shadow: 2px 2px 10px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; letter-spacing: 1px; }
+
+        h2 { border-bottom: 2px solid rgba(255,255,255,0.5); padding-bottom: 10px; margin-bottom: 20px; display: inline-block;}
+        h3 { margin-top: 0; color: #23d5ab; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; }
+        
+        /* --- GRID FOR CONTENT --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        .stat-label { font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; }
-        .stat-value { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: #fff; margin-top: 5px; }
+        @media (max-width: 768px) {
+            .content-grid { grid-template-columns: 1fr; }
+        }
 
-        .code-snippet {
-            font-family: 'Courier New', monospace;
-            background: #000;
+        .text-side p { line-height: 1.6; font-size: 1.05rem; margin-bottom: 20px; }
+        
+        .highlight {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid #fff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* --- METRIC CARDS --- */
+        .metrics-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .metric {
+            background: rgba(0,0,0,0.3);
             padding: 15px;
             border-radius: 10px;
-            font-size: 0.85rem;
-            color: #23d5ab;
-            border: 1px solid rgba(35, 213, 171, 0.3);
-            margin-top: 20px;
+            flex: 1;
+            text-align: center;
         }
+        .metric small { display: block; opacity: 0.7; font-size: 0.8rem; text-transform: uppercase; }
+        .metric strong { display: block; font-size: 1.2rem; margin-top: 5px; color: #23d5ab; }
 
-        /* --- IMAGE PLACEHOLDER --- */
-        .blueprint-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #1e293b, #0f172a);
-            border-radius: 15px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.3);
+        /* --- NAVIGATION --- */
+        .back-btn {
+            position: fixed;
+            top: 20px; left: 20px;
+            text-decoration: none;
+            color: white;
+            background: rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 100;
         }
-        .blueprint-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
+        .back-btn:hover { background: white; color: #e73c7e; transform: translateX(5px); }
+
+        .blueprint-placeholder {
+            width: 100%; height: 250px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center; justify-content: center;
+            border: 2px dashed rgba(255,255,255,0.3);
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.3s;
+        }
+        .blueprint-placeholder:hover { transform: scale(1.02); background: rgba(0,0,0,0.4); }
 
     </style>
 </head>
 <body>
 
-    <div class="bg-mesh"></div>
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Team</a>
 
-    <nav class="sidebar">
-        <div class="profile-header">
-            <h1>Gangadhar</h1>
-            <p>SRN: 01FE24BCS294 <br> Role: Systems Architect</p>
-        </div>
+    <div class="container">
 
-        <ul class="nav-menu">
-            <li class="nav-item active" onclick="showSection('greenwave')">
-                <i class="fas fa-traffic-light"></i> GreenWave
-            </li>
-            <li class="nav-item" onclick="showSection('hydrogrid')">
-                <i class="fas fa-water"></i> HydroGrid
-            </li>
-            <li class="nav-item" onclick="showSection('rapidexit')">
-                <i class="fas fa-person-running"></i> RapidExit
-            </li>
-            <li class="nav-item" onclick="showSection('cargomax')">
-                <i class="fas fa-ship"></i> CargoMax
-            </li>
-            <li class="nav-item" onclick="showSection('swiftlink')">
-                <i class="fas fa-truck-fast"></i> SwiftLink
-            </li>
-        </ul>
+        <header class="hero hidden">
+            <h1 style="font-size: 5rem;">Gangadhar</h1>
+            <p>SYSTEMS ARCHITECT | SRN: 01FE24BCS294</p>
+            <div style="margin-top: 20px; font-size: 3rem;">
+                <i class="fas fa-network-wired"></i>
+            </div>
+        </header>
 
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Team HQ
-        </a>
-    </nav>
-
-    <main class="main-content">
-
-        <div id="greenwave" class="section active-section">
-            <header class="section-header">
-                <span class="section-tag">Algorithm: Dijkstra</span>
-                <h2 class="section-title">GreenWave Protocol</h2>
-                <p>Zero-Latency Emergency Response System</p>
-            </header>
-
+        <div class="glass-panel hidden">
             <div class="content-grid">
-                <div class="text-panel">
-                    <h3>The Business Problem</h3>
-                    <p>Our city's "Stadium Junction" causes 400% delays during match days. Ambulances carrying critical patients from the Industrial Zone to the City Hospital were getting stuck, risking lives.</p>
-                    
-                    <div class="highlight-box">
-                        <strong>Solution:</strong> A dynamic routing engine that calculates weights based on real-time traffic density, not just distance.
+                <div class="text-side">
+                    <h3>Emergency Routing</h3>
+                    <h2>GreenWave Protocol</h2>
+                    <p>
+                        <strong>The Problem:</strong> Ambulances from the Industrial Zone were facing 400% delays at the "Stadium Junction" during match days.
+                    </p>
+                    <div class="highlight">
+                        <strong>Solution:</strong> We implemented <em>Dijkstra’s Algorithm</em> to calculate routes based on dynamic weights (Time + Congestion) rather than just distance.
                     </div>
-
-                    <h3>Algorithmic Logic</h3>
-                    <p>We model the city as a weighted graph where intersections are Nodes and roads are Edges. The weight $W$ is a function of distance ($d$) and congestion ($c$): $W = d \times (1 + c)$.</p>
-                    <p>Since weights are non-negative, **Dijkstra’s Algorithm** is the optimal choice. It uses a Priority Queue to Greedily select the closest unvisited node, guaranteeing the mathematically shortest time.</p>
-
-                    <div class="blueprint-img">
-                        <i class="fas fa-map-marked-alt fa-3x"></i> &nbsp; Blueprint: Algo1.jpg
-                    </div>
+                    <p>This guarantees the mathematically shortest path to the Hospital, reducing response time by <strong>60%</strong>.</p>
                 </div>
-
-                <div class="stats-panel">
-                    <div class="stat-card">
-                        <div class="stat-label">Time Complexity</div>
-                        <div class="stat-value">O(E log V)</div>
-                        <div style="font-size:0.8rem; color:#94a3b8;">Using Min-Priority Queue</div>
+                <div class="visual-side">
+                     <div class="blueprint-placeholder">
+                        <i class="fas fa-route fa-3x"></i>
+                        <span></span>
+                        <small>Algo1.jpg</small>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Space Complexity</div>
-                        <div class="stat-value">O(V + E)</div>
-                    </div>
-                    <div class="stat-card" style="border-color: #e73c7e;">
-                        <div class="stat-label">Business Impact</div>
-                        <div class="stat-value">-60%</div>
-                        <div style="font-size:0.8rem; color:#94a3b8;">Avg. Ambulance Delay</div>
+                    <div class="metrics-row">
+                        <div class="metric">
+                            <small>Time Complexity</small>
+                            <strong>O(E log V)</strong>
+                        </div>
+                        <div class="metric">
+                            <small>Efficiency</small>
+                            <strong>High</strong>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="hydrogrid" class="section">
-            <header class="section-header">
-                <span class="section-tag">Algorithm: Prim's MST</span>
-                <h2 class="section-title">HydroGrid Network</h2>
-                <p>Infrastructure Cost Minimization Engine</p>
-            </header>
-
+        <div class="glass-panel hidden">
             <div class="content-grid">
-                <div class="text-panel">
-                    <h3>The Business Problem</h3>
-                    <p>Connecting the remote "High Altitude Zone" to the water supply is capital intensive. Piping costs ₹10,000 per meter. We needed a blueprint to connect all residential zones to the central tank with the minimum possible pipe length.</p>
-
-                    <div class="highlight-box">
-                        <strong>Solution:</strong> Building a Minimum Spanning Tree (MST) that connects all $V$ nodes using exactly $V-1$ edges with minimum total weight.
+                <div class="visual-side">
+                    <div class="blueprint-placeholder">
+                        <i class="fas fa-tint fa-3x"></i>
+                        <span></span>
+                        <small>Algo2.jpg</small>
                     </div>
-
-                    <h3>Algorithmic Logic</h3>
-                    <p>We utilized **Prim’s Algorithm**. Unlike Kruskal’s (which sorts edges), Prim’s grows the tree from a starting source (Water Plant).</p>
-                    <p>It maintains a Min-Heap of pipes connecting the 'Built' network to the 'Unbuilt' zones, always picking the cheapest connection next. This prevents cycles, ensuring consistent water pressure.</p>
+                    <div class="metrics-row">
+                        <div class="metric">
+                            <small>Algorithm</small>
+                            <strong>Prim's MST</strong>
+                        </div>
+                        <div class="metric">
+                            <small>Savings</small>
+                            <strong>₹2.4 Cr</strong>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="stats-panel">
-                    <div class="stat-card">
-                        <div class="stat-label">Time Complexity</div>
-                        <div class="stat-value">O(E log V)</div>
+                <div class="text-side">
+                    <h3>Infrastructure Optimization</h3>
+                    <h2>HydroGrid Network</h2>
+                    <p>
+                        <strong>The Problem:</strong> Connecting the remote "High Altitude Zone" to the water supply is expensive. Piping costs ₹10k/meter.
+                    </p>
+                    <div class="highlight">
+                        <strong>Solution:</strong> Using <em>Prim’s Algorithm</em>, we designed a Minimum Spanning Tree (MST). This connects all residential zones using the absolute minimum total pipe length.
                     </div>
-                    <div class="stat-card" style="border-color: #e73c7e;">
-                        <div class="stat-label">Cost Savings</div>
-                        <div class="stat-value">₹2.4 Cr</div>
-                        <div style="font-size:0.8rem; color:#94a3b8;">Projected vs Standard Grid</div>
+                    <p>This ensures 100% coverage with zero redundant cycles, maintaining optimal water pressure.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel hidden">
+            <div class="content-grid">
+                <div class="text-side">
+                    <h3>Disaster Management</h3>
+                    <h2>RapidExit System</h2>
+                    <p>
+                        <strong>The Problem:</strong> The Port and Beach zones are Tsunami-prone. Standard GPS routes everyone to the main highway, causing fatal gridlock.
+                    </p>
+                    <div class="highlight">
+                        <strong>Solution:</strong> We modeled the city as an unweighted grid and applied <em>Breadth-First Search (BFS)</em>.
+                    </div>
+                    <p>BFS explores "layer-by-layer", finding the nearest safe zone for thousands of people simultaneously based on the fewest street crossings.</p>
+                </div>
+                <div class="visual-side">
+                    <div class="blueprint-placeholder">
+                        <i class="fas fa-running fa-3x"></i>
+                        <span></span>
+                        <small>Algo3.jpg</small>
+                    </div>
+                    <div class="metrics-row">
+                        <div class="metric">
+                            <small>Time Complexity</small>
+                            <strong>O(V + E)</strong>
+                        </div>
+                        <div class="metric">
+                            <small>Result</small>
+                            <strong>Shortest Path</strong>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="rapidexit" class="section">
-            <header class="section-header">
-                <span class="section-tag">Algorithm: BFS</span>
-                <h2 class="section-title">RapidExit System</h2>
-                <p>Multi-Agent Disaster Evacuation Protocol</p>
-            </header>
-
+        <div class="glass-panel hidden">
             <div class="content-grid">
-                <div class="text-panel">
-                    <h3>The Business Problem</h3>
-                    <p>The Port and Beach zones are Tsunami-prone. In a panic, standard GPS directs everyone to the main highway, causing fatal gridlock. We needed a system to find the nearest exit for thousands of people simultaneously.</p>
-
-                    <h3>Algorithmic Logic</h3>
-                    <p>We treat the city map as an **Unweighted Grid**. The goal is finding the path with the fewest "hops" (street crossings) to a Safe Zone.</p>
-                    <p>**Breadth-First Search (BFS)** is perfect here. It explores the map layer-by-layer (like a ripple in water). It guarantees that the first time we reach a Safe Zone node, it is via the shortest path.</p>
-
-                    <div class="code-snippet">
-                        Queue q = new LinkedList();<br>
-                        q.add(dangerZone);<br>
-                        while(!q.isEmpty()) {<br>
-                        &nbsp; Node u = q.poll();<br>
-                        &nbsp; for(Node v : neighbors(u)) ...<br>
-                        }
+                <div class="visual-side">
+                    <div class="blueprint-placeholder">
+                        <i class="fas fa-box-open fa-3x"></i>
+                        <span></span>
+                        <small>Algo4.jpg</small>
+                    </div>
+                    <div class="metrics-row">
+                        <div class="metric">
+                            <small>Approach</small>
+                            <strong>Dynamic Prog.</strong>
+                        </div>
+                        <div class="metric">
+                            <small>Revenue</small>
+                            <strong>+18%</strong>
+                        </div>
                     </div>
                 </div>
-
-                <div class="stats-panel">
-                    <div class="stat-card">
-                        <div class="stat-label">Time Complexity</div>
-                        <div class="stat-value">O(V + E)</div>
+                <div class="text-side">
+                    <h3>Port Logistics</h3>
+                    <h2>CargoMax Optimizer</h2>
+                    <p>
+                        <strong>The Problem:</strong> Ships arrive with mixed cargo: Light/Expensive (Electronics) vs Heavy/Cheap (Raw Material). The port has a fixed weight limit.
+                    </p>
+                    <div class="highlight">
+                        <strong>Solution:</strong> We used <em>0/1 Knapsack (DP)</em> to mathematically select the perfect subset of containers.
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Guarantee</div>
-                        <div class="stat-value">100%</div>
-                        <div style="font-size:0.8rem; color:#94a3b8;">Shortest Path Found</div>
+                    <p>Unlike a Greedy approach, DP evaluates every possible combination to maximize profit without breaking the weight limit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel hidden">
+            <div class="content-grid">
+                <div class="text-side">
+                    <h3>Last Mile Delivery</h3>
+                    <h2>SwiftLink Delivery</h2>
+                    <p>
+                        <strong>The Problem:</strong> Delivery trucks were wasting fuel by driving random routes between the University, Market, and Residential zones.
+                    </p>
+                    <div class="highlight">
+                        <strong>Solution:</strong> Modeled as the <em>Traveling Salesman Problem (TSP)</em>. We calculate the Hamiltonian Cycle with minimum weight.
+                    </div>
+                    <p>For our city clusters, we use the Held-Karp algorithm (DP + Bitmasking) to find the exact optimal route.</p>
+                </div>
+                <div class="visual-side">
+                    <div class="blueprint-placeholder">
+                        <i class="fas fa-truck-fast fa-3x"></i>
+                        <span></span>
+                        <small>Algo5.jpg</small>
+                    </div>
+                    <div class="metrics-row">
+                        <div class="metric">
+                            <small>Complexity</small>
+                            <strong>O(N² 2ⁿ)</strong>
+                        </div>
+                        <div class="metric">
+                            <small>Fuel Use</small>
+                            <strong>Minimal</strong>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="cargomax" class="section">
-            <header class="section-header">
-                <span class="section-tag">Algorithm: DP Knapsack</span>
-                <h2 class="section-title">CargoMax Optimizer</h2>
-                <p>Port Logistics & Yield Management</p>
-            </header>
+        <footer style="text-align: center; opacity: 0.6; padding-bottom: 20px;">
+            Designed by Gangadhar | DAA Portfolio 2025
+        </footer>
 
-            <div class="content-grid">
-                <div class="text-panel">
-                    <h3>The Business Problem</h3>
-                    <p>Our Port storage has a fixed weight capacity. Ships arrive with varied containers: High-Profit/Low-Weight (Electronics) vs Low-Profit/High-Weight (Coal). We must select the mix that maximizes profit.</p>
-
-                    <div class="highlight-box">
-                        <strong>Why Greedy Fails:</strong> Picking just the most expensive item might waste space. Picking the lightest might not yield profit.
-                    </div>
-
-                    <h3>Algorithmic Logic</h3>
-                    <p>We use **0/1 Knapsack Dynamic Programming**. We build a 2D table `DP[item][capacity]`. At each step, we make a decision: "Do we include this container or not?" based on which choice yields a higher value for the remaining capacity.</p>
-                </div>
-
-                <div class="stats-panel">
-                    <div class="stat-card">
-                        <div class="stat-label">Time Complexity</div>
-                        <div class="stat-value">O(N * W)</div>
-                        <div style="font-size:0.8rem; color:#94a3b8;">N=Items, W=Capacity</div>
-                    </div>
-                    <div class="stat-card" style="border-color: #e73c7e;">
-                        <div class="stat-label">Revenue Boost</div>
-                        <div class="stat-value">+18%</div>
-                        <div style="font-size:0.8rem; color:#94a3b8;">vs Manual Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="swiftlink" class="section">
-            <header class="section-header">
-                <span class="section-tag">Algorithm: TSP Graph</span>
-                <h2 class="section-title">SwiftLink Delivery</h2>
-                <p>Last-Mile Logistics Optimization</p>
-            </header>
-
-            <div class="content-grid">
-                <div class="text-panel">
-                    <h3>The Business Problem</h3>
-                    <p>Delivery trucks leave the Warehouse, must drop parcels at University, Market, and Residential zones, and return. Random driving wastes fuel.</p>
-
-                    <h3>Algorithmic Logic</h3>
-                    <p>This is the **Traveling Salesman Problem (TSP)**. We need a Hamiltonian Cycle with minimum weight.</p>
-                    <p>For small delivery clusters ($N < 20$), we use **Held-Karp Algorithm** (Dynamic Programming with Bitmasking). This provides the exact optimal route significantly faster than brute force ($O(N!)$).</p>
-                </div>
-
-                <div class="stats-panel">
-                    <div class="stat-card">
-                        <div class="stat-label">Time Complexity</div>
-                        <div class="stat-value">O(N² 2ⁿ)</div>
-                    </div>
-                    <div class="stat-card" style="border-color: #e73c7e;">
-                        <div class="stat-label">Fuel Efficiency</div>
-                        <div class="stat-value">Max</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
+    </div>
 
     <script>
-        function showSection(sectionId) {
-            // Remove active class from all sections
-            document.querySelectorAll('.section').forEach(sec => {
-                sec.classList.remove('active-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
             });
-            
-            // Add active class to clicked section
-            document.getElementById(sectionId).classList.add('active-section');
+        });
 
-            // Update Sidebar Highlight
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-        }
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
     </script>
 
 </body>
