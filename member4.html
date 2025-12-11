@@ -60,7 +60,7 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. HEADER (UPDATED: REVERSED HOVER LOGIC) --- */
+        /* --- 2. HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -70,9 +70,9 @@
             border-radius: 20px;
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
             
-            /* UPDATED: Default state is now the "Highlighted" look */
+            /* Highlighted by Default */
             background: linear-gradient(90deg, #ffffff, #00f7ff);
-            border-bottom: 1px solid transparent; /* Hide border in highlight mode */
+            border-bottom: 1px solid transparent; 
             box-shadow: 0 10px 50px rgba(0, 247, 255, 0.4);
             transform: scale(1.02);
         }
@@ -83,7 +83,6 @@
             margin: 0;
             letter-spacing: 2px;
             transition: all 0.3s;
-            /* UPDATED: Default text is dark (solid) */
             -webkit-text-fill-color: #0a0a12; 
         }
 
@@ -92,7 +91,6 @@
             margin: 0 0 15px 0; 
             font-size: 1.5rem; 
             transition: color 0.3s; 
-            /* UPDATED: Default color is Dark Teal */
             color: #004e52; 
         }
 
@@ -100,33 +98,25 @@
             line-height: 1.6; 
             margin: 0; 
             transition: color 0.3s; 
-            /* UPDATED: Default text is Dark Grey */
             color: #333333; 
         }
 
-        /* UPDATED: Hover state is now the "Normal/Dark" look */
+        /* Hover State: Reverts to Dark Mode */
         header:hover {
-            background: none; /* Remove white background */
-            border-bottom: 1px solid rgba(0, 247, 255, 0.2); /* Bring back border */
-            box-shadow: none; /* Remove shadow */
-            transform: scale(1); /* Shrink back to normal size */
+            background: none; 
+            border-bottom: 1px solid rgba(0, 247, 255, 0.2); 
+            box-shadow: none; 
+            transform: scale(1); 
         }
 
         header:hover .header-left h1 { 
-            /* Bring back the Gradient Text effect on hover */
             background: linear-gradient(90deg, #fff, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        header:hover .header-right h2 { 
-            color: var(--accent-cyan); 
-        }
-        
-        header:hover .header-right p { 
-            color: var(--text-secondary); 
-        }
-        
+        header:hover .header-right h2 { color: var(--accent-cyan); }
+        header:hover .header-right p { color: var(--text-secondary); }
         .header-right { max-width: 500px; text-align: right; }
 
         /* --- 3. LAYOUT --- */
@@ -198,7 +188,7 @@
         .block-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Changed to start to handle badge better */
+            align-items: flex-start;
             margin-bottom: 30px;
             background: rgba(0, 0, 0, 0.3);
             padding: 20px;
@@ -219,16 +209,29 @@
 
         .text-content p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 15px; }
 
+        /* Updated Logic Terminal with Blinking Cursor */
         .logic-terminal {
             background: #0d0d14; padding: 20px; border-radius: 8px;
             border-left: 3px solid var(--accent-cyan); font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem; color: #a0a0b0; white-space: pre-wrap; margin-top: 20px;
+            position: relative;
         }
+        
+        .logic-terminal::after {
+            content: '_';
+            animation: blink 1s infinite;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
 
         .analysis-img {
             width: 100%; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
         }
+        .analysis-img:hover { transform: scale(1.02); border-color: var(--accent-cyan); }
 
         .back-link {
             display: inline-block; margin-bottom: 20px;
@@ -260,7 +263,7 @@
             </div>
             <div class="header-right">
                 <h2>Business Case Study</h2>
-                <p>As per our City Design i have provided the solution for major and core problems of our City . Below is my technical analysis , logic and algorithms.</p>
+                <p>Translating urban challenges into algorithmic solutions. This portfolio details the computational logic used to optimize traffic, resources, and safety across our Smart City framework.</p>
             </div>
         </header>
 
@@ -299,13 +302,13 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Traffic congestion is a critical failure point. In our layout, the route between the <strong>Industrial Area</strong> and <strong>Hospital</strong> passes through the high-density Stadium junction. During match days, delays increase by 400%. We needed a system that mathematically guarantees the fastest route based on real-time sensors.</p>
+                            <p>Traffic congestion between the <strong>Industrial Area</strong> and the <strong>Hospital</strong> causes critical delays, especially during Stadium events where travel time spikes by 400%. We needed a fail-safe navigation system to prioritize emergency vehicles.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Nodes:</strong> Intersections. <strong>Edges:</strong> Roads. <strong>Weights:</strong> Traversal Cost (Distance + Congestion Factor).</p>
+                            <p><strong>Nodes:</strong> Road Intersections.<br> <strong>Edges:</strong> Road Segments.<br> <strong>Weights:</strong> Dynamic Cost (Distance × Traffic Density).</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>We selected <strong>Dijkstra’s Algorithm</strong> because time weights are non-negative. Unlike BFS, it handles weighted edges. Time Complexity is <strong>O(E log V)</strong> using a Priority Queue.</p>
+                            <p><strong>Dijkstra’s Algorithm</strong> was chosen over BFS because our graph contains weighted edges (traffic delays). It guarantees the mathematical shortest path in <strong>O(E log V)</strong> time.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> INIT all distances = Infinity, Source = 0
@@ -316,7 +319,7 @@
       IF Time[u] + RoadWeight < Time[v]:
         Time[v] = New_Time
         Parent[v] = u
-> BACKTRACK from Hospital to Source to trigger GREEN lights.</div>
+> BACKTRACK from Hospital to Source.</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -333,13 +336,13 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Providing water to the remote <strong>High Altitude Zone</strong> is expensive. Laying pipelines costs ₹10k/meter. The goal was to design a network connecting every zone to the Water Treatment Plant using the <strong>minimum total length</strong> of pipes, ensuring no zone is left dry.</p>
+                            <p>Connecting the remote <strong>High Altitude Zone</strong> to the water supply is capital intensive (₹10k/meter). We optimized the pipeline network to ensure 100% coverage with the <strong>minimum possible infrastructure cost</strong>.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Nodes:</strong> Zones (Residential, Zoo, etc). <strong>Edges:</strong> Pipeline routes. <strong>Weights:</strong> Construction cost based on distance/terrain.</p>
+                            <p><strong>Nodes:</strong> City Zones (Residential, Zoo, etc).<br> <strong>Edges:</strong> Potential Pipeline Routes.<br> <strong>Weights:</strong> Excavation Cost.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>We utilized <strong>Prim’s Algorithm</strong> to build a Minimum Spanning Tree (MST). This guarantees all nodes are connected with V-1 edges and zero loops (preserving pressure).</p>
+                            <p><strong>Prim’s Algorithm</strong> builds a Minimum Spanning Tree (MST). This ensures every zone is connected without redundant loops, maintaining water pressure and minimizing cost.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> START at Water Treatment Plant
@@ -348,7 +351,7 @@
     Pick pipe with MIN cost connecting Visited -> Unvisited
     Add pipe to Network
     Mark new zone as Visited
-> RESULT: Lowest Cost Infrastructure.</div>
+> RESULT: Optimized Infrastructure.</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -365,13 +368,13 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>The <strong>Port</strong> and <strong>Beach</strong> are vulnerable to Tsunamis. In a disaster, thousands need to flee to the High Altitude safe zone. Standard GPS routes everyone to the main highway, causing gridlock. We needed a multi-path evacuation model.</p>
+                            <p>The <strong>Port</strong> and <strong>Beach</strong> zones are high-risk tsunami areas. Standard GPS routing creates bottlenecks. We implemented a multi-directional evacuation model to guide crowds to the nearest safe zone (High Altitude Area).</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p>Modeled as an <strong>Unweighted Grid Graph</strong>. <strong>Goal:</strong> Find path with fewest "hops" (street crossings) to safety.</p>
+                            <p><strong>Grid Graph:</strong> The city is mapped as a coordinate grid. <strong>Goal:</strong> Find the path with the fewest "hops" (intersections) to safety.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Breadth-First Search (BFS)</strong> explores layer-by-layer. It mimics flood spread and guarantees the shortest path in unweighted graphs. Time Complexity: <strong>O(V + E)</strong>.</p>
+                            <p><strong>Breadth-First Search (BFS)</strong> explores layer-by-layer, mimicking the physical spread of a flood. It guarantees the shortest path in an unweighted grid. Complexity: <strong>O(V + E)</strong>.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> ENQUEUE Danger Zone (Port)
@@ -383,7 +386,7 @@
       Record Distance from Danger
       Set Flow Direction -> Away
       Enqueue Neighbor
-> GENERATE Heat Map of escape routes.</div>
+> GENERATE Heat Map.</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -400,13 +403,13 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>The <strong>Port</strong> storage yard has fixed capacity. Ships arrive with varied containers: Electronics (Low weight, High profit) vs Raw Materials (High weight, Low profit). We must select the subset that fits the limit while generating <strong>maximum profit</strong>.</p>
+                            <p>The <strong>Port</strong> storage yard has limited weight capacity. We handle mixed cargo: High-value Electronics (Light) vs Low-value Raw Materials (Heavy). We must select the optimal mix to <strong>maximize revenue</strong> without overloading.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p>Combinatorial Optimization. <strong>Items:</strong> Containers. <strong>Constraint:</strong> Max Capacity W. <strong>Objective:</strong> Maximize Value.</p>
+                            <p><strong>Combinatorial Optimization:</strong><br>Items = Containers.<br>Constraint = Max Capacity.<br>Objective = Max Profit.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>Used <strong>0/1 Knapsack (Dynamic Programming)</strong>. Greedy fails here. DP explores all "Take or Leave" combinations. Complexity: <strong>O(N * W)</strong>.</p>
+                            <p><strong>0/1 Knapsack (Dynamic Programming)</strong>. A greedy approach fails here. DP explores all "Take it or Leave it" scenarios to find the mathematical optimum.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> CREATE Table DP[Item][Capacity]
@@ -435,13 +438,13 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Logistics trucks start at the <strong>Warehouse</strong> and must visit the <strong>University</strong>, <strong>Market</strong>, and <strong>Residential</strong> zones to drop parcels before returning. Driving randomly wastes fuel. We needed the single most efficient loop.</p>
+                            <p>Logistics trucks must visit the <strong>University</strong>, <strong>Market</strong>, and <strong>Residential</strong> zones from the Warehouse in a single trip. Random routing wastes fuel. We calculated the single most efficient loop.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Complete Weighted Graph</strong>. Nodes are delivery drops. Weights are distances. Goal: Hamiltonian Cycle with min weight.</p>
+                            <p><strong>Complete Weighted Graph:</strong> Every location connects to every other location. <strong>Goal:</strong> Hamiltonian Cycle with minimum weight.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Traveling Salesman Problem (TSP)</strong>. For small N, we use Held-Karp (DP + Bitmasking). Complexity: <strong>O(N^2 * 2^N)</strong>.</p>
+                            <p><strong>Traveling Salesman Problem (TSP)</strong>. For our set of N locations, we used the Held-Karp algorithm (DP + Bitmasking) for exact precision. Complexity: <strong>O(N^2 * 2^N)</strong>.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> REPRESENT Visited Set as Bitmask
