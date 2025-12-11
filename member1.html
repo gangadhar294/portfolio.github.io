@@ -62,7 +62,7 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. HEADER --- */
+        /* --- 2. HEADER (UPDATED: REVERSED LOGIC) --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -70,8 +70,13 @@
             margin-bottom: 60px;
             padding: 30px; 
             border-radius: 20px;
-            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+            /* REVERSED: Highlighted by default */
+            background: linear-gradient(90deg, #ffffff, #00ff9d);
+            border-bottom: 1px solid transparent;
+            box-shadow: 0 10px 50px rgba(0, 255, 157, 0.4);
+            transform: scale(1.02);
         }
 
         .header-left h1 {
@@ -79,24 +84,51 @@
             font-size: 3.5rem;
             margin: 0;
             letter-spacing: 2px;
+            transition: all 0.3s;
+            /* REVERSED: Dark text by default */
+            -webkit-text-fill-color: #0a0a12; 
+        }
+
+        .header-right h2 { 
+            font-family: 'Orbitron', sans-serif; 
+            margin: 0 0 15px 0; 
+            font-size: 1.5rem; 
+            transition: color 0.3s; 
+            /* REVERSED: Dark Green Text */
+            color: #00331f; 
+        }
+
+        .header-right p { 
+            line-height: 1.6; 
+            margin: 0; 
+            transition: color 0.3s; 
+            /* REVERSED: Dark Grey Text */
+            color: #333333;
+        }
+
+        /* REVERSED HOVER: Goes back to Dark Mode */
+        header:hover {
+            background: none;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+            box-shadow: none;
+            transform: scale(1);
+        }
+
+        header:hover .header-left h1 { 
+            /* Return to Gradient Text on Hover */
             background: linear-gradient(90deg, #fff, var(--accent-main));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            transition: all 0.3s;
+        }
+        
+        header:hover .header-right h2 { 
+            color: var(--accent-main); 
+        }
+        
+        header:hover .header-right p { 
+            color: var(--text-secondary); 
         }
 
-        .header-right h2 { font-family: 'Orbitron', sans-serif; color: var(--accent-main); margin: 0 0 15px 0; font-size: 1.5rem; transition: color 0.3s; }
-        .header-right p { color: var(--text-secondary); line-height: 1.6; margin: 0; transition: color 0.3s; }
-
-        header:hover {
-            background: linear-gradient(90deg, #ffffff, #00ff9d);
-            border-color: transparent;
-            box-shadow: 0 10px 50px rgba(0, 255, 157, 0.4);
-            transform: scale(1.02);
-        }
-        header:hover .header-left h1 { -webkit-text-fill-color: #0a0a12; }
-        header:hover .header-right h2 { color: #00331f; }
-        header:hover .header-right p { color: #333333; }
         .header-right { max-width: 500px; text-align: right; }
 
         /* --- 3. SPLIT LAYOUT --- */
