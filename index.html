@@ -30,8 +30,7 @@
             max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
-            /* Added padding-right to ensure content doesn't hit the walker */
-            padding-right: 60px; 
+            padding-right: 60px; /* Space for the wall walker */
         }
 
         /* --- SCROLL ANIMATION CLASSES --- */
@@ -165,15 +164,14 @@
            UNIQUE FEATURE: THE WALL WALKING ARCHITECT
            ========================================= */
         
-        /* The Track (Ruler on the right) */
         .scroll-track-container {
             position: fixed;
             top: 0;
             right: 15px;
-            width: 40px;
+            width: 50px; /* Slightly wider for the helmet */
             height: 100vh;
             z-index: 1000;
-            pointer-events: none; /* Let clicks pass through */
+            pointer-events: none; 
         }
 
         .scroll-line {
@@ -187,7 +185,6 @@
             transform: translateX(-50%);
         }
 
-        /* Ticks on the ruler */
         .scroll-tick {
             position: absolute;
             left: 50%;
@@ -200,64 +197,76 @@
         /* The Walker Character */
         .wall-walker {
             position: absolute;
-            top: 0; /* Updated by JS */
+            top: 0; 
             left: 50%;
-            width: 40px;
-            height: 40px;
-            margin-left: -20px; /* Center horizontally */
+            width: 44px; /* Adjusted size */
+            height: 44px;
+            margin-left: -22px; 
             transition: top 0.1s linear, transform 0.2s ease;
-            filter: drop-shadow(0 0 5px #00f7ff);
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
         }
 
-        /* The "Look Here" Tooltip */
+        /* The Text Bubble */
         .walker-tooltip {
             position: absolute;
-            right: 45px;
-            top: 5px;
+            right: 50px;
+            top: 10px;
             background: #ffffff;
             color: #000;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.7rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
             font-weight: bold;
             white-space: nowrap;
-            opacity: 0;
+            opacity: 0; /* Hidden by default */
             transform: translateX(10px);
             transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        /* Triangle pointer for tooltip */
         .walker-tooltip::after {
             content: '';
             position: absolute;
-            right: -5px;
+            right: -6px;
             top: 50%;
-            margin-top: -5px;
-            border-width: 5px;
+            margin-top: -6px;
+            border-width: 6px;
             border-style: solid;
             border-color: transparent transparent transparent #ffffff;
         }
 
-        /* Show tooltip when near bottom */
-        .wall-walker.near-bottom .walker-tooltip {
+        /* State: At the very top (Initial Instruction) */
+        .wall-walker.at-top .walker-tooltip {
             opacity: 1;
             transform: translateX(0);
         }
 
-        /* Animation for legs moving */
+        /* State: At the bottom (Success message) */
+        .wall-walker.near-bottom .walker-tooltip {
+            opacity: 1;
+            transform: translateX(0);
+            background: #FFD700; /* Gold background for success */
+        }
+        .wall-walker.near-bottom .walker-tooltip::after {
+            border-color: transparent transparent transparent #FFD700;
+        }
+
+        /* Leg Animation */
         .leg-left, .leg-right {
             transform-origin: top center;
         }
         
         .wall-walker.walking .leg-left {
-            animation: walkLeg 0.3s infinite alternate;
+            animation: walkLeg 0.2s infinite alternate;
         }
         .wall-walker.walking .leg-right {
-            animation: walkLeg 0.3s infinite alternate-reverse;
+            animation: walkLeg 0.2s infinite alternate-reverse;
         }
 
         @keyframes walkLeg {
-            from { transform: rotate(-20deg); }
-            to { transform: rotate(20deg); }
+            from { transform: rotate(-30deg); }
+            to { transform: rotate(30deg); }
         }
 
     </style>
@@ -271,18 +280,24 @@
         <div class="scroll-tick" style="top: 60%"></div>
         <div class="scroll-tick" style="top: 80%"></div>
 
-        <div class="wall-walker" id="architectWalker">
-            <div class="walker-tooltip">Click Case Studies! 👈</div>
+        <div class="wall-walker at-top" id="architectWalker">
+            <div class="walker-tooltip" id="walkerText">Scroll Down for Portfolio 👇</div>
+            
             <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                <rect x="20" y="15" width="10" height="15" fill="#fff" rx="2" />
-                <circle cx="25" cy="10" r="6" fill="#fff" />
-                <path d="M 19 8 Q 25 0 31 8" fill="#FFD700" stroke="#333" stroke-width="1"/>
-                <line x1="20" y1="20" x2="10" y2="15" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                <line x1="30" y1="20" x2="40" y2="15" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="10" cy="15" r="2.5" fill="#FFD700" />
-                <circle cx="40" cy="15" r="2.5" fill="#FFD700" />
-                <line class="leg-left" x1="23" y1="30" x2="23" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                <line class="leg-right" x1="27" y1="30" x2="27" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                <rect x="18" y="20" width="14" height="15" fill="#0056b3" rx="3" />
+                <rect x="23" y="15" width="4" height="6" fill="#f0d5b1" />
+                <circle cx="25" cy="14" r="7" fill="#f0d5b1" />
+                
+                <path d="M 16 12 Q 25 2 34 12 L 36 12 L 36 14 L 14 14 L 14 12 Z" fill="#FFD700" stroke="#b8860b" stroke-width="1"/>
+                
+                <path d="M 18 22 Q 10 20 12 15" stroke="#0056b3" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M 32 22 Q 40 20 38 15" stroke="#0056b3" stroke-width="3" fill="none" stroke-linecap="round"/>
+                
+                <circle cx="12" cy="15" r="2.5" fill="#333" />
+                <circle cx="38" cy="15" r="2.5" fill="#333" />
+
+                <line class="leg-left" x1="22" y1="35" x2="22" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+                <line class="leg-right" x1="28" y1="35" x2="28" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
             </svg>
         </div>
     </div>
@@ -416,46 +431,54 @@
 
         // 2. WALL WALKER LOGIC
         const walker = document.getElementById('architectWalker');
+        const walkerText = document.getElementById('walkerText');
         let lastScrollTop = 0;
         let isScrolling;
 
         window.addEventListener('scroll', () => {
-            // Calculate scroll percentage
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100; // 0 to 100
-
-            // Update walker position (Constrain to 90% height so he doesn't fall off)
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            // Calculate Position
             const trackHeight = 90; 
             const newTop = (scrollPercent / 100) * trackHeight; 
             
-            // Move the walker
-            walker.style.top = newTop + 'vh'; // Use vh for viewport positioning
-            
-            // Add walking animation class
+            walker.style.top = newTop + 'vh';
             walker.classList.add('walking');
 
-            // Handle direction (Look Up or Down)
-            if (scrollTop > lastScrollTop) {
-                // Scrolling Down -> Rotate 180deg (Face down)
-                walker.style.transform = 'rotate(180deg)'; 
-                walker.querySelector('.walker-tooltip').style.transform = 'rotate(-180deg) translateX(10px)'; // Keep text upright
+            // --- TEXT & ORIENTATION LOGIC ---
+
+            // 1. If at top (Start)
+            if (scrollPercent < 3) {
+                walker.classList.add('at-top');
+                walkerText.innerText = "Scroll Down for Portfolio 👇";
             } else {
-                // Scrolling Up -> Rotate 0deg (Face up)
-                walker.style.transform = 'rotate(0deg)';
-                walker.querySelector('.walker-tooltip').style.transform = 'translateX(10px)';
+                walker.classList.remove('at-top');
             }
 
-            // Check if near bottom to show tooltip
-            if(scrollPercent > 85) {
+            // 2. If at bottom (End)
+            if (scrollPercent > 90) {
                 walker.classList.add('near-bottom');
+                walkerText.innerText = "Click Case Studies! 👈";
             } else {
                 walker.classList.remove('near-bottom');
             }
 
+            // 3. Orientation (Face Up or Down)
+            if (scrollTop > lastScrollTop) {
+                // Moving Down
+                walker.style.transform = 'rotate(180deg)'; 
+                // Keep text upright even when character is upside down
+                walkerText.style.transform = 'rotate(-180deg) translateX(10px)'; 
+            } else {
+                // Moving Up
+                walker.style.transform = 'rotate(0deg)';
+                walkerText.style.transform = 'translateX(0px)';
+            }
+
             lastScrollTop = scrollTop;
 
-            // Stop leg animation when scrolling stops
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(() => {
                 walker.classList.remove('walking');
