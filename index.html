@@ -161,50 +161,68 @@
         footer { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.8rem; margin-top: 50px;}
 
         /* =========================================
-           UNIQUE FEATURE: THE WALL WALKING ARCHITECT
-           STYLE: ALGORITHMIC GRAPH (NODES & EDGES)
+           UNIQUE FEATURE: THE GRAPH WALKER + LASER
            ========================================= */
         
         .scroll-track-container {
             position: fixed;
             top: 0;
-            right: 20px; /* Adjusted slightly for the nodes */
+            right: 15px;
             width: 50px; 
             height: 100vh;
             z-index: 1000;
             pointer-events: none; 
         }
 
-        /* THE EDGE (Line) */
-        .scroll-line {
+        /* 1. Base Line (The Faint Path) */
+        .graph-line-base {
             position: absolute;
-            top: 5%;
-            bottom: 5%;
+            top: 0;
+            bottom: 0;
             left: 50%;
-            width: 4px; /* Thicker, like a data cable */
-            background: rgba(255, 255, 255, 0.1);
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
-            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            width: 4px;
+            background: rgba(255,255,255,0.1);
             border-radius: 4px;
             transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.1); /* Subtle blue glow */
         }
 
-        /* THE NODES (Circles) */
-        .scroll-tick {
+        /* 2. Progress Laser (The Glowing Path) */
+        .graph-line-progress {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 0; /* Updated by JS */
+            background: #00f7ff; /* Neon Cyan */
+            box-shadow: 0 0 15px #00f7ff, 0 0 30px #00f7ff; /* Laser Glow */
+            border-radius: 4px;
+            transform: translateX(-50%);
+            transition: height 0.1s linear;
+        }
+
+        /* 3. The Graph Nodes (Circles) */
+        .graph-node {
             position: absolute;
             left: 50%;
             width: 14px;
             height: 14px;
-            background: #0a0a12; /* Dark center */
-            border: 2px solid #23a6d5; /* Neon Blue border matching theme */
-            border-radius: 50%; /* Make it a circle */
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(35, 166, 213, 0.6); /* Glow effect */
-            z-index: 1001; /* Sit above the line but behind the walker */
+            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
-        /* The Walker Container (Holds SVG + Text) */
+        /* Active Node Style (Visited) */
+        .graph-node.active {
+            background: #00f7ff;
+            border-color: white;
+            box-shadow: 0 0 20px #00f7ff;
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* The Walker Container */
         .wall-walker {
             position: absolute;
             top: 0; 
@@ -213,18 +231,17 @@
             height: 44px;
             margin-left: -22px; 
             transition: top 0.1s linear; 
-            filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6));
-            z-index: 1002; /* Must be on top of nodes */
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+            z-index: 2; /* Sit above the line */
         }
 
-        /* SVG Rotation */
         .wall-walker svg {
             width: 100%;
             height: 100%;
             transition: transform 0.3s ease;
         }
 
-        /* The Text Bubble */
+        /* Text Bubble */
         .walker-tooltip {
             position: absolute;
             right: 55px; 
@@ -254,12 +271,12 @@
             border-color: transparent transparent transparent #ffffff;
         }
 
-        /* --- VISIBILITY STATES --- */
+        /* Tooltip Visibility States */
         .wall-walker.show-tooltip .walker-tooltip {
             opacity: 1;
             transform: translateX(0);
         }
-
+        
         .wall-walker.near-bottom .walker-tooltip {
             background: #FFD700; 
         }
@@ -267,11 +284,11 @@
             border-color: transparent transparent transparent #FFD700;
         }
 
-        /* --- SVG ROTATION CLASSES --- */
+        /* Rotation */
         .wall-walker.face-down svg { transform: rotate(180deg); }
         .wall-walker.face-up svg { transform: rotate(0deg); }
 
-        /* Leg Animation */
+        /* Legs */
         .leg-left { transform-origin: 22px 35px; }
         .leg-right { transform-origin: 28px 35px; }
         
@@ -288,13 +305,16 @@
 <body>
 
     <div class="scroll-track-container">
-        <div class="scroll-line"></div>
+        <div class="graph-line-base"></div>
         
-        <div class="scroll-tick" style="top: 10%"></div>
-        <div class="scroll-tick" style="top: 30%"></div>
-        <div class="scroll-tick" style="top: 50%"></div>
-        <div class="scroll-tick" style="top: 70%"></div>
-        <div class="scroll-tick" style="top: 90%"></div>
+        <div class="graph-line-progress" id="laserLine"></div>
+
+        <div class="graph-node" data-pos="0" style="top: 0%"></div>
+        <div class="graph-node" data-pos="20" style="top: 20%"></div> 
+        <div class="graph-node" data-pos="40" style="top: 40%"></div> 
+        <div class="graph-node" data-pos="60" style="top: 60%"></div> 
+        <div class="graph-node" data-pos="80" style="top: 80%"></div>
+        <div class="graph-node" data-pos="100" style="top: 100%"></div>
 
         <div class="wall-walker" id="architectWalker">
             <div class="walker-tooltip" id="walkerText">Scroll Down 👇</div>
@@ -353,8 +373,6 @@
                     <span class="project-tag">Concept 01</span>
                     <h3>Algorithmic Efficiency</h3>
                     <p>Algorithm efficiency measures how effectively an algorithm utilizes computational resources, primarily time and memory, to solve a problem.
-
-                        It is a critical concept in computer science, as it determines an algorithm's practical applicability, especially when dealing with large datasets or complex computations.
                      <br><br>
                          <strong>Ex: Merge Sort , Bubble Sort , FFT</strong></p>
                 </div>
@@ -362,9 +380,7 @@
                 <div class="interactive-card hidden">
                     <span class="project-tag">Concept 02</span>
                     <h3>Time & Space Complexity</h3>
-                    <p>Measures used to describe the efficiency of an algorithm, indicating how its resource requirements (time and memory, respectively) scale as the size of the input data increases.
-
-                       This analysis is generally expressed using Big O notation, which provides a standardized, machine-independent way to compare algorithms, focusing on their worst-case performance for large inputs. 
+                    <p>Measures used to describe the efficiency of an algorithm, indicating how its resource requirements.
                     <br><br>
                         <strong>Ex: O(1) [Hash Map] , O(N log N) [Quick Sort]</strong></p>
                 </div>
@@ -372,11 +388,7 @@
                 <div class="interactive-card hidden">
                     <span class="project-tag">Concept 03</span>
                     <h3>Importance of Algorithms</h3>
-                    <p>Algorithms are the fundamental logic that drives the modern world.
-
-                        They turn unstructured chaos into organized, actionable intelligence.
-
-                        Beyond just code, algorithmic thinking teaches us Problem Solving Paradigms—such as Divide and Conquer, Greedy approaches, and Dynamic Programming.
+                    <p>Algorithms are the fundamental logic that drives the modern world. They turn unstructured chaos into organized, actionable intelligence.
                     <br><br>
                         <strong>Ex: Dijkstra’s Algorithm , RSA Encryption</strong></p>
                 </div>
@@ -387,7 +399,7 @@
             <h2>🏙️ Project Overview</h2>
             <p style="font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6;">
                 For this coursework, we have developed a comprehensive <strong>Smart City Framework</strong>. 
-               Applying the course concepts above, we designed a smart city framework for our city . Below is the city design chart:
+                Applying the course concepts above, we designed a smart city framework for our city . Below is the city design chart:
             </p>
             <div class="chart-container hidden">
                 <img src="city chart.jpg" alt="City Design Flowchart">
@@ -452,6 +464,9 @@
         // 2. WALL WALKER LOGIC
         const walker = document.getElementById('architectWalker');
         const walkerText = document.getElementById('walkerText');
+        const laserLine = document.getElementById('laserLine');
+        const nodes = document.querySelectorAll('.graph-node');
+
         let lastScrollTop = 0;
         let isScrolling;
 
@@ -460,51 +475,61 @@
             const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
             
-            // Calculate Position
+            // Calculate Position (0 to 90vh)
             const trackHeight = 90; 
             const newTop = (scrollPercent / 100) * trackHeight; 
             
+            // Move Walker
             walker.style.top = newTop + 'vh';
             
-            // Only animate walking if we are actually scrolling
+            // Update LASER Line Height
+            // We want the laser to go from top(0) to the center of the walker
+            laserLine.style.height = newTop + 'vh';
+
+            // Check Nodes
+            // We scale the node position (0-100) to the track height (0-90)
+            nodes.forEach(node => {
+                const nodePos = parseInt(node.getAttribute('data-pos'));
+                // If walker percentage > node percentage, activate it
+                if (scrollPercent >= nodePos) {
+                    node.classList.add('active');
+                } else {
+                    node.classList.remove('active');
+                }
+            });
+
+            // Animate walking
             if(isScrolling) {
                 walker.classList.add('walking');
             }
 
-            // --- TEXT VISIBILITY LOGIC ---
-
-            walker.classList.remove('show-tooltip'); // Default hidden
+            // --- TEXT LOGIC ---
+            walker.classList.remove('show-tooltip'); 
             walker.classList.remove('near-bottom');
 
-            // 1. Start Zone: > 0.5% and < 40% (Until Level 2)
+            // 1. Start Zone
             if (scrollPercent > 0.5 && scrollPercent < 40) {
                 walkerText.innerText = "Scroll Down 👇";
                 walker.classList.add('show-tooltip');
             }
-            // 2. Middle Zone: 40% - 90% (Hidden - clean climbing)
             
-            // 3. End Zone: > 92% (Bottom)
+            // 2. End Zone
             if (scrollPercent > 92) {
                 walkerText.innerText = "Click Case Studies! 👈";
                 walker.classList.add('show-tooltip');
                 walker.classList.add('near-bottom');
             }
 
-            // --- ORIENTATION LOGIC (SVG Rotation Only) ---
-            
-            // Force face UP if at very bottom
+            // --- ORIENTATION LOGIC ---
             if (scrollPercent > 92) {
                 walker.classList.remove('face-down');
                 walker.classList.add('face-up');
             } 
             else {
-                // Normal directional logic
                 if (scrollTop > lastScrollTop) {
-                    // Moving Down
                     walker.classList.add('face-down');
                     walker.classList.remove('face-up');
                 } else {
-                    // Moving Up
                     walker.classList.add('face-up');
                     walker.classList.remove('face-down');
                 }
@@ -513,7 +538,6 @@
             lastScrollTop = scrollTop;
         }
 
-        // Run on scroll
         window.addEventListener('scroll', () => {
             if(!isScrolling) {
                 isScrolling = true;
@@ -522,7 +546,6 @@
             
             updateWalker();
 
-            // Stop leg animation when scrolling stops
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(() => {
                 walker.classList.remove('walking');
@@ -530,7 +553,6 @@
             }, 66);
         }, false);
 
-        // Run once on load to ensure correct state
         window.addEventListener('DOMContentLoaded', updateWalker);
 
     </script>
