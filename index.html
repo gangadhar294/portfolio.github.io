@@ -7,71 +7,72 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CORE SETTINGS --- */
+        /* --- BACKGROUND ANIMATION --- */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Space Grotesk', sans-serif;
             color: white;
-            /* Darker, more serious tech background */
-            background: radial-gradient(circle at center, #1a1a2e, #000000);
+            /* Kept your original gradient */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             min-height: 100vh;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
-            max-width: 1000px; /* Made slightly smaller to make room for the sidebar */
+            max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
-            padding-right: 140px; /* Space for the right sidebar */
             position: relative;
-            z-index: 2;
+            z-index: 10; /* Keeps content above the city */
         }
 
         /* --- SCROLL ANIMATION CLASSES --- */
         .hidden {
             opacity: 0;
             filter: blur(5px);
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
+            transform: translateY(100px) scale(0.9);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .show {
             opacity: 1;
             filter: blur(0);
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        /* --- GLASS PANEL DESIGN --- */
+        /* --- GLASS PANEL --- */
         .glass-panel {
-            background: rgba(20, 20, 25, 0.7); /* Darker glass */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 3px solid #00f7ff; /* Neon Cyan Accent */
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
 
-        .hero { text-align: left; padding: 100px 0; }
+        .hero { text-align: center; padding: 60px 0; }
         .hero h1 {
-            font-size: 5rem; margin: 0; font-weight: 700;
-            background: linear-gradient(to right, #fff, #00f7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -3px;
-            line-height: 1;
+            font-size: 4rem; margin: 0; font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2); letter-spacing: -2px;
         }
-        .hero p { font-size: 1.5rem; font-weight: 300; margin-top: 10px; color: #a0a0b0; }
+        .hero p { font-size: 1.5rem; font-weight: 300; margin-top: 10px; opacity: 0.9; }
 
         h2 {
             font-size: 2rem;
-            color: #00f7ff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            padding-bottom: 10px;
+            display: inline-block;
             margin-bottom: 30px;
         }
 
@@ -86,172 +87,150 @@
         .interactive-card {
             flex: 1; 
             min-width: 200px;
-            background: #0f0f16;
+            background: rgba(0,0,0,0.2);
             padding: 25px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease; 
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
 
         .interactive-card:hover {
-            border-color: #00f7ff;
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.1);
+            background: #ffffff; 
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 10;
         }
 
-        .interactive-card h3 { margin: 10px 0 5px 0; font-size: 1.3rem; color: white; }
-        .interactive-card p { font-size: 0.95rem; line-height: 1.6; color: #888; }
+        .interactive-card h3 { 
+            margin: 10px 0 5px 0; 
+            font-size: 1.3rem; 
+            transition: color 0.3s; 
+        }
+        
+        .interactive-card p { 
+            transition: color 0.3s; 
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .interactive-card:hover h3 { color: #e73c7e; }
+        .interactive-card:hover p { color: #333; }
         
         .project-tag {
-            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
-            color: #00f7ff; margin-bottom: 10px; display: block; font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 10px;
+            display: block;
         }
+        .interactive-card:hover .project-tag { color: #23a6d5; font-weight: bold; }
 
-        /* --- BUTTONS --- */
+        /* --- CHART & BUTTONS --- */
+        .chart-container {
+            margin-top: 40px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .chart-container img {
+            max-width: 100%; border-radius: 15px;
+            border: 5px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+        .chart-container img:hover { transform: scale(1.02); border-color: #ffffff; }
+
         .btn {
-            display: inline-block; margin-top: 20px; padding: 12px 30px;
-            background: transparent; border: 1px solid #00f7ff;
-            color: #00f7ff; text-decoration: none; border-radius: 4px;
-            font-weight: bold; font-size: 0.9rem; text-transform: uppercase;
+            display: inline-block; margin-top: 15px; padding: 10px 25px;
+            background: rgba(255,255,255,0.2); border: 1px solid white;
+            color: white; text-decoration: none; border-radius: 30px;
+            font-weight: bold; font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         .interactive-card:hover .btn {
-            background: #00f7ff; color: #000; box-shadow: 0 0 15px #00f7ff;
+            background: #23d5ab; border-color: #23d5ab; color: white;
+            box-shadow: 0 5px 15px rgba(35, 213, 171, 0.4);
         }
 
-        .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .info-item { text-align: center; padding: 15px; border-right: 1px solid rgba(255,255,255,0.1); }
-        .info-item:last-child { border-right: none; }
-        .info-item strong { display: block; font-size: 0.8rem; color: #666; text-transform: uppercase; margin-bottom: 5px; }
-        .info-item span { font-size: 1.1rem; font-weight: 700; color: white; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
+        .info-item { padding: 15px; border-radius: 15px; transition: all 0.4s ease; }
+        .info-item:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+        .info-item strong { display: block; font-size: 0.9rem; opacity: 0.7; }
+        .info-item span { font-size: 1.2rem; font-weight: 700; }
 
-        .chart-container { margin-top: 40px; text-align: center; }
-        .chart-container img {
-            max-width: 100%; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
-            opacity: 0.8; transition: opacity 0.3s;
-        }
-        .chart-container img:hover { opacity: 1; }
+        footer { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.8rem; margin-top: 50px;}
 
-        footer { text-align: center; padding: 50px 20px; color: #444; font-size: 0.8rem; }
-
-        /* --- THE NEW RIGHT-SIDE ARCHITECTURE VISUALIZATION --- */
-        .archi-sidebar {
+        /* --- PARALLAX CITY LAYERS --- */
+        .city-skyline {
             position: fixed;
-            top: 0;
-            right: 0;
-            width: 140px; /* Width of the elevator shaft */
-            height: 100vh;
-            background: #050508; /* Very dark background */
-            border-left: 2px solid #222;
-            z-index: 100;
-            overflow: hidden;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        }
-
-        /* The moving building pattern (Parallax Background) */
-        .building-pattern {
-            position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 200%; /* Taller than screen to allow movement */
-            background-image: 
-                linear-gradient(#111 2px, transparent 2px), /* Floor lines */
-                linear-gradient(90deg, #111 2px, transparent 2px), /* Vertical beams */
-                linear-gradient(rgba(0, 247, 255, 0.05) 1px, transparent 1px); /* Cyan glow lines */
-            background-size: 100% 50px, 50% 100%, 100% 100px;
-            opacity: 0.5;
-            transition: transform 0.1s linear; /* Smooth movement handled by JS */
+            height: 100%;
+            pointer-events: none; /* Allows clicking through */
+            z-index: 1; /* Behind content but in front of gradient */
+            overflow: hidden;
         }
 
-        /* The Elevator Pod */
-        .elevator-pod {
+        .city-layer {
             position: absolute;
-            top: 50px; /* Start at top */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 100px;
-            background: rgba(0, 247, 255, 0.1);
-            border: 1px solid #00f7ff;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            z-index: 102;
-            transition: top 0.3s ease-out; /* Adds a bit of lag/physics */
+            bottom: -100px; /* Start slightly hidden */
+            left: 0;
+            width: 100%;
+            background-repeat: repeat-x;
+            background-position: bottom left;
+            transition: transform 0.1s linear; /* Smooth movement */
         }
 
-        /* The Cable holding the pod */
-        .elevator-cable {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 50px; /* Will be updated by JS */
-            background: #00f7ff;
-            opacity: 0.5;
-            z-index: 101;
+        /* Back Layer - Slowest, Lightest */
+        .layer-1 {
+            height: 300px;
+            opacity: 0.3;
+            bottom: -50px;
         }
 
-        /* The Architect Figure (SVG) */
-        .architect-svg {
-            width: 40px;
-            height: 60px;
-            fill: white;
-            filter: drop-shadow(0 0 5px #00f7ff);
+        /* Mid Layer - Medium Speed */
+        .layer-2 {
+            height: 250px;
+            opacity: 0.6;
+            bottom: -80px;
         }
 
-        /* Floor Numbers on the wall */
-        .floor-marker {
-            position: absolute;
-            right: 10px;
-            font-family: 'Space Grotesk', monospace;
-            color: rgba(255,255,255,0.2);
-            font-size: 3rem;
-            font-weight: bold;
+        /* Front Layer - Fastest, Darkest */
+        .layer-3 {
+            height: 180px;
+            opacity: 0.9;
+            bottom: -100px;
         }
 
+        /* SVG Patterns for Buildings */
+        /* We use background-image with encoded SVGs for performance */
     </style>
 </head>
 <body>
 
-    <div class="archi-sidebar">
-        <div class="building-pattern" id="bgPattern"></div>
+    <div class="city-skyline">
+        <div class="city-layer layer-1" id="l1" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1000 300\' preserveAspectRatio=\'none\'><path d=\'M0,300 L0,150 L50,150 L50,100 L100,100 L100,200 L150,200 L150,80 L200,80 L200,250 L250,250 L250,120 L300,120 L300,300 Z M300,300 L300,180 L350,180 L350,220 L400,220 L400,100 L450,100 L450,300 Z M500,300 L500,140 L550,140 L550,60 L600,60 L600,200 L650,200 L650,300 Z M700,300 L700,120 L750,120 L750,180 L800,180 L800,50 L850,50 L850,300 Z\' fill=\'%23000000\'/></svg>');"></div>
         
-        <div class="floor-marker" style="top: 10%">05</div>
-        <div class="floor-marker" style="top: 30%">04</div>
-        <div class="floor-marker" style="top: 50%">03</div>
-        <div class="floor-marker" style="top: 70%">02</div>
-        <div class="floor-marker" style="top: 90%">01</div>
-
-        <div class="elevator-cable" id="cable"></div>
-
-        <div class="elevator-pod" id="pod">
-            <svg class="architect-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2Z" />
-                <path d="M12 7C14.7614 7 17 9.23858 17 12V22H15V16H9V22H7V12C7 9.23858 9.23858 7 12 7Z" />
-                <path d="M7 4C7 2.5 9 1 12 1C15 1 17 2.5 17 4" stroke="#ffb700" stroke-width="2" fill="none"/>
-            </svg>
-        </div>
+        <div class="city-layer layer-2" id="l2" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1000 250\' preserveAspectRatio=\'none\'><path d=\'M0,250 L0,100 L40,100 L40,80 L80,80 L80,200 L120,200 L120,50 L160,50 L160,250 Z M200,250 L200,120 L240,120 L240,160 L280,160 L280,90 L320,90 L320,250 Z M350,250 L350,180 L400,180 L400,40 L450,40 L450,250 Z M500,250 L500,100 L550,100 L550,150 L600,150 L600,250 Z\' fill=\'%231a1a2e\'/></svg>');"></div>
+        
+        <div class="city-layer layer-3" id="l3" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1000 180\' preserveAspectRatio=\'none\'><path d=\'M0,180 L0,50 L30,50 L30,30 L60,30 L60,180 Z M80,180 L80,80 L120,80 L120,20 L160,20 L160,180 Z M200,180 L200,60 L250,60 L250,100 L300,100 L300,180 Z M400,180 L400,40 L440,40 L440,180 Z M500,180 L500,90 L600,90 L600,180 Z\' fill=\'%230a0a12\'/></svg>');"></div>
     </div>
-
 
     <div class="container">
 
         <header class="hero hidden">
-            <p>01 // SYSTEM INITIALIZED</p>
-            <h1>CITY<br>ARCHITECT</h1>
-            <p style="color: #00f7ff; letter-spacing: 5px;">ALGORITHMIC DESIGN PORTFOLIO</p>
+            <h1>DAA PORTFOLIO</h1>
+            <p>Algorithmic City Design & Analysis</p>
         </header>
 
         <div class="glass-panel hidden">
             <div class="info-grid">
                 <div class="info-item">
                     <strong>Course</strong>
-                    <span>Algorithms</span>
+                    <span>Design & Analysis of Algorithms</span>
                 </div>
                 <div class="info-item">
                     <strong>Code</strong>
@@ -263,84 +242,136 @@
                 </div>
                 <div class="info-item">
                     <strong>Instructor</strong>
-                    <span>Prof. Hegade</span>
+                    <span>Prof. Prakash Hegade</span>
                 </div>
             </div>
         </div>
 
         <div class="glass-panel hidden">
-            <h2>// SYSTEM OVERVIEW</h2>
-            <p style="font-size: 1.1rem; line-height: 1.7; color: #ccc;">
+            <h2>🎓 Course Overview</h2>
+            <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
                 This project implements the core concepts learned in the <strong>Design and Analysis of Algorithms (DAA)</strong> course. 
                 We explored how to solve complex real-world problems using mathematical modeling and efficiency analysis.
             </p>
 
             <div class="card-grid">
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Module A</span>
+                    <span class="project-tag">Concept 01</span>
                     <h3>Algorithmic Efficiency</h3>
-                    <p>Optimizing computational resources (Time & Memory) for large scale urban datasets. Includes Big-O analysis and performance tuning.</p>
+                    <p>Algorithm efficiency measures how effectively an algorithm utilizes computational resources, primarily time and memory, to solve a problem.
+                        It is a critical concept in computer science.
+                     <br><br>
+                         <strong>Ex: Merge Sort , Bubble Sort , FFT</strong></p>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Module B</span>
-                    <h3>Graph Theory</h3>
-                    <p>Modeling city infrastructure using Nodes and Edges to solve Shortest Path (Dijkstra) and Connectivity (MST) problems.</p>
+                    <span class="project-tag">Concept 02</span>
+                    <h3>Time & Space Complexity</h3>
+                    <p>Measures used to describe the efficiency of an algorithm, indicating how its resource requirements scale as the size of the input data increases.
+                    <br><br>
+                        <strong>Ex: O(1) [Hash Map] , O(N log N) [Quick Sort]</strong></p>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Module C</span>
-                    <h3>Optimization</h3>
-                    <p>Using Dynamic Programming and Greedy approaches to solve resource allocation and scheduling conflicts in the city grid.</p>
+                    <span class="project-tag">Concept 03</span>
+                    <h3>Importance of Algorithms</h3>
+                    <p>Algorithms are the fundamental logic that drives the modern world. They turn unstructured chaos into organized, actionable intelligence.
+                    <br><br>
+                        <strong>Ex: Dijkstra’s Algorithm , PageRank Algorithm</strong></p>
                 </div>
             </div>
         </div>
 
         <div class="glass-panel hidden">
-            <h2>// BLUEPRINT MAP</h2>
-            <p style="font-size: 1.1rem; color: #ccc;">
-                Our team identified critical urban infrastructure challenges—Traffic, Water, and Power—and mapped them to standard Data Structures.
+            <h2>🏙️ Project Overview</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6;">
+                For this coursework, we have developed a comprehensive <strong>Smart City Framework</strong>. 
+                Our team identified critical urban infrastructure challenges—such as Traffic Congestion, Water Distribution, and Power Grids—and mapped them to standard <strong>Data Structures (Graphs and Trees)</strong>.
+                <br><br>
+                By applying algorithms like <em>Dijkstra’s</em> for routing and <em>Kruskal’s</em> for networking, we aim to demonstrate how theoretical efficiency translates to real-world optimization.
             </p>
             <div class="chart-container hidden">
-                <img src="city chart.jpg" alt="City Design Flowchart" style="border: 1px solid #333;">
-                <p style="margin-top: 15px; opacity: 0.5; font-family: monospace;">FIG 1.0: ARCHITECTURE SCHEMATIC</p>
+                <img src="city chart.jpg" alt="City Design Flowchart">
+                <p style="margin-top: 15px; opacity: 0.7;">Figure: City Design Map/Plan</p>
             </div>
         </div>
 
-        <div class="glass-panel hidden" id="team-section">
-            <h2>// THE ARCHITECTS</h2>
+        <div class="glass-panel hidden">
+            <h2>👥 The Team</h2>
             <div class="card-grid">
                 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Lead 01</span>
+                    <span class="project-tag">Member</span>
                     <h3>Iranna</h3>
                     <p>SRN: 01FE24BCS267</p>
-                    <a href="member1.html" class="btn">View Logic</a>
+                    <a href="member1.html" class="btn">View Case study</a>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Lead 02</span>
+                    <span class="project-tag">Member</span>
                     <h3>Vikas</h3>
                     <p>SRN: 01FE24BCS299</p>
-                    <a href="member2.html" class="btn">View Logic</a>
+                    <a href="member2.html" class="btn">View Case study</a>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Lead 03</span>
+                    <span class="project-tag">Member</span>
                     <h3>Shashank</h3>
                     <p>SRN: 01FE24BCS288</p>
-                    <a href="member3.html" class="btn">View Logic</a>
+                    <a href="member3.html" class="btn">View Case study</a>
                 </div>
 
                 <div class="interactive-card hidden">
-                    <span class="project-tag">Lead 04</span>
+                    <span class="project-tag">Member</span>
                     <h3>Gangadhar</h3>
                     <p>SRN: 01FE24BCS294</p>
-                    <a href="member4.html" class="btn">View Logic</a>
+                    <a href="member4.html" class="btn">View Case study</a>
                 </div>
 
             </div>
         </div>
 
         <footer>
-            DAA COURSE 2025 | SYSTEM STATUS
+            Created for DAA Course 2025 | Hosted on GitHub Pages
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. Intersection Observer for Text (Fade In)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // 2. Parallax City Logic (The Cool Effect)
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY;
+            
+            // Select layers
+            let l1 = document.getElementById('l1'); // Back
+            let l2 = document.getElementById('l2'); // Mid
+            let l3 = document.getElementById('l3'); // Front
+
+            // Calculate movement (Parallax)
+            // As you scroll down, the buildings move UP (negative Y)
+            
+            // Layer 1 (Back) moves slowly
+            l1.style.transform = `translateY(-${scrollY * 0.2}px)`;
+            
+            // Layer 2 (Mid) moves faster
+            l2.style.transform = `translateY(-${scrollY * 0.4}px)`;
+            
+            // Layer 3 (Front) moves fastest
+            l3.style.transform = `translateY(-${scrollY * 0.6}px)`;
+        });
+    </script>
+
+</body>
+</html>
