@@ -4,376 +4,359 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAA City Design Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- BACKGROUND ANIMATION --- */
+        /* --- CORE SETTINGS --- */
+        :root {
+            --bg-color: #050505;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --glass: rgba(20, 20, 20, 0.7);
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
             color: white;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth; /* Enables smooth scrolling */
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- LAYOUT GRID --- */
+        .main-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 500px; /* Content Left, Blueprint Right */
+            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* --- LEFT SIDE: CONTENT --- */
+        .content-area {
+            padding: 50px;
+            z-index: 2;
         }
 
-        /* --- SCROLL ANIMATION CLASSES --- */
-        .hidden {
-            opacity: 0;
-            filter: blur(5px);
-            transform: translateY(100px) scale(0.9);
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .show {
-            opacity: 1;
-            filter: blur(0);
-            transform: translateY(0) scale(1);
-        }
-
-        /* --- GLASS PANEL --- */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        }
-
-        .hero { text-align: center; padding: 60px 0; }
         .hero h1 {
-            font-size: 4rem; margin: 0; font-weight: 700;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2); letter-spacing: -2px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            line-height: 1;
+            margin: 0;
+            background: linear-gradient(90deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
         }
-        .hero p { font-size: 1.5rem; font-weight: 300; margin-top: 10px; opacity: 0.9; }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #888;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* --- GLASS CARDS --- */
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Little glowing bar on left of cards */
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .glass-panel:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+        }
 
         h2 {
-            font-size: 2rem;
-            border-bottom: 2px solid rgba(255,255,255,0.5);
-            padding-bottom: 10px;
-            display: inline-block;
-            margin-bottom: 30px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-top: 0;
         }
 
-        /* --- INTERACTIVE CARDS --- */
-        .card-grid {
+        /* --- RIGHT SIDE: STICKY VISUALIZATION --- */
+        .blueprint-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 100vh;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            border-left: 1px solid #333;
+            z-index: 1;
             display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Grid Background in the blueprint */
+        .blueprint-grid {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* The SVG Drawing */
+        #city-svg {
+            width: 90%;
+            height: 90%;
+            filter: drop-shadow(0 0 5px var(--neon-blue));
+        }
+
+        /* The Line that gets drawn */
+        .draw-path {
+            fill: none;
+            stroke: #333; /* Dark path initially */
+            stroke-width: 2;
+        }
+
+        .active-path {
+            fill: none;
+            stroke: var(--neon-blue);
+            stroke-width: 3;
+            stroke-linecap: round;
+            /* Dash array will be set by JS */
+        }
+
+        /* The "Drone" Cursor */
+        .drone {
+            fill: #fff;
+            filter: drop-shadow(0 0 10px white);
+        }
+
+        /* --- CARDS & BUTTONS --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            flex-wrap: wrap;
             margin-top: 20px;
         }
-        
+
         .interactive-card {
-            flex: 1; 
-            min-width: 200px;
-            background: rgba(0,0,0,0.2);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid transparent;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-
-        .interactive-card:hover {
-            background: #ffffff; 
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            z-index: 10;
-        }
-
-        .interactive-card h3 { 
-            margin: 10px 0 5px 0; 
-            font-size: 1.3rem; 
-            transition: color 0.3s; 
-        }
-        
-        .interactive-card p { 
-            transition: color 0.3s; 
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        .interactive-card:hover h3 { color: #e73c7e; }
-        .interactive-card:hover p { color: #333; }
-        
-        .project-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.7;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .interactive-card:hover .project-tag { color: #23a6d5; font-weight: bold; }
-
-        /* --- CHART & BUTTONS --- */
-        .chart-container {
-            margin-top: 40px;
-            text-align: center;
-            background: rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.03);
             padding: 20px;
-            border-radius: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
         }
-        .chart-container img {
-            max-width: 100%; border-radius: 15px;
-            border: 5px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease;
+        .interactive-card:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-blue);
         }
-        .chart-container img:hover { transform: scale(1.02); border-color: #ffffff; }
-
+        
         .btn {
-            display: inline-block; margin-top: 15px; padding: 10px 25px;
-            background: rgba(255,255,255,0.2); border: 1px solid white;
-            color: white; text-decoration: none; border-radius: 30px;
-            font-weight: bold; font-size: 0.9rem;
-            transition: all 0.3s ease;
+            display: inline-block; margin-top: 15px; padding: 8px 20px;
+            background: transparent; border: 1px solid var(--neon-blue);
+            color: var(--neon-blue); text-decoration: none; 
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s;
         }
-        .interactive-card:hover .btn {
-            background: #23d5ab; border-color: #23d5ab; color: white;
-            box-shadow: 0 5px 15px rgba(35, 213, 171, 0.4);
-        }
-
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
-        .info-item { padding: 15px; border-radius: 15px; transition: all 0.4s ease; }
-        .info-item:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
-        .info-item strong { display: block; font-size: 0.9rem; opacity: 0.7; }
-        .info-item span { font-size: 1.2rem; font-weight: 700; }
-
-        footer { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.8rem; margin-top: 50px;}
-
-        /* --- NEW: BUILDER BOT STYLES --- */
-        .mascot-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 100px;
-            height: 120px;
-            z-index: 9999;
-            cursor: pointer;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+        .btn:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-blue);
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .info-item span { color: var(--neon-blue); font-weight: bold; font-size: 1.2rem;}
 
-        .mascot-bubble {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: white;
-            color: #333;
-            padding: 8px 12px;
-            border-radius: 15px 15px 0 15px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .main-wrapper { grid-template-columns: 1fr; }
+            .blueprint-container { display: none; } /* Hide complex visual on mobile */
+            .content-area { padding: 20px; }
         }
-        
-        .mascot-container:hover .mascot-bubble {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Pulse animation for the arrow in the SVG */
-        .arrow-pulse {
-            animation: pulseArrow 1.5s infinite;
-        }
-        @keyframes pulseArrow {
-            0% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(5px); opacity: 0.5; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="container">
+<div class="main-wrapper">
 
-        <header class="hero hidden">
-            <h1>DAA PORTFOLIO</h1>
-            <p>Algorithmic City Design & Analysis</p>
+    <div class="content-area">
+        
+        <header class="hero" style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;">
+            <p>SYSTEM ONLINE</p>
+            <h1>CITY<br>ARCHITECT</h1>
+            <p>Algorithmic Urban Planning Portfolio</p>
+            <br>
+            <div style="color: #555; font-size: 0.9rem;">▼ SCROLL TO INITIALIZE CONSTRUCTION</div>
         </header>
 
-        <div class="glass-panel hidden">
+        <div class="glass-panel">
+            <h2>01 / SYSTEM SPECS</h2>
             <div class="info-grid">
                 <div class="info-item">
-                    <strong>Course</strong>
-                    <span>Design & Analysis of Algorithms</span>
-                </div>
-                <div class="info-item">
-                    <strong>Code</strong>
+                    <small>COURSE CODE</small><br>
                     <span>24ECS205</span>
                 </div>
                 <div class="info-item">
-                    <strong>University</strong>
+                    <small>PROTOCOL</small><br>
+                    <span>DAA Optimization</span>
+                </div>
+                <div class="info-item">
+                    <small>LOCATION</small><br>
                     <span>KLE Tech</span>
                 </div>
                 <div class="info-item">
-                    <strong>Instructor</strong>
+                    <small>OPERATOR</small><br>
                     <span>Prof. Prakash Hegade</span>
                 </div>
             </div>
         </div>
 
-        <div class="glass-panel hidden">
-            <h2>🎓 Course Overview</h2>
-            <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
-                This project implements the core concepts learned in the <strong>Design and Analysis of Algorithms (DAA)</strong> course. 
-                We explored how to solve complex real-world problems using mathematical modeling and efficiency analysis.
-            </p>
-
+        <div class="glass-panel">
+            <h2>02 / CORE LOGIC</h2>
+            <p>Initializing city framework... We utilize <strong>Graph Theory</strong> and <strong>Greedy Algorithms</strong> to solve congestion, water flow, and data routing.</p>
+            
             <div class="card-grid">
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Concept 01</span>
-                    <h3>Algorithmic Efficiency</h3>
-                    <p>Algorithm efficiency measures how effectively an algorithm utilizes computational resources, primarily time and memory, to solve a problem.
-                        It is a critical concept in computer science, as it determines an algorithm's practical applicability, especially when dealing with large datasets or complex computations.
-                     <br><br>
-                         <strong>Ex: Merge Sort , Bubble Sort , FFT</strong></p>
+                <div class="interactive-card">
+                    <h3>Efficiency</h3>
+                    <p style="color:#aaa; font-size: 0.9rem;">Optimizing Time (O) & Space Complexity.</p>
                 </div>
-
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Concept 02</span>
-                    <h3>Time & Space Complexity</h3>
-                    <p>Measures used to describe the efficiency of an algorithm, indicating how its resource requirements (time and memory, respectively) scale as the size of the input data increases.
-                        This analysis is generally expressed using Big O notation, which provides a standardized, machine-independent way to compare algorithms, focusing on their worst-case performance for large inputs. 
-                    <br><br>
-                        <strong>Ex: O(1) [Hash Map] , O(N log N) [Quick Sort] , O(N²) [Bubble Sort]</strong></p>
-                </div>
-
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Concept 03</span>
-                    <h3>Importance of Algorithms</h3>
-                    <p>Algorithms are the fundamental logic that drives the modern world.
-                        They turn unstructured chaos into organized, actionable intelligence.
-                        Beyond just code, algorithmic thinking teaches us Problem Solving Paradigms—such as Divide and Conquer, Greedy approaches, and Dynamic Programming.
-                    <br><br>
-                        <strong>Ex: Dijkstra’s Algorithm , PageRank Algorithm , RSA Encryption</strong></p>
+                <div class="interactive-card">
+                    <h3>Structure</h3>
+                    <p style="color:#aaa; font-size: 0.9rem;">Modeling cities as Weighted Graphs.</p>
                 </div>
             </div>
         </div>
 
-        <div class="glass-panel hidden">
-            <h2>🏙️ Project Overview</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6;">
-                For this coursework, we have developed a comprehensive <strong>Smart City Framework</strong>. 
-                Our team identified critical urban infrastructure challenges—such as Traffic Congestion, Water Distribution, and Power Grids—and mapped them to standard <strong>Data Structures (Graphs and Trees)</strong>.
-                <br><br>
-                By applying algorithms like <em>Dijkstra’s</em> for routing and <em>Kruskal’s</em> for networking, we aim to demonstrate how theoretical efficiency translates to real-world optimization.
-            </p>
-            <div class="chart-container hidden">
-                <img src="city chart.jpg" alt="City Design Flowchart">
-                <p style="margin-top: 15px; opacity: 0.7;">Figure: City Design Map/Plan</p>
+        <div class="glass-panel">
+            <h2>03 / PROJECT BLUEPRINT</h2>
+            <p>Our goal: A self-sustaining smart city. See the map below.</p>
+            <div style="margin-top:20px; border: 1px solid #333; padding: 10px;">
+                <img src="city chart.jpg" alt="Flowchart" style="width:100%; opacity: 0.8;">
             </div>
         </div>
 
-        <div class="glass-panel hidden" id="team-section">
-            <h2>👥 The Team</h2>
+        <div class="glass-panel" id="team-section">
+            <h2>04 / ARCHITECTS</h2>
             <div class="card-grid">
                 
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Member</span>
-                    <h3>Iranna</h3>
-                    <p>SRN: 01FE24BCS267</p>
-                    <a href="member1.html" class="btn">View Case study</a>
+                <div class="interactive-card">
+                    <h3 style="color: white;">Iranna</h3>
+                    <p style="font-family: 'Orbitron'; color: var(--neon-blue);">Lead Engineer</p>
+                    <a href="member1.html" class="btn">Access Data</a>
                 </div>
 
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Member</span>
-                    <h3>Vikas</h3>
-                    <p>SRN: 01FE24BCS299</p>
-                    <a href="member2.html" class="btn">View Case study</a>
+                <div class="interactive-card">
+                    <h3 style="color: white;">Vikas</h3>
+                    <p style="font-family: 'Orbitron'; color: var(--neon-blue);">Network Ops</p>
+                    <a href="member2.html" class="btn">Access Data</a>
                 </div>
 
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Member</span>
-                    <h3>Shashank</h3>
-                    <p>SRN: 01FE24BCS288</p>
-                    <a href="member3.html" class="btn">View Case study</a>
+                <div class="interactive-card">
+                    <h3 style="color: white;">Shashank</h3>
+                    <p style="font-family: 'Orbitron'; color: var(--neon-blue);">Safety Systems</p>
+                    <a href="member3.html" class="btn">Access Data</a>
                 </div>
 
-                <div class="interactive-card hidden">
-                    <span class="project-tag">Member</span>
-                    <h3>Gangadhar</h3>
-                    <p>SRN: 01FE24BCS294</p>
-                    <a href="member4.html" class="btn">View Case study</a>
+                <div class="interactive-card">
+                    <h3 style="color: white;">Gangadhar</h3>
+                    <p style="font-family: 'Orbitron'; color: var(--neon-blue);">Logistics</p>
+                    <a href="member4.html" class="btn">Access Data</a>
                 </div>
 
             </div>
         </div>
 
-        <footer>
-            Created for DAA Course 2025 | Hosted on GitHub Pages
+        <footer style="color: #444; margin-top: 50px; font-size: 0.8rem;">
+            END OF LINE. | DAA 2025
         </footer>
-
     </div>
 
-    <div class="mascot-container" onclick="scrollToTeam()">
-        <div class="mascot-bubble">Check our Projects! 👇</div>
-        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-            <rect x="35" y="90" width="10" height="20" rx="5" fill="#555" />
-            <rect x="55" y="90" width="10" height="20" rx="5" fill="#555" />
-            <rect x="25" y="50" width="50" height="45" rx="10" fill="#ffffff" stroke="#333" stroke-width="2"/>
-            <rect x="35" y="60" width="30" height="25" rx="5" fill="#23a6d5" opacity="0.3"/>
-            <circle cx="50" cy="40" r="25" fill="#ffffff" stroke="#333" stroke-width="2"/>
-            <circle cx="42" cy="40" r="5" fill="#23a6d5" />
-            <circle cx="58" cy="40" r="5" fill="#23a6d5" />
-            <path d="M 25 35 Q 50 5 75 35" fill="#FFC107" stroke="#333" stroke-width="2"/>
-            <rect x="45" y="10" width="10" height="5" fill="#333" />
-            <circle cx="20" cy="65" r="8" fill="#555" />
-            <circle cx="80" cy="65" r="8" fill="#555" />
-            <path class="arrow-pulse" d="M 50 105 L 45 95 L 55 95 Z" fill="#e73c7e" />
+    <div class="blueprint-container">
+        <div class="blueprint-grid"></div>
+        <svg id="city-svg" viewBox="0 0 200 600" preserveAspectRatio="xMidYMid meet">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <path class="draw-path" d="M 100 0 V 50 L 50 100 V 200 L 150 250 V 350 L 100 400 V 450 L 20 500 H 180 L 100 550 V 600" />
+            
+            <path id="neon-path" class="active-path" filter="url(#glow)" d="M 100 0 V 50 L 50 100 V 200 L 150 250 V 350 L 100 400 V 450 L 20 500 H 180 L 100 550 V 600" />
+            
+            <circle id="drone" class="drone" cx="100" cy="0" r="4" />
+            
+            <rect x="30" y="120" width="20" height="60" fill="none" stroke="#222" stroke-width="1" class="building-deco" />
+            <rect x="150" y="280" width="30" height="50" fill="none" stroke="#222" stroke-width="1" class="building-deco" />
+            <rect x="40" y="520" width="40" height="20" fill="none" stroke="#222" stroke-width="1" class="building-deco" />
+
         </svg>
     </div>
 
-    <script>
-        // Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
+</div>
+
+<script>
+    // --- SCROLL ANIMATION LOGIC ---
+    
+    // Select elements
+    const path = document.getElementById('neon-path');
+    const drone = document.getElementById('drone');
+    const buildings = document.querySelectorAll('.building-deco');
+    
+    // Get total length of the path
+    const pathLength = path.getTotalLength();
+
+    // Set SVG properties to allow "drawing"
+    path.style.strokeDasharray = pathLength;
+    path.style.strokeDashoffset = pathLength; // Start hidden
+
+    // Listen for scroll
+    window.addEventListener('scroll', () => {
+        // Calculate how far down the page we are (0 to 1)
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollTop / docHeight;
+
+        // Determine how much of the path to draw
+        const drawLength = pathLength * scrollPercent;
+        
+        // Draw the neon line
+        path.style.strokeDashoffset = pathLength - drawLength;
+
+        // Move the Drone Circle to the tip of the line
+        const point = path.getPointAtLength(drawLength);
+        drone.setAttribute("cx", point.x);
+        drone.setAttribute("cy", point.y);
+
+        // Optional: Light up buildings as drone passes their Y position
+        buildings.forEach(b => {
+            const y = parseFloat(b.getAttribute('y'));
+            if (point.y > y) {
+                b.style.stroke = "#00f3ff"; // Turn Neon
+                b.style.fill = "rgba(0, 243, 255, 0.1)";
+            } else {
+                b.style.stroke = "#222"; // Turn Dark
+                b.style.fill = "none";
+            }
         });
-
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
-
-        // Function to scroll to the team section
-        function scrollToTeam() {
-            document.getElementById('team-section').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-        }
-    </script>
+    });
+</script>
 
 </body>
 </html>
