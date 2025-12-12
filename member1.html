@@ -9,11 +9,10 @@
     <style>
         /* --- 1. GLOBAL SETTINGS (COLOR CHANGED HERE) --- */
         :root {
-            /* NEW COLOR SCHEME: Neon Green & Gold */
             --accent-main: #00ff9d;  /* Bright Neon Green */
             --accent-sec: #ffb700;   /* Gold/Amber */
             --bg-dark: #0a0a12;
-            --panel-bg: rgba(20, 35, 20, 0.8); /* Slight greenish tint */
+            --panel-bg: rgba(20, 35, 20, 0.8);
             --text-primary: #ffffff;
             --text-secondary: #a0b0a0;
         }
@@ -32,7 +31,6 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            /* Update gradients to Green/Gold */
             background: 
                 radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.15), transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(255, 183, 0, 0.15), transparent 50%);
@@ -62,7 +60,6 @@
             padding: 40px 20px;
         }
 
-        /* --- 2. HEADER (UPDATED: REVERSED LOGIC) --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -71,8 +68,6 @@
             padding: 30px; 
             border-radius: 20px;
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-
-            /* REVERSED: Highlighted by default */
             background: linear-gradient(90deg, #ffffff, #00ff9d);
             border-bottom: 1px solid transparent;
             box-shadow: 0 10px 50px rgba(0, 255, 157, 0.4);
@@ -85,7 +80,6 @@
             margin: 0;
             letter-spacing: 2px;
             transition: all 0.3s;
-            /* REVERSED: Dark text by default */
             -webkit-text-fill-color: #0a0a12; 
         }
 
@@ -94,7 +88,6 @@
             margin: 0 0 15px 0; 
             font-size: 1.5rem; 
             transition: color 0.3s; 
-            /* REVERSED: Dark Green Text */
             color: #00331f; 
         }
 
@@ -102,11 +95,9 @@
             line-height: 1.6; 
             margin: 0; 
             transition: color 0.3s; 
-            /* REVERSED: Dark Grey Text */
             color: #333333;
         }
 
-        /* REVERSED HOVER: Goes back to Dark Mode */
         header:hover {
             background: none;
             border-bottom: 1px solid rgba(0, 255, 157, 0.2);
@@ -115,7 +106,6 @@
         }
 
         header:hover .header-left h1 { 
-            /* Return to Gradient Text on Hover */
             background: linear-gradient(90deg, #fff, var(--accent-main));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -131,7 +121,6 @@
 
         .header-right { max-width: 500px; text-align: right; }
 
-        /* --- 3. SPLIT LAYOUT --- */
         .main-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -139,7 +128,6 @@
             align-items: start;
         }
 
-        /* --- 4. NAVIGATION TABS --- */
         .nav-panel {
             display: flex;
             flex-direction: column;
@@ -181,7 +169,6 @@
         .nav-tab.active .tab-title { color: white; }
         .nav-tab.active .tab-algo { color: var(--accent-main); }
 
-        /* --- 5. CONTENT DISPLAY --- */
         .display-panel {
             background: var(--panel-bg);
             border-radius: 20px;
@@ -282,7 +269,7 @@
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(4)">
-                    <div><div class="tab-title">Smart Forest Monitoringdiv><div class="tab-algo">Kruskal’s MST</div></div>
+                    <div><div class="tab-title">Smart Forest Monitoring</div><div class="tab-algo">Kruskal’s MST</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(5)">
@@ -293,6 +280,7 @@
 
             <div class="display-panel">
                 
+                <!-- Module 1 -->
                 <div class="content-block active" id="module-1">
                     <div class="block-header">
                         <h3 class="block-title">Drone Delivery Routing</h3>
@@ -301,16 +289,16 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>An e-commerce provider wants to deploy a fleet of delivery drones to service last-mile packages in a dense urban neighborhood. Drones have limited battery life and payload constraints, and need to return to recharge between sorties. The business goal is to minimize total flight time and battery consumption while meeting delivery time windows and avoiding restricted airspace, so operators can complete more deliveries per drone per day and reduce operational costs..</p>
+                            <p>An e-commerce provider wants to deploy a fleet of delivery drones to service last-mile packages in a dense urban neighborhood. Drones have limited battery life and payload constraints, and need to return to recharge between sorties. The business goal is to minimize total flight time and battery consumption while meeting delivery time windows and avoiding restricted airspace, so operators can complete more deliveries per drone per day and reduce operational costs.</p>
 
                             <span class="label">Graph Modeling</span>
                             <p>Nodes: Depot(s) (launch/charge points) and customer delivery locations.
 Edges: Feasible flight segments between nodes.
 Weights: Estimated flight time, energy cost, or distance for each segment (considering wind, altitude changes, and no-fly detours).
-Constraints: Per-route battery capacity (max path length), payload limits, time windows, and forbidden zones (edges removed or given high cost)..</p>
+Constraints: Per-route battery capacity (max path length), payload limits, time windows, and forbidden zones (edges removed or given high cost).</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>Model is a constrained Traveling Salesman Problem (TSP). For small routes, exact solvers (MILP / branch-and-bound) produce optimal tours; for practical scale use fast heuristics: nearest neighbor, 2-opt/3-opt, or metaheuristics (genetic, simulated annealing) and specialized vehicle-routing solvers that respect battery/time windows. Combine with dynamic replanning to react to wind or temporary no-fly zones. Use route clustering (split region into sub-tours) to scale across many deliveries</p>
+                            <p>Model is a constrained Traveling Salesman Problem (TSP). For small routes, exact solvers (MILP / branch-and-bound) produce optimal tours; for practical scale use fast heuristics: nearest neighbor, 2-opt/3-opt, or metaheuristics (genetic, simulated annealing) and specialized vehicle-routing solvers that respect battery/time windows. Combine with dynamic replanning to react to wind or temporary no-fly zones. Use route clustering (split region into sub-tours) to scale across many deliveries.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> PSEUDOCODE STEP 1
@@ -324,6 +312,7 @@ Constraints: Per-route battery capacity (max path length), payload limits, time 
                     </div>
                 </div>
 
+                <!-- Module 2 -->
                 <div class="content-block" id="module-2">
                     <div class="block-header">
                         <h3 class="block-title">Metro City Navigator</h3>
@@ -350,6 +339,7 @@ Constraints: Line closures or service suspensions implemented by disabling edges
                     </div>
                 </div>
 
+                <!-- Module 3 -->
                 <div class="content-block" id="module-3">
                     <div class="block-header">
                         <h3 class="block-title">International Trade Hub</h3>
@@ -376,9 +366,10 @@ Goal: Be able to answer “best connection between any two ports” queries inst
                     </div>
                 </div>
 
+                <!-- Module 4 -->
                 <div class="content-block" id="module-4">
                     <div class="block-header">
-                        <h3 class="block-title">Smart Forest Monitoringt</h3>
+                        <h3 class="block-title">Smart Forest Monitoring</h3>
                         <span class="block-badge">Kruskal’s MST </span>
                     </div>
                     <div class="info-grid">
@@ -402,6 +393,7 @@ Constraints: Avoid environmentally sensitive corridors, respect terrain obstacle
                     </div>
                 </div>
 
+                <!-- Module 5 -->
                 <div class="content-block" id="module-5">
                     <div class="block-header">
                         <h3 class="block-title">Renewable Energy Grid Planner</h3>
