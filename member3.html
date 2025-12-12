@@ -194,9 +194,13 @@
             font-size: 0.9rem; color: #b0a0b0; white-space: pre-wrap; margin-top: 20px;
         }
 
+        /* Styling for the embedded SVGs */
+        .visual-content svg {
+            width: 100%; border-radius: 12px; background: #0f0f1a; border: 1px solid #333;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5); /* Added shadow for depth */
+        }
         .analysis-img {
-            width: 100%; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            /* This class is now used for the SVG container, but the SVG tag itself handles the main styling */
         }
 
         .back-link {
@@ -225,7 +229,7 @@
 
         <header>
             <div class="header-left">
-                <h1>Shashank V</h1>
+                <h1>Member Name</h1>
             </div>
             <div class="header-right">
                 <h2>Systems Integrator</h2>
@@ -279,15 +283,62 @@
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> INITIATE at DEPOT (Start Node V)
 > WHILE Unvisited Stops Remain:
->   SELECT nearest unvisited Stop U from current node
->   MOVE to Stop U, MARK as visited
+>   SELECT nearest unvisited Stop U from current node
+>   MOVE to Stop U, MARK as visited
 > RETURN to DEPOT from last stop (Close Hamiltonian Cycle)</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
                             
-                            <img src="algo1.jpg" alt="Analysis Map" class="analysis-img">
-                        </div>
+                            <svg viewBox="0 0 400 300" style="width: 100%; border-radius: 12px; background: #0f0f1a; border: 1px solid #333;">
+                                <defs>
+                                    <pattern id="grid1" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1a1a2e" stroke-width="0.5"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="240" fill="url(#grid1)" />
+
+                                <rect x="35" y="10" width="30" height="20" fill="#ffd600" rx="3" />
+                                <text x="50" y="38" fill="#ffd600" font-family="monospace" font-size="10" text-anchor="middle">DEPOT</text>
+                                <circle cx="50" cy="20" r="4" fill="#0a0a12" />
+
+                                <circle cx="150" cy="80" r="6" fill="#d500f9" />
+                                <circle cx="280" cy="40" r="6" fill="#d500f9" />
+                                <circle cx="350" cy="150" r="6" fill="#d500f9" />
+                                <circle cx="100" cy="200" r="6" fill="#d500f9" />
+                                <circle cx="250" cy="230" r="6" fill="#d500f9" />
+                                
+                                <text x="150" y="70" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">S1</text>
+                                <text x="280" y="30" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">S2</text>
+                                <text x="350" y="140" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">S3</text>
+                                <text x="100" y="210" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">S4</text>
+                                <text x="250" y="240" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">S5</text>
+
+                                <line x1="50" y1="20" x2="150" y2="80" stroke="#333" stroke-width="1" />
+                                <line x1="50" y1="20" x2="100" y2="200" stroke="#333" stroke-width="1" />
+                                <line x1="150" y1="80" x2="280" y2="40" stroke="#333" stroke-width="1" />
+                                <line x1="350" y1="150" x2="250" y2="230" stroke="#333" stroke-width="1" />
+                                <line x1="280" y1="40" x2="350" y2="150" stroke="#333" stroke-width="1" />
+                                <line x1="100" y1="200" x2="250" y2="230" stroke="#333" stroke-width="1" />
+
+                                <path d="M50 20 L150 80 L280 40 L350 150 L250 230 L100 200 Z" stroke="#ffd600" stroke-width="4" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M50 20 L150 80 L280 40 L350 150 L250 230 L100 200 Z" stroke="#d500f9" stroke-width="1" fill="none" />
+
+                                <rect x="0" y="240" width="400" height="60" fill="#14141f" />
+                                <line x1="0" y1="240" x2="400" y2="240" stroke="#d500f9" stroke-width="1" />
+                                
+                                <text x="50" y="270" fill="#aaa" font-family="monospace" font-size="10">ALGORITHM</text>
+                                <text x="50" y="290" fill="#ffd600" font-family="Orbitron" font-size="14">TSP Heuristic</text>
+
+                                <text x="200" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">ROUTE DISTANCE</text>
+                                <text x="200" y="290" fill="#fff" font-family="Orbitron" font-size="14" text-anchor="middle">~4.5 KM</text>
+
+                                <text x="350" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">OPTIMAL EFFICIENCY</text>
+                                <text x="350" y="290" fill="#d500f9" font-family="Orbitron" font-size="14" text-anchor="middle">99%</text>
+                            </svg>
+                            </div>
                     </div>
                 </div>
 
@@ -307,17 +358,64 @@
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> SET Distance to 0 for Ambulance Node A, $\infty$ for all others
 > WHILE Priority Queue Q is NOT empty:
->   EXTRACT Node U with smallest distance from Q
->   FOR each Neighbor V of U:
->     IF (Dist[V] > Dist[U] + Weight(U,V)):
->       Dist[V] = Dist[U] + Weight(U,V)
->       UPDATE V in Q</div>
+>   EXTRACT Node U with smallest distance from Q
+>   FOR each Neighbor V of U:
+>     IF (Dist[V] > Dist[U] + Weight(U,V)):
+>       Dist[V] = Dist[U] + Weight(U,V)
+>       UPDATE V in Q</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
                             
-                            <img src="algo2.jpg" alt="Analysis Map" class="analysis-img">
-                        </div>
+                            <svg viewBox="0 0 400 300" style="width: 100%; border-radius: 12px; background: #0f0f1a; border: 1px solid #333;">
+                                <defs>
+                                    <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1a1a2e" stroke-width="0.5"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="240" fill="url(#grid2)" />
+
+                                <circle cx="350" cy="50" r="20" fill="#fff" stroke="#d500f9" stroke-width="2"/>
+                                <rect x="342" y="46" width="16" height="8" fill="#ff0000" />
+                                <rect x="346" y="42" width="8" height="16" fill="#ff0000" />
+                                <text x="350" y="85" fill="#ff0000" font-family="Orbitron" font-weight="bold" text-anchor="middle" font-size="12">HOSPITAL</text>
+
+                                <circle cx="50" cy="250" r="8" fill="#ffd600" />
+                                <text x="50" y="275" fill="#ffd600" font-family="monospace" text-anchor="middle" font-size="12">INCIDENT</text>
+
+                                <circle cx="150" cy="150" r="5" fill="#555" />
+                                <circle cx="200" cy="250" r="5" fill="#d500f9" />
+
+                                <line x1="50" y1="250" x2="150" y2="150" stroke="#333" stroke-width="4" />
+                                <line x1="50" y1="250" x2="200" y2="250" stroke="#333" stroke-width="4" />
+                                <line x1="150" y1="150" x2="350" y2="50" stroke="#333" stroke-width="4" />
+                                <line x1="200" y1="250" x2="350" y2="50" stroke="#333" stroke-width="4" />
+
+                                <text x="100" y="200" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">5 min</text>
+                                <text x="125" y="260" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">3 min</text>
+                                <text x="250" y="100" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">4 min</text>
+                                <text x="275" y="150" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">10 min</text>
+                                
+                                <path d="M50 250 L200 250 L350 50" stroke="#ffd600" stroke-width="4" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1s" repeatCount="indefinite" />
+                                </path>
+                                <circle cx="200" cy="250" r="8" fill="#ffd600">
+                                    <animate attributeName="r" values="5;8;5" dur="1s" repeatCount="indefinite" />
+                                </circle>
+
+                                <rect x="0" y="240" width="400" height="60" fill="#14141f" />
+                                <line x1="0" y1="240" x2="400" y2="240" stroke="#d500f9" stroke-width="1" />
+                                
+                                <text x="50" y="270" fill="#aaa" font-family="monospace" font-size="10">ALGORITHM</text>
+                                <text x="50" y="290" fill="#d500f9" font-family="Orbitron" font-size="14">DIJKSTRA</text>
+
+                                <text x="200" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">SHORTEST PATH (TOTAL)</text>
+                                <text x="200" y="290" fill="#ffd600" font-family="Orbitron" font-size="14" text-anchor="middle">13 MINS</text>
+
+                                <text x="350" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">TRAFFIC FACTOR</text>
+                                <text x="350" y="290" fill="#fff" font-family="Orbitron" font-size="14" text-anchor="middle">LOW (0.12)</text>
+                            </svg>
+                            </div>
                     </div>
                 </div>
 
@@ -338,15 +436,68 @@
                             <div class="logic-terminal">> CREATE a forest F where each Node is a separate Tree
 > CREATE a list of all Edges E, SORT by Weight (Ascending)
 > FOR each Edge (U, V) in sorted E:
->   IF U and V are in different Trees:
->     ADD (U, V) to MST
->     UNION the two Trees containing U and V</div>
+>   IF U and V are in different Trees:
+>     ADD (U, V) to MST
+>     UNION the two Trees containing U and V</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
                             
-                            <img src="algo3.jpg" alt="Analysis Map" class="analysis-img">
-                        </div>
+                            <svg viewBox="0 0 400 300" style="width: 100%; border-radius: 12px; background: #0f0f1a; border: 1px solid #333;">
+                                <defs>
+                                    <pattern id="grid3" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1a1a2e" stroke-width="0.5"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="240" fill="url(#grid3)" />
+
+                                <rect x="20" y="10" width="40" height="30" fill="#0056b3" stroke="#fff" stroke-width="2" rx="5"/>
+                                <text x="40" y="55" fill="#00f7ff" font-family="Orbitron" font-size="12" text-anchor="middle">SOURCE</text>
+                                
+                                <circle cx="200" cy="50" r="6" fill="#d500f9" />
+                                <circle cx="350" cy="100" r="6" fill="#d500f9" />
+                                <circle cx="100" cy="200" r="6" fill="#d500f9" />
+                                <circle cx="250" cy="230" r="6" fill="#d500f9" />
+                                
+                                <text x="200" y="40" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">H1</text>
+                                <text x="350" y="110" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">H2</text>
+                                <text x="100" y="210" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">H3</text>
+                                <text x="250" y="240" fill="#d500f9" font-family="monospace" font-size="10" text-anchor="middle">H4</text>
+
+                                <line x1="40" y1="25" x2="200" y2="50" stroke="#333" stroke-width="1" /> <text x="120" y="45" fill="#777" font-size="8">Cost 7</text>
+                                <line x1="40" y1="25" x2="100" y2="200" stroke="#333" stroke-width="1" /> <text x="70" y="100" fill="#777" font-size="8">Cost 12</text>
+                                <line x1="200" y1="50" x2="350" y2="100" stroke="#333" stroke-width="1" /> <text x="275" y="70" fill="#777" font-size="8">Cost 3</text>
+                                <line x1="200" y1="50" x2="250" y2="230" stroke="#333" stroke-width="1" /> <text x="220" y="140" fill="#777" font-size="8">Cost 10</text>
+                                <line x1="100" y1="200" x2="250" y2="230" stroke="#333" stroke-width="1" /> <text x="175" y="210" fill="#777" font-size="8">Cost 4</text>
+                                <line x1="350" y1="100" x2="250" y2="230" stroke="#333" stroke-width="1" /> <text x="300" y="165" fill="#777" font-size="8">Cost 8</text>
+
+                                <path d="M200 50 L350 100" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="8 4">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M100 200 L250 230" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="8 4">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M40 25 L200 50" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="8 4">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M350 100 L250 230" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="8 4">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+
+
+                                <rect x="0" y="240" width="400" height="60" fill="#14141f" />
+                                <line x1="0" y1="240" x2="400" y2="240" stroke="#00f7ff" stroke-width="1" />
+                                
+                                <text x="50" y="270" fill="#aaa" font-family="monospace" font-size="10">ALGORITHM</text>
+                                <text x="50" y="290" fill="#ffd600" font-family="Orbitron" font-size="14">KRUSKAL'S MST</text>
+
+                                <text x="200" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">TOTAL COST (UNITS)</text>
+                                <text x="200" y="290" fill="#00f7ff" font-family="Orbitron" font-size="14" text-anchor="middle">22</text>
+
+                                <text x="350" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">SAVINGS</text>
+                                <text x="350" y="290" fill="#00ff9d" font-family="Orbitron" font-size="14" text-anchor="middle">35%</text>
+                            </svg>
+                            </div>
                     </div>
                 </div>
 
@@ -367,18 +518,70 @@
                             <div class="logic-terminal">> ENQUEUE Starting Location S
 > MARK S as Visited
 > WHILE Queue Q is NOT empty:
->   DEQUEUE Node U
->   IF U is an Exit: RETURN Path
->   FOR each Neighbor V of U:
->     IF V is NOT Visited:
->       MARK V as Visited
->       ENQUEUE V</div>
+>   DEQUEUE Node U
+>   IF U is an Exit: RETURN Path
+>   FOR each Neighbor V of U:
+>     IF V is NOT Visited:
+>       MARK V as Visited
+>       ENQUEUE V</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
                             
-                            <img src="algo4.jpg" alt="Analysis Map" class="analysis-img">
-                        </div>
+                            <svg viewBox="0 0 400 300" style="width: 100%; border-radius: 12px; background: #0f0f1a; border: 1px solid #333;">
+                                <defs>
+                                    <pattern id="floorGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                        <rect x="0" y="0" width="40" height="40" fill="#1a1a2e" />
+                                        <circle cx="20" cy="20" r="1" fill="#333" />
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="240" fill="url(#floorGrid)" />
+                                
+                                <circle cx="50" cy="50" r="7" fill="#ffd600" />
+                                <text x="50" y="70" fill="#ffd600" font-family="monospace" font-size="10" text-anchor="middle">START</text>
+
+                                <circle cx="150" cy="50" r="5" fill="#d500f9" />
+                                <circle cx="250" cy="50" r="5" fill="#d500f9" />
+                                <circle cx="50" cy="150" r="5" fill="#d500f9" />
+                                <circle cx="150" cy="150" r="5" fill="#d500f9" />
+                                <circle cx="250" cy="150" r="5" fill="#d500f9" />
+                                <circle cx="350" cy="150" r="5" fill="#d500f9" />
+
+                                <rect x="330" y="30" width="40" height="40" fill="#ff0000" stroke="#fff" stroke-width="2" rx="5"/>
+                                <text x="350" y="70" fill="#ff0000" font-family="Orbitron" font-weight="bold" font-size="12" text-anchor="middle">EXIT</text>
+
+                                <line x1="50" y1="50" x2="150" y2="50" stroke="#333" stroke-width="3" />
+                                <line x1="150" y1="50" x2="250" y2="50" stroke="#333" stroke-width="3" />
+                                <line x1="250" y1="50" x2="350" y2="50" stroke="#333" stroke-width="3" />
+                                <line x1="50" y1="50" x2="50" y2="150" stroke="#333" stroke-width="3" />
+                                <line x1="150" y1="50" x2="150" y2="150" stroke="#333" stroke-width="3" />
+                                <line x1="250" y1="50" x2="250" y2="150" stroke="#333" stroke-width="3" />
+                                <line x1="250" y1="150" x2="350" y2="150" stroke="#333" stroke-width="3" />
+                                
+                                <path d="M50 50 L150 50 L250 50 L350 50" stroke="#ffd600" stroke-width="5" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1s" repeatCount="indefinite" />
+                                </path>
+                                <text x="100" y="40" fill="#ffd600" font-family="monospace" font-size="10" text-anchor="middle">Step 1</text>
+                                <text x="200" y="40" fill="#ffd600" font-family="monospace" font-size="10" text-anchor="middle">Step 2</text>
+                                <text x="300" y="40" fill="#ffd600" font-family="monospace" font-size="10" text-anchor="middle">Step 3</text>
+
+                                <path d="M50 50 L50 150 L150 150 L250 150 L350 150" stroke="#00f7ff" stroke-width="2" fill="none" stroke-dasharray="4 4" />
+                                <path d="M350 150 L350 50" stroke="#00f7ff" stroke-width="2" fill="none" stroke-dasharray="4 4" />
+
+
+                                <rect x="0" y="240" width="400" height="60" fill="#14141f" />
+                                <line x1="0" y1="240" x2="400" y2="240" stroke="#d500f9" stroke-width="1" />
+                                
+                                <text x="50" y="270" fill="#aaa" font-family="monospace" font-size="10">ALGORITHM</text>
+                                <text x="50" y="290" fill="#d500f9" font-family="Orbitron" font-size="14">BFS</text>
+
+                                <text x="200" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">PATH LENGTH (STEPS)</text>
+                                <text x="200" y="290" fill="#ffd600" font-family="Orbitron" font-size="14" text-anchor="middle">3</text>
+
+                                <text x="350" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">COMPUTATION TIME</text>
+                                <text x="350" y="290" fill="#fff" font-family="Orbitron" font-size="14" text-anchor="middle">O(V+E)</text>
+                            </svg>
+                            </div>
                     </div>
                 </div>
 
@@ -398,17 +601,74 @@
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> INITIALIZE Key = $\infty$ for all Nodes, Key[Start_Node] = 0
 > WHILE Priority Queue Q is NOT empty:
->   EXTRACT Node U with minimum Key value
->   FOR each Neighbor V of U:
->     IF V is NOT in MST and Weight(U,V) < Key[V]:
->       Parent[V] = U
->       Key[V] = Weight(U,V)</div>
+>   EXTRACT Node U with minimum Key value
+>   FOR each Neighbor V of U:
+>     IF V is NOT in MST and Weight(U,V) < Key[V]:
+>       Parent[V] = U
+>       Key[V] = Weight(U,V)</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
                             
-                            <img src="algo5.jpg" alt="Analysis Map" class="analysis-img">
-                        </div>
+                            <svg viewBox="0 0 400 300" style="width: 100%; border-radius: 12px; background: #0f0f1a; border: 1px solid #333;">
+                                <defs>
+                                    <pattern id="roomGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                                        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1a1a2e" stroke-width="0.5"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="240" fill="url(#roomGrid)" />
+
+                                <rect x="35" y="40" width="50" height="40" fill="#1a1a2e" stroke="#333" rx="5"/>
+                                <text x="60" y="65" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">ROOM A</text>
+                                <circle cx="60" cy="60" r="4" fill="#d500f9" />
+
+                                <rect x="250" y="20" width="50" height="40" fill="#1a1a2e" stroke="#333" rx="5"/>
+                                <text x="275" y="45" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">ROOM B</text>
+                                <circle cx="275" cy="40" r="4" fill="#d500f9" />
+
+                                <rect x="150" y="150" width="50" height="40" fill="#1a1a2e" stroke="#333" rx="5"/>
+                                <text x="175" y="175" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">ROOM C</text>
+                                <circle cx="175" cy="170" r="4" fill="#d500f9" />
+                                
+                                <rect x="300" y="180" width="50" height="40" fill="#1a1a2e" stroke="#333" rx="5"/>
+                                <text x="325" y="205" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">ROOM D</text>
+                                <circle cx="325" cy="200" r="4" fill="#d500f9" />
+                                
+                                <circle cx="150" cy="100" r="12" fill="#ffd600" stroke="#fff" stroke-width="2"/>
+                                <text x="150" y="130" fill="#ffd600" font-family="Orbitron" font-size="12" text-anchor="middle">ROUTER</text>
+
+                                <line x1="150" y1="100" x2="60" y2="60" stroke="#333" stroke-width="1" /> <text x="100" y="75" fill="#777" font-size="8">L: 6m</text>
+                                <line x1="150" y1="100" x2="275" y2="40" stroke="#333" stroke-width="1" /> <text x="210" y="70" fill="#777" font-size="8">L: 10m</text>
+                                <line x1="150" y1="100" x2="175" y2="170" stroke="#333" stroke-width="1" /> <text x="160" y="140" fill="#777" font-size="8">L: 5m</text>
+                                <line x1="60" y1="60" x2="175" y2="170" stroke="#333" stroke-width="1" /> <text x="110" y="115" fill="#777" font-size="8">L: 15m</text>
+                                <line x1="175" y1="170" x2="325" y2="200" stroke="#333" stroke-width="1" /> <text x="250" y="180" fill="#777" font-size="8">L: 8m</text>
+
+                                <path d="M150 100 L175 170" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M150 100 L60 60" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M175 170 L325 200" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+                                <path d="M150 100 L275 40" stroke="#00f7ff" stroke-width="4" fill="none" stroke-dasharray="10 5">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.5s" repeatCount="indefinite" />
+                                </path>
+
+                                <rect x="0" y="240" width="400" height="60" fill="#14141f" />
+                                <line x1="0" y1="240" x2="400" y2="240" stroke="#d500f9" stroke-width="1" />
+                                
+                                <text x="50" y="270" fill="#aaa" font-family="monospace" font-size="10">ALGORITHM</text>
+                                <text x="50" y="290" fill="#d500f9" font-family="Orbitron" font-size="14">PRIM'S MST</text>
+
+                                <text x="200" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">TOTAL CABLE LENGTH</text>
+                                <text x="200" y="290" fill="#00f7ff" font-family="Orbitron" font-size="14" text-anchor="middle">29 METERS</text>
+
+                                <text x="350" y="270" fill="#aaa" font-family="monospace" font-size="10" text-anchor="middle">REDUNDANCY</text>
+                                <text x="350" y="290" fill="#00ff9d" font-family="Orbitron" font-size="14" text-anchor="middle">ZERO</text>
+                            </svg>
+                            </div>
                     </div>
                 </div>
 
