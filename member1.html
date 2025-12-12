@@ -301,9 +301,19 @@ Constraints: Per-route battery capacity (max path length), payload limits, time 
                             <p>Model is a constrained Traveling Salesman Problem (TSP). For small routes, exact solvers (MILP / branch-and-bound) produce optimal tours; for practical scale use fast heuristics: nearest neighbor, 2-opt/3-opt, or metaheuristics (genetic, simulated annealing) and specialized vehicle-routing solvers that respect battery/time windows. Combine with dynamic replanning to react to wind or temporary no-fly zones. Use route clustering (split region into sub-tours) to scale across many deliveries.</p>
 
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> PSEUDOCODE STEP 1
-> PSEUDOCODE STEP 2
-> PSEUDOCODE STEP 3</div>
+                            <div class="logic-terminal">> > INIT all delivery points as nodes
+> CALCULATE distance between every pair of points
+> SET Base = 0
+> MARK all nodes as unvisited
+> CURRENT = Base
+> WHILE unvisited nodes remain:
+      v = Nearest_Unvisited(CURRENT)
+      ADD v to Route
+      MARK v as visited
+      CURRENT = v
+> RETURN to Base
+> OUTPUT Final_Tour
+</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -330,7 +340,17 @@ Constraints: Line closures or service suspensions implemented by disabling edges
                             <span class="label">Algorithm Analysis</span>
                             <p>Dijkstra’s single-source shortest path is ideal for finding the fastest route from a passenger’s origin to destination in a weighted graph with nonnegative travel times. For real-time routing, run Dijkstra on an up-to-date graph each query. For many simultaneous queries, use A* with a geographic heuristic to speed up lookup, or precompute frequent origin/destination pairs. Handle time-dependent edge weights (timetables) with time-expanded graphs or time-dependent Dijkstra variants.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> > INIT all distances = Infinity, Source = Start_Station
+> PUSH Source to Min-Priority Queue
+> WHILE Queue not empty:
+      u = Extract Min
+      FOR v in neighbors(u):
+            IF Time[u] + TravelTime < Time[v]:
+                  Time[v] = New_Time
+                  Parent[v] = u
+> BACKTRACK from Destination to Source
+> OUTPUT Shortest_Metro_Route
+</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -357,7 +377,14 @@ Goal: Be able to answer “best connection between any two ports” queries inst
                             <span class="label">Algorithm Analysis</span>
                             <p>Floyd–Warshall computes all-pairs shortest paths and is convenient if the graph is moderate in size and you need constant-time lookup between any two ports. It also produces intermediate-node information for path reconstruction. For very large graphs, use repeated Dijkstra runs from key hubs or a hierarchical approach (contracted graphs). Extend the model to support multi-criteria optimization (time vs cost) by running separate all-pairs computations or using multi-objective techniques.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> > INIT Dist[i][j] for all ports
+> FOR k in ports:
+      FOR i in ports:
+            FOR j in ports:
+                  IF Dist[i][k] + Dist[k][j] < Dist[i][j]:
+                        Dist[i][j] = Updated_Distance
+> OUTPUT All_Pairs_Shortest_Paths
+</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -384,7 +411,14 @@ Constraints: Avoid environmentally sensitive corridors, respect terrain obstacle
                             <span class="label">Algorithm Analysis</span>
                             <p>Kruskal’s Minimum Spanning Tree builds the lowest-cost network that connects all sensor sites. It iterates edges in increasing weight and uses a Union-Find structure to avoid cycles — ideal when edge list is sparse or when you can enumerate candidate links. If multiple constraints exist (bandwidth or redundancy), augment MST with extra links for resilience or compute k-edge connected subgraphs. Kruskal is simple to implement and yields a clear procurement bill of materials.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> > INIT each tower as its own set
+> SORT all edges by installation cost
+> FOR each edge (u, v) in sorted_edges:
+      IF Find(u) != Find(v):
+            ADD edge to MST
+            Union(u, v)
+> OUTPUT Minimum_Cost_Sensor_Network
+</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -411,7 +445,15 @@ Constraints: Redundancy requirements (optional second path), maintenance time wi
                             <span class="label">Algorithm Analysis</span>
                             <p>First solve an MST (Prim’s algorithm recommended when you have a dense, location-based graph and want a single growing tree from the substation) to produce a minimum-cost cable layout. Prim runs efficiently with a priority queue and is straightforward to adapt to geo-constraints. For crew inspection cycles, compute a near-optimal TSP tour over turbine nodes using MST-based heuristics (e.g., perform a preorder traversal of the MST to get a short tour, then improve with 2-opt/3-opt), or feed MST result to Christofides/heuristics for better guarantees. If inspection teams operate in parallel, partition into multiple tours (multi-TSP / vehicle routing).</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> > INIT all nodes, Start = Main_Power_Node
+> MARK Start as connected
+> WHILE unconnected nodes remain:
+      SELECT cheapest edge from Connected → Unconnected
+      ADD edge to MST
+      MARK new node as connected
+> PERFORM simple DFS on MST to form Maintenance_Tour
+> OUTPUT MST + Tour_Path
+</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
