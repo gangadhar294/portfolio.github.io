@@ -270,23 +270,23 @@
             
             <div class="nav-panel">
                 <div class="nav-tab active" onclick="selectModule(1)">
-                    <div><div class="tab-title">Maximum Export On Road</div><div class="tab-algo">Ford-Fulkerson</div></div>
+                    <div><div class="tab-title">Drone Delivery Routing</div><div class="tab-algo">TSP tour</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(2)">
-                    <div><div class="tab-title">Commercial Zone Sorting</div><div class="tab-algo">Merge Sort</div></div>
+                    <div><div class="tab-title">Metro City Navigator</div><div class="tab-algo">Dijkstra’s Algo</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(3)">
-                    <div><div class="tab-title">Tourist Circuit Planner</div><div class="tab-algo">Hamiltonian Cycle</div></div>
+                    <div><div class="tab-title">International Trade Hub</div><div class="tab-algo">Floyd–Warshall</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(4)">
-                    <div><div class="tab-title">5G Tower Placement</div><div class="tab-algo">Graph Coloring </div></div>
+                    <div><div class="tab-title">Smart Forest Monitoringdiv><div class="tab-algo">Kruskal’s MST</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(5)">
-                    <div><div class="tab-title">Police Patrol Coverage</div><div class="tab-algo">Vertex Cover Problem</div></div>
+                    <div><div class="tab-title">Renewable Energy Grid Planner</div><div class="tab-algo">Prim’s MST + TSP</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
             </div>
@@ -295,35 +295,22 @@
                 
                 <div class="content-block active" id="module-1">
                     <div class="block-header">
-                        <h3 class="block-title">Maximum Export On Road</h3>
-                        <span class="block-badge">Ford-Fulkerson</span>
+                        <h3 class="block-title">Drone Delivery Routing</h3>
+                        <span class="block-badge">TSP Tour</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>The industrial area of the city produces a lot of goods every day.
-But when these goods need to be transported out of the city, the roads that lead out become choked with trucks.
-Some roads are wide, some are narrow, and some allow only a limited number of vehicles at once.
-
-Because of this uneven flow, the total number of goods that can leave the city in a day becomes much lower than what the factories actually produce.</p>
+                            <p>An e-commerce provider wants to deploy a fleet of delivery drones to service last-mile packages in a dense urban neighborhood. Drones have limited battery life and payload constraints, and need to return to recharge between sorties. The business goal is to minimize total flight time and battery consumption while meeting delivery time windows and avoiding restricted airspace, so operators can complete more deliveries per drone per day and reduce operational costs..</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p>Points (Nodes): Important places like gates, junctions, checkpoints.
-
-Connections (Edges): Roads connecting these places.
-
-Capacity: Every road has a limit—how many trucks can pass per hour.
-
-It’s just like pipes carrying water—some pipes are thin, some are wide, and together they decide how much water can reach the end.</p>
+                            <p>Nodes: Depot(s) (launch/charge points) and customer delivery locations.
+Edges: Feasible flight segments between nodes.
+Weights: Estimated flight time, energy cost, or distance for each segment (considering wind, altitude changes, and no-fly detours).
+Constraints: Per-route battery capacity (max path length), payload limits, time windows, and forbidden zones (edges removed or given high cost)..</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>Finding a path where more trucks can still be sent.
-
-Sending as many as possible through that path.
-
-Repeating this until no more trucks can be sent.
-
-At the end, we get the maximum possible truck flow through the city roads.</p>
+                            <p>Model is a constrained Traveling Salesman Problem (TSP). For small routes, exact solvers (MILP / branch-and-bound) produce optimal tours; for practical scale use fast heuristics: nearest neighbor, 2-opt/3-opt, or metaheuristics (genetic, simulated annealing) and specialized vehicle-routing solvers that respect battery/time windows. Combine with dynamic replanning to react to wind or temporary no-fly zones. Use route clustering (split region into sub-tours) to scale across many deliveries</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> PSEUDOCODE STEP 1
@@ -339,17 +326,20 @@ At the end, we get the maximum possible truck flow through the city roads.</p>
 
                 <div class="content-block" id="module-2">
                     <div class="block-header">
-                        <h3 class="block-title">Commercial Zone Sorting</h3>
-                        <span class="block-badge">Merge Sort</span>
+                        <h3 class="block-title">Metro City Navigator</h3>
+                        <span class="block-badge">Dijkstra’s Algo</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Describe the city problem here...</p>
+                            <p>A transit app wants to give commuters the fastest door-to-door route during peak hours using real-time train frequencies, walking times, and transfer penalties. The aim is to reduce passenger travel time and improve service satisfaction by routing riders through optimal platforms and transfer sequences, even when disruptions occur.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: X, Edges: Y...</p>
+                            <p>Nodes: Stations and platform access points (optionally separate nodes for entrances/exits).
+Edges: Track segments, inter-station links, and pedestrian transfer corridors.
+Weights: Travel time along the edge (train run time + waiting time estimate + transfer penalty). Real-time adjustments made from live schedules and crowding data.
+Constraints: Line closures or service suspensions implemented by disabling edges.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>Dijkstra’s single-source shortest path is ideal for finding the fastest route from a passenger’s origin to destination in a weighted graph with nonnegative travel times. For real-time routing, run Dijkstra on an up-to-date graph each query. For many simultaneous queries, use A* with a geographic heuristic to speed up lookup, or precompute frequent origin/destination pairs. Handle time-dependent edge weights (timetables) with time-expanded graphs or time-dependent Dijkstra variants.</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
@@ -362,17 +352,20 @@ At the end, we get the maximum possible truck flow through the city roads.</p>
 
                 <div class="content-block" id="module-3">
                     <div class="block-header">
-                        <h3 class="block-title">Tourist Circuit Planner</h3>
-                        <span class="block-badge">Hamiltonian Cycle</span>
+                        <h3 class="block-title">International Trade Hub</h3>
+                        <span class="block-badge">Floyd–Warshall</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
+                            <p>A global logistics operator wants an internal service that can quickly evaluate the best multi-stop shipping paths between any pair of ports, taking into account transit time, transshipment costs, and port handling delays. The product supports contract negotiation, route contingency planning, and fast rerouting during disruptions.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Nodes: Ports, major transshipment hubs, and regional distribution centers.
+Edges: Direct shipping legs between nodes.
+Weights: Composite cost per leg (time + cost + reliability penalty).
+Goal: Be able to answer “best connection between any two ports” queries instantly, including the best intermediate hubs.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>Floyd–Warshall computes all-pairs shortest paths and is convenient if the graph is moderate in size and you need constant-time lookup between any two ports. It also produces intermediate-node information for path reconstruction. For very large graphs, use repeated Dijkstra runs from key hubs or a hierarchical approach (contracted graphs). Extend the model to support multi-criteria optimization (time vs cost) by running separate all-pairs computations or using multi-objective techniques.</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
@@ -385,17 +378,20 @@ At the end, we get the maximum possible truck flow through the city roads.</p>
 
                 <div class="content-block" id="module-4">
                     <div class="block-header">
-                        <h3 class="block-title">5G Tower Placement</h3>
-                        <span class="block-badge">Graph Coloring </span>
+                        <h3 class="block-title">Smart Forest Monitoringt</h3>
+                        <span class="block-badge">Kruskal’s MST </span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
+                            <p>A conservation authority needs to deploy sensor towers across a large forest to detect illegal logging and monitor wildlife. Cabling (or low-power mesh backhaul) is expensive to install. The business aim is a connectivity plan that links all sensors with minimum installation cost so monitoring is affordable and maintainable.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Nodes: Candidate sensor tower sites (clearings, existing structures).
+Edges: Potential direct links (cable runs or line-of-sight radio links) between sites.
+Weights: Installation cost (distance × terrain multiplier), maintenance risk, or signal degradation.
+Constraints: Avoid environmentally sensitive corridors, respect terrain obstacles (infinite cost/disallowed edges).</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>Kruskal’s Minimum Spanning Tree builds the lowest-cost network that connects all sensor sites. It iterates edges in increasing weight and uses a Union-Find structure to avoid cycles — ideal when edge list is sparse or when you can enumerate candidate links. If multiple constraints exist (bandwidth or redundancy), augment MST with extra links for resilience or compute k-edge connected subgraphs. Kruskal is simple to implement and yields a clear procurement bill of materials.</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
@@ -408,17 +404,20 @@ At the end, we get the maximum possible truck flow through the city roads.</p>
 
                 <div class="content-block" id="module-5">
                     <div class="block-header">
-                        <h3 class="block-title">Police Patrol Coverage</h3>
-                        <span class="block-badge">Vertex Cover Problem</span>
+                        <h3 class="block-title">Renewable Energy Grid Planner</h3>
+                        <span class="block-badge">Prim’s MST + TSP</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
+                            <p>A renewable operator wants to connect a field of wind turbines (or solar arrays) to a substation at minimal cable cost and then schedule periodic maintenance inspections that visit every turbine and return to base. The project target is minimized infrastructure cost plus an efficient inspection route that cuts crew travel time.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Nodes: Turbine locations and the main substation.
+Edges: Possible cable routes between turbines and between turbines and the substation (considering terrain and right-of-way).
+Weights: Cost to lay cable (distance × terrain factor) for MST; for inspection routing, use travel time between turbines as edge weights for the TSP.
+Constraints: Redundancy requirements (optional second path), maintenance time windows, and access road availability.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>First solve an MST (Prim’s algorithm recommended when you have a dense, location-based graph and want a single growing tree from the substation) to produce a minimum-cost cable layout. Prim runs efficiently with a priority queue and is straightforward to adapt to geo-constraints. For crew inspection cycles, compute a near-optimal TSP tour over turbine nodes using MST-based heuristics (e.g., perform a preorder traversal of the MST to get a short tour, then improve with 2-opt/3-opt), or feed MST result to Christofides/heuristics for better guarantees. If inspection teams operate in parallel, partition into multiple tours (multi-TSP / vehicle routing).</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> LOGIC STEP 1</div>
                         </div>
