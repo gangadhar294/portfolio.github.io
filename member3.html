@@ -225,7 +225,7 @@
 
         <header>
             <div class="header-left">
-                <h1>Member Name</h1>
+                <h1>Shashank V</h1>
             </div>
             <div class="header-right">
                 <h2>Systems Integrator</h2>
@@ -237,23 +237,23 @@
             
             <div class="nav-panel">
                 <div class="nav-tab active" onclick="selectModule(1)">
-                    <div><div class="tab-title">Module 1 Name</div><div class="tab-algo">Algorithm Used</div></div>
+                    <div><div class="tab-title">School Bus Pickup Route</div><div class="tab-algo">Travelling Salesman Problem (TSP)</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(2)">
-                    <div><div class="tab-title">Module 2 Name</div><div class="tab-algo">Algorithm Used</div></div>
+                    <div><div class="tab-title">Nearest Available Ambulance Finder</div><div class="tab-algo">Dijkstra’s Shortest Path</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(3)">
-                    <div><div class="tab-title">Module 3 Name</div><div class="tab-algo">Algorithm Used</div></div>
+                    <div><div class="tab-title">Lowest-Cost Water Pipeline Layout</div><div class="tab-algo">Kruskal’s Minimum Spanning Tree (MST)</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(4)">
-                    <div><div class="tab-title">Module 4 Name</div><div class="tab-algo">Algorithm Used</div></div>
+                    <div><div class="tab-title">Emergency Exit Path in a Mall</div><div class="tab-algo">Breadth-First Search (BFS)</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
                 <div class="nav-tab" onclick="selectModule(5)">
-                    <div><div class="tab-title">Module 5 Name</div><div class="tab-algo">Algorithm Used</div></div>
+                    <div><div class="tab-title">Optimal Room-to-Room Wiring</div><div class="tab-algo">Prim’s Minimum Spanning Tree (MST)</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
             </div>
@@ -262,27 +262,30 @@
                 
                 <div class="content-block active" id="module-1">
                     <div class="block-header">
-                        <h3 class="block-title">Module 1 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">School Bus Pickup Route</h3>
+                        <span class="block-badge">Travelling Salesman Problem (TSP)</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Describe the city problem here...</p>
+                            <p>The core challenge is optimizing bus routes to minimize total travel distance and time while ensuring all designated stops are visited once. This reduces fuel costs, vehicle wear, and student commute times, maximizing fleet efficiency in urban and suburban environments.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: X, Edges: Y, Weights: Z...</p>
+                            <p>Nodes: Each **school bus stop** and the **depot** are represented as nodes. Edges: The **roads** connecting the stops are the edges. Weights: The **distance or travel time** between stops is the weight. The model seeks the shortest Hamiltonian cycle visiting all nodes.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>Why this algorithm was chosen and its complexity...</p>
+                            <p>The TSP is an NP-hard problem. For the scale of city bus routes, we utilize **Approximate TSP Algorithms** (e.g., Christofides algorithm or local search heuristics) to find a near-optimal route in a feasible time, achieving a balance between route length and computation cost. Complexity is typically managed by dividing the problem into sub-problems (multiple bus routes).</p>
 
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> PSEUDOCODE STEP 1
-> PSEUDOCODE STEP 2
-> PSEUDOCODE STEP 3</div>
+                            <div class="logic-terminal">> INITIATE at DEPOT (Start Node V)
+> WHILE Unvisited Stops Remain:
+>   SELECT nearest unvisited Stop U from current node
+>   MOVE to Stop U, MARK as visited
+> RETURN to DEPOT from last stop (Close Hamiltonian Cycle)</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
+                            
                             <img src="algo1.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
@@ -290,22 +293,29 @@
 
                 <div class="content-block" id="module-2">
                     <div class="block-header">
-                        <h3 class="block-title">Module 2 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Nearest Available Ambulance Finder</h3>
+                        <span class="block-badge">Dijkstra’s Shortest Path</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Describe the city problem here...</p>
+                            <p>In emergency response, time is critical. The system must instantaneously identify the available ambulance and its route that can reach a distress location in the absolute shortest time, factoring in real-time traffic data, to save lives and maximize resource utilization.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: X, Edges: Y...</p>
+                            <p>Nodes: **Road intersections** and **ambulance locations/hospitals**. Edges: **Road segments**. Weights: **Real-time travel time** (highly dynamic, updated by traffic API). The goal is to find the minimum weighted path from all available ambulance nodes to the destination node.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>Dijkstra’s algorithm guarantees the globally shortest path in a non-negative weighted graph. Its efficiency, $O(E+V \log V)$ with a Fibonacci heap, makes it ideal for rapid recalculation on dynamic road networks essential for emergency dispatch.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> SET Distance to 0 for Ambulance Node A, $\infty$ for all others
+> WHILE Priority Queue Q is NOT empty:
+>   EXTRACT Node U with smallest distance from Q
+>   FOR each Neighbor V of U:
+>     IF (Dist[V] > Dist[U] + Weight(U,V)):
+>       Dist[V] = Dist[U] + Weight(U,V)
+>       UPDATE V in Q</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
+                            
                             <img src="algo2.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
@@ -313,22 +323,28 @@
 
                 <div class="content-block" id="module-3">
                     <div class="block-header">
-                        <h3 class="block-title">Module 3 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Lowest-Cost Water Pipeline Layout</h3>
+                        <span class="block-badge">Kruskal’s Minimum Spanning Tree (MST)</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
+                            <p>Connecting every house in a new or underserved village to a central water source is required. The economic objective is to find a network layout that minimizes the total length (and thus cost) of the pipes used, while ensuring all nodes are connected and there are no wasteful loops.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Nodes: The **central water source** and every **house/taping point**. Edges: Every potential **pipe connection** between nodes. Weights: The **cost or physical distance** of the pipe segment. The resulting MST connects all nodes with the absolute minimum total edge weight.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>Kruskal's algorithm is a greedy approach that is proven to find a Minimum Spanning Tree. Its primary advantage is its simplicity and efficiency when the graph is sparse, making it well-suited for planning infrastructure layouts with many possible connections. Complexity is $O(E \log E)$.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> CREATE a forest F where each Node is a separate Tree
+> CREATE a list of all Edges E, SORT by Weight (Ascending)
+> FOR each Edge (U, V) in sorted E:
+>   IF U and V are in different Trees:
+>     ADD (U, V) to MST
+>     UNION the two Trees containing U and V</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
+                            
                             <img src="algo3.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
@@ -336,22 +352,31 @@
 
                 <div class="content-block" id="module-4">
                     <div class="block-header">
-                        <h3 class="block-title">Module 4 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Emergency Exit Path in a Shopping Mall</h3>
+                        <span class="block-badge">Breadth-First Search (BFS)</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
+                            <p>To ensure public safety, digital signage needs to display the fastest, clearest, and least congested escape route from a user's current location to the nearest safe exit during an emergency. Speed and certainty of finding *any* path are paramount.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Nodes: **Hallway junctions** and **rooms/store entrances**. Edges: **Hallway segments** and **doorways**. Weights: All edges are considered to have a uniform weight (unweighted graph) or a weight of 1, as BFS is best for finding the shortest path in terms of number of steps/segments.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>BFS systematically explores the graph level by level, guaranteeing that the first path found from the starting node to the nearest exit node is the one with the fewest number of steps (or segments). This is crucial for rapid, simple navigation. Complexity is $O(V+E)$.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> ENQUEUE Starting Location S
+> MARK S as Visited
+> WHILE Queue Q is NOT empty:
+>   DEQUEUE Node U
+>   IF U is an Exit: RETURN Path
+>   FOR each Neighbor V of U:
+>     IF V is NOT Visited:
+>       MARK V as Visited
+>       ENQUEUE V</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
+                            
                             <img src="algo4.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
@@ -359,22 +384,29 @@
 
                 <div class="content-block" id="module-5">
                     <div class="block-header">
-                        <h3 class="block-title">Module 5 Title</h3>
-                        <span class="block-badge">Algorithm</span>
+                        <h3 class="block-title">Optimal Room-to-Room Wiring</h3>
+                        <span class="block-badge">Prim’s Minimum Spanning Tree (MST)</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Problem description...</p>
+                            <p>When installing a new wired home network (e.g., ethernet or fiber) originating from a single central router/server, the goal is to connect all designated rooms using the minimum possible cable length. This reduces material cost and installation time.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Details...</p>
+                            <p>Nodes: The **central router/server** and every **room needing a connection**. Edges: Potential **wiring paths** (through walls, ceilings) between rooms. Weights: The **length of cable** required for that connection. Prim's algorithm builds the network outward from the central router.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p>Details...</p>
+                            <p>Prim's algorithm is another greedy method for finding the MST, often preferred over Kruskal's for denser graphs or when the starting point (the central router/server) is fixed, as it builds the tree outward from a single source. Complexity is $O(E \log V)$ or $O(V^2)$, depending on the implementation.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> LOGIC STEP 1</div>
+                            <div class="logic-terminal">> INITIALIZE Key = $\infty$ for all Nodes, Key[Start_Node] = 0
+> WHILE Priority Queue Q is NOT empty:
+>   EXTRACT Node U with minimum Key value
+>   FOR each Neighbor V of U:
+>     IF V is NOT in MST and Weight(U,V) < Key[V]:
+>       Parent[V] = U
+>       Key[V] = Weight(U,V)</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
+                            
                             <img src="algo5.jpg" alt="Analysis Map" class="analysis-img">
                         </div>
                     </div>
