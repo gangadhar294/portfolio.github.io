@@ -229,7 +229,7 @@
 
         <header>
             <div class="header-left">
-                <h1>Member Name</h1>
+                <h1>Shashank V</h1>
             </div>
             <div class="header-right">
                 <h2>Systems Integrator</h2>
@@ -275,10 +275,10 @@
                             <p>The core challenge is optimizing bus routes to minimize total travel distance and time while ensuring all designated stops are visited once. This reduces fuel costs, vehicle wear, and student commute times, maximizing fleet efficiency in urban and suburban environments.</p>
 
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: Each **school bus stop** and the **depot** are represented as nodes. Edges: The **roads** connecting the stops are the edges. Weights: The **distance or travel time** between stops is the weight. The model seeks the shortest Hamiltonian cycle visiting all nodes.</p>
+                            <p>Nodes: Each school bus stop and the depot are represented as nodes. Edges: The roads connecting the stops are the edges. Weights: The distance or travel time between stops is the weight. The model seeks the shortest Hamiltonian cycle visiting all nodes.</p>
 
                             <span class="label">Algorithm Analysis</span>
-                            <p>The TSP is an NP-hard problem. For the scale of city bus routes, we utilize **Approximate TSP Algorithms** (e.g., Christofides algorithm or local search heuristics) to find a near-optimal route in a feasible time, achieving a balance between route length and computation cost. Complexity is typically managed by dividing the problem into sub-problems (multiple bus routes).</p>
+                            <p>The TSP is an NP-hard problem. For the scale of city bus routes, we utilize Approximate TSP Algorithms (e.g., Christofides algorithm or local search heuristics) to find a near-optimal route in a feasible time, achieving a balance between route length and computation cost. Complexity is typically managed by dividing the problem into sub-problems (multiple bus routes).</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> INITIATE at DEPOT (Start Node V)
@@ -352,7 +352,7 @@
                             <span class="label">The Business Case</span>
                             <p>In emergency response, time is critical. The system must instantaneously identify the available ambulance and its route that can reach a distress location in the absolute shortest time, factoring in real-time traffic data, to save lives and maximize resource utilization.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: **Road intersections** and **ambulance locations/hospitals**. Edges: **Road segments**. Weights: **Real-time travel time** (highly dynamic, updated by traffic API). The goal is to find the minimum weighted path from all available ambulance nodes to the destination node.</p>
+                            <p>Nodes: Road intersections and ambulance locations/hospitals. Edges: Road segments. Weights: Real-time travel time (highly dynamic, updated by traffic API). The goal is to find the minimum weighted path from all available ambulance nodes to the destination node.</p>
                             <span class="label">Algorithm Analysis</span>
                             <p>Dijkstra’s algorithm guarantees the globally shortest path in a non-negative weighted graph. Its efficiency, $O(E+V \log V)$ with a Fibonacci heap, makes it ideal for rapid recalculation on dynamic road networks essential for emergency dispatch.</p>
                             <span class="label">Implementation Logic</span>
@@ -429,7 +429,7 @@
                             <span class="label">The Business Case</span>
                             <p>Connecting every house in a new or underserved village to a central water source is required. The economic objective is to find a network layout that minimizes the total length (and thus cost) of the pipes used, while ensuring all nodes are connected and there are no wasteful loops.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: The **central water source** and every **house/taping point**. Edges: Every potential **pipe connection** between nodes. Weights: The **cost or physical distance** of the pipe segment. The resulting MST connects all nodes with the absolute minimum total edge weight.</p>
+                            <p>Nodes: The central water source and every house/taping point. Edges: Every potential pipe connection between nodes. Weights: The cost or physical distance of the pipe segment. The resulting MST connects all nodes with the absolute minimum total edge weight.</p>
                             <span class="label">Algorithm Analysis</span>
                             <p>Kruskal's algorithm is a greedy approach that is proven to find a Minimum Spanning Tree. Its primary advantage is its simplicity and efficiency when the graph is sparse, making it well-suited for planning infrastructure layouts with many possible connections. Complexity is $O(E \log E)$.</p>
                             <span class="label">Implementation Logic</span>
@@ -511,7 +511,7 @@
                             <span class="label">The Business Case</span>
                             <p>To ensure public safety, digital signage needs to display the fastest, clearest, and least congested escape route from a user's current location to the nearest safe exit during an emergency. Speed and certainty of finding *any* path are paramount.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: **Hallway junctions** and **rooms/store entrances**. Edges: **Hallway segments** and **doorways**. Weights: All edges are considered to have a uniform weight (unweighted graph) or a weight of 1, as BFS is best for finding the shortest path in terms of number of steps/segments.</p>
+                            <p>Nodes: Hallway junctions and rooms/store entrances. Edges: Hallway segments and doorways. Weights: All edges are considered to have a uniform weight (unweighted graph) or a weight of 1, as BFS is best for finding the shortest path in terms of number of steps/segments.</p>
                             <span class="label">Algorithm Analysis</span>
                             <p>BFS systematically explores the graph level by level, guaranteeing that the first path found from the starting node to the nearest exit node is the one with the fewest number of steps (or segments). This is crucial for rapid, simple navigation. Complexity is $O(V+E)$.</p>
                             <span class="label">Implementation Logic</span>
@@ -595,7 +595,7 @@
                             <span class="label">The Business Case</span>
                             <p>When installing a new wired home network (e.g., ethernet or fiber) originating from a single central router/server, the goal is to connect all designated rooms using the minimum possible cable length. This reduces material cost and installation time.</p>
                             <span class="label">Graph Modeling</span>
-                            <p>Nodes: The **central router/server** and every **room needing a connection**. Edges: Potential **wiring paths** (through walls, ceilings) between rooms. Weights: The **length of cable** required for that connection. Prim's algorithm builds the network outward from the central router.</p>
+                            <p>Nodes: The central router/server and every room needing a connection. Edges: Potential wiring paths (through walls, ceilings) between rooms. Weights: The length of cable required for that connection. Prim's algorithm builds the network outward from the central router.</p>
                             <span class="label">Algorithm Analysis</span>
                             <p>Prim's algorithm is another greedy method for finding the MST, often preferred over Kruskal's for denser graphs or when the starting point (the central router/server) is fixed, as it builds the tree outward from a single source. Complexity is $O(E \log V)$ or $O(V^2)$, depending on the implementation.</p>
                             <span class="label">Implementation Logic</span>
