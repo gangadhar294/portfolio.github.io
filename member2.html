@@ -251,7 +251,7 @@
                 </div>
 
                 <div class="nav-tab" onclick="selectModule(4)">
-                    <div><div class="tab-title">Entertainment</div><div class="tab-algo">Sorting / Recommender</div></div>
+                    <div><div class="tab-title">Disaster Evacuation</div><div class="tab-algo">BFS</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
 
@@ -407,7 +407,7 @@ p = population size.<br>
 Graph storage: O(n²) for adjacency matrix or O(n + E) for adjacency list<br>
 Additional structures (routes, pheromones, population) → O(n) to O(n × p). .</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">>Algorithm City_Waste_Management_TSP
+                            <div> class="logic-terminal">>Algorithm City_Waste_Management_TSP
 {
     Input: n (number of waste collection points)
            dist[n][n] (distance matrix between points)
@@ -436,7 +436,7 @@ Additional structures (routes, pheromones, population) → O(n) to O(n × p). .<
     add start to route   // return to depot
 
     Output route   // garbage collection path
-} < log(n)></div>
+}</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -447,17 +447,57 @@ Additional structures (routes, pheromones, population) → O(n) to O(n × p). .<
 
                 <div class="content-block" id="module-4">
                     <div class="block-header">
-                        <h3 class="block-title">Entertainment (Cinemas/Games)</h3>
-                        <span class="block-badge">Sorting / Recommender</span>
+                        <h3 class="block-title">Disaster Evacuation</h3>
+                        <span class="block-badge">BFS</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>The Entertainment District needs to manage ticket bookings, sort movie listings by popularity, and recommend games/movies to users based on preferences.</p>
+                            <p>Safely move people from danger zones to the nearest safe shelters in minimum steps.<br>
+Nodes: Affected areas, intersections, shelters<br>
+Edges: Roads.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Merge Sort</strong> organizes listings efficiently. <strong>Collaborative Filtering</strong> </p>
+                            <p><strong>Merge Sort</strong> organizes listings efficiently. <strong>Collaborative Filtering</strong>1. Time Complexity<br>
+O(V + E)<br>
+V = number of locations (areas, intersections, shelters)<br>
+E = number of roads<br>
+BFS visits each node and edge once.<br>
+
+2. Space Complexity<br>
+O(V)<br>
+Queue for BFS<br>
+Visited array to mark reached locations </p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal"></div>
+                            <div class="logic-terminal"></div>Algorithm Disaster_Evacuation_BFS
+{
+    Input: V (number of locations)
+           E (number of roads)
+           Graph[V] (adjacency list)
+           source (danger zone)
+
+    visited[V] = false
+    distance[V] = -1
+    create empty queue Q
+
+    visited[source] = true
+    distance[source] = 0
+    insert source into Q
+
+    While Q is not empty:
+        u = remove front element from Q
+
+        For each v in Graph[u]:
+            if visited[v] == false:
+                visited[v] = true
+                distance[v] = distance[u] + 1
+                insert v into Q
+
+                if v is a safe shelter:
+                    Output distance[v]   // shortest evacuation steps
+                    Stop
+
+    Output distance[]   // steps to reach all locations
+}
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
