@@ -266,7 +266,7 @@
                 <div class="content-block active" id="module-1">
                     <div class="block-header">
                         <h3 class="block-title">Logistic Transportation</h3>
-                        <span class="block-badge">Dijkstra / TSP</span>
+                        <span class="block-badge">Dijkstra Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
@@ -282,10 +282,32 @@
                             <p><strong>Dijkstra's Algorithm</strong>It is widely used to find the shortest or least-cost path between a warehouse and delivery location in a transportation network, helping minimize travel time, distance, and fuel cost.</strong> optimizes multi-stop delivery routes.</p>
 
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> INPUT: Delivery Points Graph
-> IF Single Drop: Apply Dijkstra(Source, Dest)
-> IF Multi Drop: Apply TSP(Points)
-> OUTPUT: Optimized Route Sequence</div>
+                            <div class="logic-terminal">>{
+                                Input: n (number of locations), m (number of roads)
+    
+    Create graph G with n nodes
+    For each road:
+        add edge (u, v, cost) to G
+
+    Input source (warehouse)
+
+    For i = 0 to n-1:
+        dist[i] = ∞
+        visited[i] = false
+
+    dist[source] = 0
+
+    Repeat n times:
+        u = node with minimum dist[] and not visited
+        visited[u] = true
+
+        For each neighbor v of u:
+            if visited[v] == false AND
+               dist[v] > dist[u] + cost(u, v):
+                   dist[v] = dist[u] + cost(u, v)
+
+    Output dist[]  // minimum transportation cost
+}</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
