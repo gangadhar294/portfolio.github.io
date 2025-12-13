@@ -319,18 +319,28 @@
                 <div class="content-block" id="module-2">
                     <div class="block-header">
                         <h3 class="block-title">Bank Management</h3>
-                        <span class="block-badge">Hashing / Security</span>
+                        <span class="block-badge">Dijkstra's Algorithm</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Managing thousands of customer accounts and transactions securely requires instant access and verification to prevent fraud and delays in the financial district.</p>
+                            <p>Managing thousands of customer accounts and transactions securely requires instant access and verification to prevent fraud and delays in the financial district.\n Bank management in a city involves planning, organizing, and controlling banking operations to provide efficient financial services to citizens, businesses, and industries.\n Nodes (Vertices) - Bank branches,ATMs,Customers,Central Server.\n Edges-Transaction Links,Cash transfer routes,Communication skills.\n Weights 
+-  Transaction time,Cost Or Network delay.</p>
                             <span class="label">Algorithm Analysis</span>
                             <p><strong>Hashing</strong> allows O(1) access to account details. <strong>RSA Encryption</strong> ensures secure transactions between the bank and vendors.</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> HASH(AccountID) -> Memory Address
-> Encrypt(Transaction) -> Secure Block
-> Verify Signature -> Approve</div>
+                            <div class="logic-terminal">>  1. Time Complexity
+
+Using adjacency list + priority queue:
+O((V + E) log V)
+where
+V = number of branches/ATMs (nodes)
+E = number of transaction links (edges)
+
+2. Space Complexity
+O(V + E)
+Distance array → O(V)
+Graph storage → O(E)</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
@@ -347,23 +357,11 @@
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Bank management in a city involves planning, organizing, and controlling banking operations to provide efficient financial services to citizens, businesses, and industries.\n Nodes (Vertices) - Bank branches,ATMs,Customers,Central Server.\n Edges-Transaction Links,Cash transfer routes,Communication skills.\n Weights 
--  Transaction time,Cost Or Network delay.
+                            <p>.</p>
 
         
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>B-Trees</strong> or <strong>B+ Trees</strong> 1. Time Complexity
-
-Using adjacency list + priority queue:
-O((V + E) log V)
-where
-V = number of branches/ATMs (nodes)
-E = number of transaction links (edges)
-
-2. Space Complexity
-O(V + E)
-Distance array → O(V)
-Graph storage → O(E).</p>
+                            <p><strong>B-Trees</strong> or <strong>B+ Trees</strong> .</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> INPUT: Employee Record
 > INSERT into B-Tree Structure
