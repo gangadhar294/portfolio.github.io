@@ -193,11 +193,15 @@
             font-size: 0.9rem; color: #b0a0a0; white-space: pre-wrap; margin-top: 20px;
         }
 
-        .analysis-img {
-            width: 100%; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1);
+        /* Adjusted styling for the embedded SVG */
+        .svg-container {
+            width: 100%; 
+            border-radius: 12px; 
+            border: 2px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden; /* To keep border-radius neat */
         }
-
+        
         .back-link {
             display: inline-block; margin-bottom: 20px;
             color: var(--text-secondary); text-decoration: none;
@@ -275,35 +279,106 @@
 </p>
 
                             <span class="label">Graph Modeling</span>
-                            <p><strong>Nodes (Vertices):</strong> - Warehouses, distribution centers, retail stores.\n <br> <strong>Edges:</strong>- Roads/rail routes between them.\n <br> <strong>Weights:</strong> 
--  Distance, travel time, or cost.</p>
+                            <p><strong>Nodes (Vertices):</strong> - Warehouses, distribution centers, retail stores.<br> <strong>Edges:</strong>- Roads/rail routes between them.<br> <strong>Weights:</strong> 
+-  Distance, travel time, or cost.</p>
 
                             <span class="label">Algorithm Analysis</span>
                             <p><strong>Dijkstra's Algorithm</strong>It is widely used to find the shortest or least-cost path between a warehouse and delivery location in a transportation network, helping minimize travel time, distance, and fuel cost.</strong> optimizes multi-stop delivery routes.</p>
 
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">>{
-                                Input: n (number of locations), m (number of roads)
-    For each road: add edge (u, v, cost) to G
- Input source (warehouse)
- For i = 0 to n-1:
-        dist[i] = ∞
-        visited[i] = false
- dist[source] = 0
- Repeat n times:
-        u = node with minimum dist[] and not visited
-        visited[u] = true
+                                Input: n (number of locations), m (number of roads)
+    For each road: add edge (u, v, cost) to G
+ Input source (warehouse)
+ For i = 0 to n-1:
+        dist[i] = ∞
+        visited[i] = false
+ dist[source] = 0
+ Repeat n times:
+        u = node with minimum dist[] and not visited
+        visited[u] = true
 For each neighbor v of u:
-            if visited[v] == false AND
-               dist[v] > dist[u] + cost(u, v):
-                   dist[v] = dist[u] + cost(u, v)
- Output dist[] 
+            if visited[v] == false AND
+               dist[v] > dist[u] + cost(u, v):
+                   dist[v] = dist[u] + cost(u, v)
+ Output dist[] 
 }</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
-                            <img src="algo1.jpg" alt="Transport Map" class="analysis-img">
-                        </div>
+                            <div class="svg-container">
+                                <svg viewBox="0 0 400 320" style="width: 100%; border-radius: 12px; background: #0f0f1a;">
+                                    <defs>
+                                        <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+                                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                        </filter>
+                                        <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#222" stroke-width="0.5"/>
+                                        </pattern>
+                                        <marker id="arrowHead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                            <path d="M0,0 L0,6 L6,3 z" fill="#00f7ff" />
+                                        </marker>
+                                    </defs>
+
+                                    <rect width="400" height="320" fill="url(#smallGrid)" />
+                                    <circle cx="200" cy="160" r="100" fill="none" stroke="#222" stroke-width="1" stroke-dasharray="5 5" />
+                                    <circle cx="200" cy="160" r="150" fill="none" stroke="#222" stroke-width="1" stroke-dasharray="5 5" />
+
+                                    <g id="locations">
+                                        <g transform="translate(200, 160)">
+                                            <rect x="-6" y="-6" width="12" height="12" fill="#00f7ff" stroke="#fff" stroke-width="1" />
+                                            <text x="0" y="-10" fill="#00f7ff" font-family="monospace" font-size="9" text-anchor="middle">BASE</text>
+                                        </g>
+                                        <circle cx="280" cy="100" r="4" fill="#111" stroke="#00ff9d" stroke-width="2" />
+                                        <circle cx="300" cy="220" r="4" fill="#111" stroke="#00ff9d" stroke-width="2" />
+                                        <circle cx="120" cy="240" r="4" fill="#111" stroke="#00ff9d" stroke-width="2" />
+                                        <circle cx="80" cy="120" r="4" fill="#111" stroke="#00ff9d" stroke-width="2" />
+                                    </g>
+
+                                    <path id="flightPath" d="M 200 160 L 280 100 L 300 220 L 120 240 L 80 120 Z" 
+                                          fill="none" stroke="#00f7ff" stroke-width="2" filter="url(#glowCyan)" opacity="0.8">
+                                          <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="2s" fill="freeze" />
+                                    </path>
+
+                                    <g>
+                                        <circle r="3" fill="#fff" filter="url(#glowCyan)">
+                                            <animateMotion dur="4s" repeatCount="indefinite" rotate="auto">
+                                                <mpath href="#flightPath"/>
+                                            </animateMotion>
+                                        </circle>
+                                        <path d="M 0 0 L -10 20 L 10 20 Z" fill="rgba(0, 247, 255, 0.2)" stroke="none">
+                                             <animateMotion dur="4s" repeatCount="indefinite" rotate="auto">
+                                                <mpath href="#flightPath"/>
+                                            </animateMotion>
+                                        </path>
+                                    </g>
+
+                                    <g transform="translate(20, 20)">
+                                        <path d="M 0 0 L 20 0 L 25 10 L 100 10 L 105 0 L 120 0" fill="none" stroke="#00f7ff" stroke-width="1" />
+                                        <text x="0" y="25" fill="#aaa" font-family="monospace" font-size="10">BATTERY:</text>
+                                        <rect x="50" y="16" width="60" height="8" fill="#111" stroke="#333" />
+                                        <rect x="52" y="18" width="40" height="4" fill="#00ff9d">
+                                            <animate attributeName="width" values="56;40;30;20;10;56" dur="4s" repeatCount="indefinite" />
+                                            <animate attributeName="fill" values="#00ff9d;#00ff9d;#ffff00;#ff0000;#00ff9d" dur="4s" repeatCount="indefinite" />
+                                        </rect>
+                                    </g>
+
+                                    <g transform="translate(20, 280)">
+                                        <text x="0" y="0" fill="#aaa" font-family="monospace" font-size="10">STATUS:</text>
+                                        <text x="50" y="0" fill="#00f7ff" font-family="Orbitron" font-size="12">AUTOPILOT</text>
+                                        <text x="0" y="15" fill="#aaa" font-family="monospace" font-size="10">ETA:</text>
+                                        <text x="50" y="15" fill="#fff" font-family="monospace" font-size="10">14:02</text>
+                                    </g>
+
+                                    <text x="240" y="120" fill="#555" font-family="monospace" font-size="9">3.2km</text>
+                                    <text x="310" y="160" fill="#555" font-family="monospace" font-size="9">5.1km</text>
+                                    <text x="210" y="250" fill="#555" font-family="monospace" font-size="9">4.8km</text>
+                                    <text x="80" y="190" fill="#555" font-family="monospace" font-size="9">2.9km</text>
+                                    <text x="140" y="130" fill="#555" font-family="monospace" font-size="9">4.1km</text>
+                                </svg>
+                            </div>
+                            </div>
                     </div>
                 </div>
 
@@ -316,10 +391,10 @@ For each neighbor v of u:
                         <div class="text-content">
                             <span class="label">The Business Case</span>
                             <p>Managing thousands of customer accounts and transactions securely requires instant access and verification to prevent fraud and delays in the financial district.<br> Bank management in a city involves planning, organizing, and controlling banking operations to provide efficient financial services to citizens, businesses, and industries.<br> Nodes (Vertices) - Bank branches,ATMs,Customers,Central Server.<br> Edges-Transaction Links,Cash transfer routes,Communication skills.<br> Weights 
--  Transaction time,Cost Or Network delay.</p>
+-  Transaction time,Cost Or Network delay.</p>
                             <span class="label">Algorithm Analysis</span>
                             <p><strong>Hashing</strong> allows O(1) access to account details. <strong>RSA Encryption</strong> ensures secure transactions between the bank and vendors.<br>
-                             1. Time Complexity<br>
+                                1. Time Complexity<br>
 
 Using adjacency list + priority queue:<br>
 O((V + E) log V)<br>
@@ -333,21 +408,21 @@ Distance array → O(V)<br>
 Graph storage → O(E)</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">{
-    Input: n (number of branches/ATMs), m (number of links)
-        add edge (u, v, time) to G
- Input source (main branch)
- For i = 0 to n-1:
-        dist[i] = ∞
-        visited[i] = false
+    Input: n (number of branches/ATMs), m (number of links)
+        add edge (u, v, time) to G
+ Input source (main branch)
+ For i = 0 to n-1:
+        dist[i] = ∞
+        visited[i] = false
 dist[source] = 0
 Repeat n times:
-        u = unvisited node with minimum dist[u]
-        visited[u] = true
+        u = unvisited node with minimum dist[u]
+        visited[u] = true
 For each adjacent node v of u:
-            if visited[v] == false AND
-               dist[v] > dist[u] + time(u, v):
-                   dist[v] = dist[u] + time(u, v)
- Output dist[] 
+            if visited[v] == false AND
+               dist[v] > dist[u] + time(u, v):
+                   dist[v] = dist[u] + time(u, v)
+ Output dist[] 
 } </div>
                         </div>
                         <div class="visual-content">
@@ -390,24 +465,24 @@ Graph storage: O(n²) for adjacency matrix or O(n + E) for adjacency list<br>
 Additional structures (routes, pheromones, population) → O(n) to O(n × p). .</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">>{
-    Input: n (number of waste collection points)
-           dist[n][n] (distance matrix between points)
- visited[n] = false
-    route = empty list
- start = 0 
-    current = start
-    visited[current] = true
+    Input: n (number of waste collection points)
+           dist[n][n] (distance matrix between points)
+ visited[n] = false
+    route = empty list
+ start = 0 
+    current = start
+    visited[current] = true
 For count = 1 to n-1:
-        minDist = ∞
-        nextNode = -1
- For i = 0 to n-1:
-            if visited[i] == false AND dist[current][i] < minDist:
-                minDist = dist[current][i]
-                nextNode = i
+        minDist = ∞
+        nextNode = -1
+ For i = 0 to n-1:
+            if visited[i] == false AND dist[current][i] < minDist:
+                minDist = dist[current][i]
+                nextNode = i
 current = nextNode
-        visited[current] = true
-        add current to route
- Output route 
+        visited[current] = true
+        add current to route
+ Output route 
 }</div>
                         </div>
                         <div class="visual-content">
@@ -441,23 +516,43 @@ Queue for BFS<br>
 Visited array to mark reached locations </p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">>{
-    Input: V (number of locations),E (number of roads)
-           Graph[V] (adjacency list),source (danger zone)
-  visited[V] = false
-    distance[V] = -1
- visited[source] = true
-    distance[source] = 0
- While Q is not empty:
-        u = remove front element from Q
- For each v in Graph[u]:
-            if visited[v] == false:
-                visited[v] = true
-                distance[v] = distance[u] + 1
+    Input: V (number of locations),E (number of roads)
+           Graph[V] (adjacency list),source (danger zone)
+  visited[V] = false
+    distance[V] = -1
+ visited[source] = true
+    distance[source] = 0
+ While Q is not empty:
+        u = remove front element from Q
+ For each v in Graph[u]:
+            if visited[v] == false:
+                visited[v] = true
+                distance[v] = distance[u] + 1
 if v is a safe shelter:
-                    Output distance[v]   
-                    Stop
+                    Output distance[v]   
+                    Stop
 
-    Output distance[] </div>
+    Output distance[] </div>
+}
+                            <span class="label">Implementation Logic</span>
+                            <div class="logic-terminal">>{
+    Input: V (number of locations),E (number of roads)
+           Graph[V] (adjacency list),source (danger zone)
+  visited[V] = false
+    distance[V] = -1
+ visited[source] = true
+    distance[source] = 0
+ While Q is not empty:
+        u = remove front element from Q
+ For each v in Graph[u]:
+            if visited[v] == false:
+                visited[v] = true
+                distance[v] = distance[u] + 1
+if v is a safe shelter:
+                    Output distance[v]   
+                    Stop
+
+    Output distance[] </div>
 }
                         </div>
                         <div class="visual-content">
@@ -482,7 +577,7 @@ AVL Tree remains height-balanced, guaranteeing O(log n) time.<br>
 Node: Taxpayer ID, name, property ID, tax amount<br>
 Left Child: Smaller ID<br>
 Right Child: Larger ID<br>
- 
+ 
 Operations-><br>
 Insert new tax record<br>
 Search existing taxpayer record<br>
@@ -503,58 +598,58 @@ O(n) for storing n tax records<br>
 O(log n) auxiliary space (recursion stack during insertion/deletion)</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">>{
-    Structure Node:
-        key (Taxpayer ID , Property ID)
-        height,left, right
+    Structure Node:
+        key (Taxpayer ID , Property ID)
+        height,left, right
 Function Height(node):
-        if node == NULL return 0
-        return node.height
- Function BalanceFactor(node):
-        return Height(node.left) - Height(node.right)
+        if node == NULL return 0
+        return node.height
+ Function BalanceFactor(node):
+        return Height(node.left) - Height(node.right)
 Function RightRotate(y):
-        x = y.left
-        T2 = x.right
- x.right = y
-        y.left = T2
-        return x
+        x = y.left
+        T2 = x.right
+ x.right = y
+        y.left = T2
+        return x
 Function LeftRotate(x):
-        y = x.right
-        T2 = y.left
- y.left = x
-        x.right = T2
-        return y
- Function Insert(node, key):
-        if node == NULL:
-            return node
+        y = x.right
+        T2 = y.left
+ y.left = x
+        x.right = T2
+        return y
+ Function Insert(node, key):
+        if node == NULL:
+            return node
 
-        if key < node.key:
-            node.left = Insert(node.left, key)
-        else if key > node.key:
-            node.right = Insert(node.right, key)
-        else:
-            return node 
+        if key < node.key:
+            node.left = Insert(node.left, key)
+        else if key > node.key:
+            node.right = Insert(node.right, key)
+        else:
+            return node 
 update node.height
- balance = BalanceFactor(node)
-        if balance > 1 AND key < node.left.key:
-            return RightRotate(node)
-        if balance < -1 AND key > node.right.key:
-            return LeftRotate(node)
-        if balance > 1 AND key > node.left.key:
-            node.left = LeftRotate(node.left)
-            return RightRotate(node)
-        if balance < -1 AND key < node.right.key:
-            node.right = RightRotate(node.right)
-            return LeftRotate(node)
- return node
- Function Search(node, key):
-        if node == NULL OR node.key == key:
-            return node
-        if key < node.key:
-            return Search(node.left, key)
-        else:
-            return Search(node.right, key)
- Output:
-        Efficient insertion and search of city tax records
+ balance = BalanceFactor(node)
+        if balance > 1 AND key < node.left.key:
+            return RightRotate(node)
+        if balance < -1 AND key > node.right.key:
+            return LeftRotate(node)
+        if balance > 1 AND key > node.left.key:
+            node.left = LeftRotate(node.left)
+            return RightRotate(node)
+        if balance < -1 AND key < node.right.key:
+            node.right = RightRotate(node.right)
+            return LeftRotate(node)
+ return node
+ Function Search(node, key):
+        if node == NULL OR node.key == key:
+            return node
+        if key < node.key:
+            return Search(node.left, key)
+        else:
+            return Search(node.right, key)
+ Output:
+        Efficient insertion and search of city tax records
 }</div>
                         </div>
                         <div class="visual-content">
