@@ -256,7 +256,7 @@
                 </div>
 
                 <div class="nav-tab" onclick="selectModule(5)">
-                    <div><div class="tab-title">Vehicle Garages</div><div class="tab-algo">Stack / Queue</div></div>
+                    <div><div class="tab-title">City Tax Records</div><div class="tab-algo">AVL Tree</div></div>
                     <div class="arrow-icon">→</div>
                 </div>
             </div>
@@ -508,19 +508,120 @@ Visited array to mark reached locations </p>
 
                 <div class="content-block" id="module-5">
                     <div class="block-header">
-                        <h3 class="block-title">Vehicle Garages</h3>
-                        <span class="block-badge">Stack / Queue</span>
+                        <h3 class="block-title">City Tax Records</h3>
+                        <span class="block-badge">AVL Tree</span>
                     </div>
                     <div class="info-grid">
                         <div class="text-content">
                             <span class="label">The Business Case</span>
-                            <p>Parking garages in the city center are limited. We need an automated system to manage car entry/exit (LIFO for stacked parking, FIFO for service lanes).</p>
+                            <p>City tax data must remain sorted (by property ID / taxpayer ID).<br>
+Frequent updates (new taxpayers, deletions, corrections).<br>
+AVL Tree remains height-balanced, guaranteeing O(log n) time.<br>
+<br>
+Node: Taxpayer ID, name, property ID, tax amount<br>
+Left Child: Smaller ID<br>
+Right Child: Larger ID<br>
+ 
+Operations-><br>
+Insert new tax record<br>
+Search existing taxpayer record<br>
+Delete obsolete or merged records<br>
+Update tax amount efficiently</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Stack</strong> is used for narrow parking slots (Last-In-First-Out). <strong>Queue</strong> is used for the car wash/service line (First-In-First-Out).</p>
+                            <p><strong>Stack</strong>1. Time Complexity<br>
+Operation Complexity:<br>
+<br>
+Search	O(log n)<br>
+Insert	O(log n)<br>
+Delete	O(log n)<br>
+Rotation	O(1)<br>
+AVL tree remains height-balanced, so tree height is O(log n).<br>
+<br>
+2. Space Complexity<br>
+O(n) for storing n tax records<br>
+O(log n) auxiliary space (recursion stack during insertion/deletion)</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> IF Parking: PUSH to Stack
-> IF Retrieving: POP from Stack
-> IF Service: ENQUEUE to Line</div>
+                            <div class="logic-terminal">>Algorithm City_Tax_Records_AVL
+{
+    Structure Node:
+        key        // Taxpayer ID / Property ID
+        height
+        left, right
+
+    Function Height(node):
+        if node == NULL return 0
+        return node.height
+
+    Function BalanceFactor(node):
+        return Height(node.left) - Height(node.right)
+
+    Function RightRotate(y):
+        x = y.left
+        T2 = x.right
+
+        x.right = y
+        y.left = T2
+
+        update heights of y and x
+        return x
+
+    Function LeftRotate(x):
+        y = x.right
+        T2 = y.left
+
+        y.left = x
+        x.right = T2
+
+        update heights of x and y
+        return y
+
+    Function Insert(node, key):
+        if node == NULL:
+            create new node with key
+            return node
+
+        if key < node.key:
+            node.left = Insert(node.left, key)
+        else if key > node.key:
+            node.right = Insert(node.right, key)
+        else:
+            return node    // duplicate not allowed
+
+        update node.height
+
+        balance = BalanceFactor(node)
+
+        // LL Case
+        if balance > 1 AND key < node.left.key:
+            return RightRotate(node)
+
+        // RR Case
+        if balance < -1 AND key > node.right.key:
+            return LeftRotate(node)
+
+        // LR Case
+        if balance > 1 AND key > node.left.key:
+            node.left = LeftRotate(node.left)
+            return RightRotate(node)
+
+        // RL Case
+        if balance < -1 AND key < node.right.key:
+            node.right = RightRotate(node.right)
+            return LeftRotate(node)
+
+        return node
+
+    Function Search(node, key):
+        if node == NULL OR node.key == key:
+            return node
+        if key < node.key:
+            return Search(node.left, key)
+        else:
+            return Search(node.right, key)
+
+    Output:
+        Efficient insertion and search of city tax records
+}</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
