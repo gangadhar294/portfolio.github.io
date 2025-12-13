@@ -284,29 +284,20 @@
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">>{
                                 Input: n (number of locations), m (number of roads)
-    
-    Create graph G with n nodes
-    For each road:
-        add edge (u, v, cost) to G
-
-    Input source (warehouse)
-
-    For i = 0 to n-1:
+    For each road: add edge (u, v, cost) to G
+ Input source (warehouse)
+ For i = 0 to n-1:
         dist[i] = ∞
         visited[i] = false
-
-    dist[source] = 0
-
-    Repeat n times:
+ dist[source] = 0
+ Repeat n times:
         u = node with minimum dist[] and not visited
         visited[u] = true
-
-        For each neighbor v of u:
+For each neighbor v of u:
             if visited[v] == false AND
                dist[v] > dist[u] + cost(u, v):
                    dist[v] = dist[u] + cost(u, v)
-
-    Output dist[]  // minimum transportation cost
+ Output dist[] 
 }</div>
                         </div>
                         <div class="visual-content">
@@ -343,29 +334,20 @@ Graph storage → O(E)</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">{
     Input: n (number of branches/ATMs), m (number of links)
-
-    Create graph G with n nodes
-    For each link:
         add edge (u, v, time) to G
-
-    Input source (main branch / server)
-
-    For i = 0 to n-1:
+ Input source (main branch)
+ For i = 0 to n-1:
         dist[i] = ∞
         visited[i] = false
-
-    dist[source] = 0
-
-    Repeat n times:
+dist[source] = 0
+Repeat n times:
         u = unvisited node with minimum dist[u]
         visited[u] = true
-
-        For each adjacent node v of u:
+For each adjacent node v of u:
             if visited[v] == false AND
                dist[v] > dist[u] + time(u, v):
                    dist[v] = dist[u] + time(u, v)
-
-    Output dist[]  // minimum transaction time
+ Output dist[] 
 } </div>
                         </div>
                         <div class="visual-content">
@@ -407,35 +389,25 @@ p = population size.<br>
 Graph storage: O(n²) for adjacency matrix or O(n + E) for adjacency list<br>
 Additional structures (routes, pheromones, population) → O(n) to O(n × p). .</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">>Algorithm City_Waste_Management_TSP
-{
+                            <div class="logic-terminal">>{
     Input: n (number of waste collection points)
            dist[n][n] (distance matrix between points)
-
-    visited[n] = false
+ visited[n] = false
     route = empty list
-
-    start = 0        // depot or waste processing center
+ start = 0 
     current = start
     visited[current] = true
-    add current to route
-
-    For count = 1 to n-1:
+For count = 1 to n-1:
         minDist = ∞
         nextNode = -1
-
-        For i = 0 to n-1:
+ For i = 0 to n-1:
             if visited[i] == false AND dist[current][i] < minDist:
                 minDist = dist[current][i]
                 nextNode = i
-
-        current = nextNode
+current = nextNode
         visited[current] = true
         add current to route
-
-    add start to route   // return to depot
-
-    Output route   // garbage collection path
+ Output route 
 }</div>
                         </div>
                         <div class="visual-content">
@@ -468,35 +440,24 @@ O(V)<br>
 Queue for BFS<br>
 Visited array to mark reached locations </p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">>Algorithm Disaster_Evacuation_BFS
-{
-    Input: V (number of locations)
-           E (number of roads)
-           Graph[V] (adjacency list)
-           source (danger zone)
-
-    visited[V] = false
+                            <div class="logic-terminal">>{
+    Input: V (number of locations),E (number of roads)
+           Graph[V] (adjacency list),source (danger zone)
+  visited[V] = false
     distance[V] = -1
-    create empty queue Q
-
-    visited[source] = true
+ visited[source] = true
     distance[source] = 0
-    insert source into Q
-
-    While Q is not empty:
+ While Q is not empty:
         u = remove front element from Q
-
-        For each v in Graph[u]:
+ For each v in Graph[u]:
             if visited[v] == false:
                 visited[v] = true
                 distance[v] = distance[u] + 1
-                insert v into Q
-
-                if v is a safe shelter:
-                    Output distance[v]   // shortest evacuation steps
+if v is a safe shelter:
+                    Output distance[v]   
                     Stop
 
-    Output distance[]   // steps to reach all locations</div>
+    Output distance[] </div>
 }
                         </div>
                         <div class="visual-content">
@@ -541,43 +502,29 @@ AVL tree remains height-balanced, so tree height is O(log n).<br>
 O(n) for storing n tax records<br>
 O(log n) auxiliary space (recursion stack during insertion/deletion)</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">>Algorithm City_Tax_Records_AVL
-{
+                            <div class="logic-terminal">>{
     Structure Node:
-        key        // Taxpayer ID / Property ID
-        height
-        left, right
-
-    Function Height(node):
+        key (Taxpayer ID , Property ID)
+        height,left, right
+Function Height(node):
         if node == NULL return 0
         return node.height
-
-    Function BalanceFactor(node):
+ Function BalanceFactor(node):
         return Height(node.left) - Height(node.right)
-
-    Function RightRotate(y):
+Function RightRotate(y):
         x = y.left
         T2 = x.right
-
-        x.right = y
+ x.right = y
         y.left = T2
-
-        update heights of y and x
         return x
-
-    Function LeftRotate(x):
+Function LeftRotate(x):
         y = x.right
         T2 = y.left
-
-        y.left = x
+ y.left = x
         x.right = T2
-
-        update heights of x and y
         return y
-
-    Function Insert(node, key):
+ Function Insert(node, key):
         if node == NULL:
-            create new node with key
             return node
 
         if key < node.key:
@@ -585,41 +532,28 @@ O(log n) auxiliary space (recursion stack during insertion/deletion)</p>
         else if key > node.key:
             node.right = Insert(node.right, key)
         else:
-            return node    // duplicate not allowed
-
-        update node.height
-
-        balance = BalanceFactor(node)
-
-        // LL Case
+            return node 
+update node.height
+ balance = BalanceFactor(node)
         if balance > 1 AND key < node.left.key:
             return RightRotate(node)
-
-        // RR Case
         if balance < -1 AND key > node.right.key:
             return LeftRotate(node)
-
-        // LR Case
         if balance > 1 AND key > node.left.key:
             node.left = LeftRotate(node.left)
             return RightRotate(node)
-
-        // RL Case
         if balance < -1 AND key < node.right.key:
             node.right = RightRotate(node.right)
             return LeftRotate(node)
-
-        return node
-
-    Function Search(node, key):
+ return node
+ Function Search(node, key):
         if node == NULL OR node.key == key:
             return node
         if key < node.key:
             return Search(node.left, key)
         else:
             return Search(node.right, key)
-
-    Output:
+ Output:
         Efficient insertion and search of city tax records
 }</div>
                         </div>
