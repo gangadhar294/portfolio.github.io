@@ -348,8 +348,23 @@
                         <div class="text-content">
                             <span class="label">The Business Case</span>
                             <p>Bank management in a city involves planning, organizing, and controlling banking operations to provide efficient financial services to citizens, businesses, and industries.</p>
+
+                            <span class="label">Graph Modeling</span>
+                            <p><strong>Nodes (Vertices):</strong> - Bank branches,ATMs,Customers,Central Server.\n <strong>Edges:</strong>-Transaction Links,Cash transfer routes,Communication skills.\n <strong>Weights:</strong> 
+-  Transaction time,Cost Or Network delay.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>B-Trees</strong> or <strong>B+ Trees</strong> are used for database indexing, ensuring log(n) search, insertion, and deletion times even for massive datasets.</p>
+                            <p><strong>B-Trees</strong> or <strong>B+ Trees</strong> 1. Time Complexity
+
+Using adjacency list + priority queue:
+O((V + E) log V)
+where
+V = number of branches/ATMs (nodes)
+E = number of transaction links (edges)
+
+2. Space Complexity
+O(V + E)
+Distance array → O(V)
+Graph storage → O(E).</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">> INPUT: Employee Record
 > INSERT into B-Tree Structure
