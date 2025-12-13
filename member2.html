@@ -327,18 +327,18 @@
                             <p>Managing thousands of customer accounts and transactions securely requires instant access and verification to prevent fraud and delays in the financial district.<br> Bank management in a city involves planning, organizing, and controlling banking operations to provide efficient financial services to citizens, businesses, and industries.<br> Nodes (Vertices) - Bank branches,ATMs,Customers,Central Server.<br> Edges-Transaction Links,Cash transfer routes,Communication skills.<br> Weights 
 -  Transaction time,Cost Or Network delay.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Hashing</strong> allows O(1) access to account details. <strong>RSA Encryption</strong> ensures secure transactions between the bank and vendors.
-                             1. Time Complexity
+                            <p><strong>Hashing</strong> allows O(1) access to account details. <strong>RSA Encryption</strong> ensures secure transactions between the bank and vendors.<br>
+                             1. Time Complexity<br>
 
-Using adjacency list + priority queue:
-O((V + E) log V)
-where
-V = number of branches/ATMs (nodes)
-E = number of transaction links (edges)
-
-2. Space Complexity
-O(V + E)
-Distance array → O(V)
+Using adjacency list + priority queue:<br>
+O((V + E) log V)<br>
+where<br>
+V = number of branches/ATMs (nodes)<br>
+E = number of transaction links (edges)<br>
+<br>
+2. Space Complexity<br>
+O(V + E)<br>
+Distance array → O(V)<br>
 Graph storage → O(E)</p>
                             <span class="label">Implementation Logic</span>
                             <div class="logic-terminal">{
@@ -417,11 +417,50 @@ Exact TSP is NP-hard, so for large cities, heuristic or approximation algorithms
                             <span class="label">The Business Case</span>
                             <p>The Entertainment District needs to manage ticket bookings, sort movie listings by popularity, and recommend games/movies to users based on preferences.</p>
                             <span class="label">Algorithm Analysis</span>
-                            <p><strong>Merge Sort</strong> organizes listings efficiently. <strong>Collaborative Filtering</strong> (Matrix Factorization) suggests content to users.</p>
+                            <p><strong>Merge Sort</strong> organizes listings efficiently. <strong>Collaborative Filtering</strong> 1. Time Complexity<br>
+
+Exact TSP: O(n!) → impractical for large cities (n = number of bins/locations)<br>
+Heuristic Algorithms:<br>
+Nearest Neighbor: O(n²)<br>
+Genetic Algorithm: O(g × n × p)<br>
+g = number of generations<br>
+n = number of locations<br>
+p = population size.<br>
+
+2. Space Complexity<br>
+Graph storage: O(n²) for adjacency matrix or O(n + E) for adjacency list<br>
+Additional structures (routes, pheromones, population) → O(n) to O(n × p).</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> SORT Movies BY Rating (Merge Sort)
-> MATCH User_Profile WITH Content_Vector
-> RECOMMEND Top 5 Items</div>
+                            <div class="logic-terminal">>Algorithm City_Waste_Management_TSP
+{
+    Input: n (number of waste collection points)
+           dist[n][n] (distance matrix between points)
+
+    visited[n] = false
+    route = empty list
+
+    start = 0        // depot or waste processing center
+    current = start
+    visited[current] = true
+    add current to route
+
+    For count = 1 to n-1:
+        minDist = ∞
+        nextNode = -1
+
+        For i = 0 to n-1:
+            if visited[i] == false AND dist[current][i] < minDist:
+                minDist = dist[current][i]
+                nextNode = i
+
+        current = nextNode
+        visited[current] = true
+        add current to route
+
+    add start to route   // return to depot
+
+    Output route   // garbage collection path
+}</div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
