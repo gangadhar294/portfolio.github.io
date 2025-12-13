@@ -341,7 +341,32 @@ O(V + E)
 Distance array → O(V)
 Graph storage → O(E)</p>
                             <span class="label">Implementation Logic</span>
-                            <div class="logic-terminal">> </div>
+                            <div class="logic-terminal">{
+    Input: n (number of branches/ATMs), m (number of links)
+
+    Create graph G with n nodes
+    For each link:
+        add edge (u, v, time) to G
+
+    Input source (main branch / server)
+
+    For i = 0 to n-1:
+        dist[i] = ∞
+        visited[i] = false
+
+    dist[source] = 0
+
+    Repeat n times:
+        u = unvisited node with minimum dist[u]
+        visited[u] = true
+
+        For each adjacent node v of u:
+            if visited[v] == false AND
+               dist[v] > dist[u] + time(u, v):
+                   dist[v] = dist[u] + time(u, v)
+
+    Output dist[]  // minimum transaction time
+} </div>
                         </div>
                         <div class="visual-content">
                             <span class="label">Blueprint Analysis</span>
